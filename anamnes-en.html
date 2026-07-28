@@ -258,7 +258,7 @@
     </div>
 
     <h1>Craniofacial History</h1>
-    <p class="subtitle">Questions related to the growth of the head and face. <em>(Adult)</em></p>
+    <p class="subtitle">Questions related to the growth of the head and face.</p>
 
     <form id="anamnes-form">
 
@@ -353,7 +353,7 @@
         </div>
 
         <div class="field full">
-          <label for="andning_efter">How was the baby's breathing after birth?</label>
+          <label for="andning_efter">How was the patient's breathing after birth?</label>
           <textarea id="andning_efter" name="andning_efter" placeholder="Describe..."></textarea>
         </div>
       </div>
@@ -363,7 +363,7 @@
         <div class="section-title"><span class="emoji">🍼</span> Breastfeeding & Nutrition</div>
 
         <div class="option-group">
-          <label>Was the baby breastfed?</label>
+          <label>Was the patient breastfed?</label>
           <div class="options">
             <label class="opt-label"><input type="radio" name="ammades" value="ja"> Yes</label>
             <label class="opt-label"><input type="radio" name="ammades" value="nej"> No</label>
@@ -371,7 +371,7 @@
         </div>
 
         <div class="field full">
-          <label for="hur_lange_ammad">How long was the baby breastfed?</label>
+          <label for="hur_lange_ammad">How long was the patient breastfed?</label>
           <input type="text" id="hur_lange_ammad" name="hur_lange_ammad" placeholder="e.g. 6 months">
         </div>
 
@@ -394,12 +394,12 @@
         </div>
 
         <div class="field full">
-          <label for="kolik">Did the baby have colic? If yes, please describe:</label>
+          <label for="kolik">Did the patient have colic? If yes, please describe:</label>
           <textarea id="kolik" name="kolik" placeholder="Describe..."></textarea>
         </div>
 
         <div class="field full">
-          <label for="krakningar">Did the baby vomit? If yes, how much/how often?</label>
+          <label for="krakningar">Did the patient vomit? If yes, how much/how often?</label>
           <textarea id="krakningar" name="krakningar" placeholder="Describe..."></textarea>
         </div>
 
@@ -419,7 +419,7 @@
         <div class="section-title"><span class="emoji">🧸</span> Motor Development</div>
 
         <div class="field full">
-          <label for="krypning">When did the baby start crawling? Did they crawl symmetrically before standing? If no, how?</label>
+          <label for="krypning">When did the patient start crawling? Did they crawl symmetrically before standing? If no, how?</label>
           <textarea id="krypning" name="krypning" placeholder="Describe..."></textarea>
         </div>
 
@@ -439,7 +439,7 @@
         <div class="section-title"><span class="emoji">💊</span> Health History</div>
 
         <div class="field full">
-          <label for="sjukdomar">What types of illnesses has the child had? Sinus, throat or ear infections, stomach pain? Others?</label>
+          <label for="sjukdomar">What types of illnesses has the patient had? Sinus, throat or ear infections, stomach pain? Others?</label>
           <textarea id="sjukdomar" name="sjukdomar" placeholder="Describe..."></textarea>
         </div>
 
@@ -485,7 +485,7 @@
           <div class="options vertical">
             <label class="opt-label"><input type="checkbox" name="sensoriskt" value="sound_sensitive"> Sound sensitive</label>
             <label class="opt-label"><input type="checkbox" name="sensoriskt" value="light_sensitive"> Light sensitive</label>
-            <label class="opt-label"><input type="checkbox" name="sensoriskt" value="tactile_sensitive"> Tactile / skin sensitive</label>
+            <label class="opt-label"><input type="checkbox" name="sensoriskt" value="tactile_sensitive"> Touch/tactile sensitive</label>
             <label class="opt-label"><input type="checkbox" name="sensoriskt" value="taste_sensitive"> Taste sensitive</label>
             <label class="opt-label"><input type="checkbox" name="sensoriskt" value="smell_sensitive"> Smell sensitive</label>
             <label class="opt-label"><input type="checkbox" name="sensoriskt" value="balance"> Balance difficulties</label>
@@ -508,12 +508,12 @@
         </div>
 
         <div class="field full">
-          <label for="krasen">Picky eater? If yes, how, when, and what does the child eat?</label>
+          <label for="krasen">Picky eater? If yes, how, when, and what does the patient eat?</label>
           <textarea id="krasen" name="krasen" placeholder="Describe..."></textarea>
         </div>
 
         <div class="option-group">
-          <label>Does the child often get hiccups?</label>
+          <label>Does the patient often get hiccups?</label>
           <div class="options">
             <label class="opt-label"><input type="radio" name="hicka" value="ja"> Yes</label>
             <label class="opt-label"><input type="radio" name="hicka" value="nej"> No</label>
@@ -575,7 +575,7 @@
         </div>
 
         <div class="field full">
-          <label for="snarkar">Snoring? If yes, how loud/how often? If yes with open or closed mouth?</label>
+          <label for="snarkar">Snoring? If yes, how loud/how often? If yes, is it with an open or closed mouth?</label>
           <input type="text" id="snarkar" name="snarkar" placeholder="Describe...">
         </div>
 
@@ -665,7 +665,7 @@
 
         <div class="field full">
           <label for="trauma">Previous trauma?</label>
-          <textarea id="trauma" name="trauma" placeholder="Describe if relevant..."></textarea>
+          <textarea id="trauma" name="trauma" placeholder="Describe..."></textarea>
         </div>
       </div>
 
@@ -809,7 +809,7 @@
         doc.setLineWidth(0.5);
         doc.line(margin, 12, pageW - margin, 12);
         addText('Airway Clinic', 10, false);
-        addText('Craniofacial History — Adult', 18, true);
+        addText('Craniofacial History', 18, true);
         doc.line(margin, y, pageW - margin, y);
         y += 6;
 
@@ -838,7 +838,7 @@
               { key: 'forlossning', q: 'How was the delivery?' },
               { key: 'forlossning_annat', q: 'Delivery – other' },
               { key: 'kejsarsnitt_beskriv', q: 'If caesarean, describe how it went:' },
-              { key: 'andning_efter', q: 'How was the baby\'s breathing after birth?' }
+              { key: 'andning_efter', q: 'How was the patient\'s breathing after birth?' }
             ]
           },
           {
@@ -866,7 +866,7 @@
           {
             title: 'Health History',
             fields: [
-              { key: 'sjukdomar', q: 'What types of illnesses has the child had? Sinus, throat or ear infections, stomach pain?' },
+              { key: 'sjukdomar', q: 'What types of illnesses has the patient had? Sinus, throat or ear infections, stomach pain?' },
               { key: 'vaccinationer', q: 'Vaccinations? Any reactions to specific vaccinations? Not vaccinated?' },
               { key: 'medicin', q: 'Previous use of medication or antibiotics:' }
             ]
@@ -889,8 +889,8 @@
             title: 'Eating & Digestion',
             fields: [
               { key: 'bordsskick', q: 'Table manners, large gulps, eats fast/slow?' },
-              { key: 'krasen', q: 'Picky eater? If yes, how, when, and what does the child eat?' },
-              { key: 'hicka', q: 'Does the child often get hiccups?' },
+              { key: 'krasen', q: 'Picky eater? If yes, how, when, and what does the patient eat?' },
+              { key: 'hicka', q: 'Does the patient often get hiccups?' },
               { key: 'svaljning', q: 'Difficulty or inability to swallow certain things? Food, pills, drinks?' },
               { key: 'gaser', q: 'Gas or bloating? If yes, when, how often?' }
             ]

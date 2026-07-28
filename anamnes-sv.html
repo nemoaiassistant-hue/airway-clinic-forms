@@ -388,7 +388,7 @@
         </div>
 
         <div class="field full">
-          <label for="andning_efter">Hur gick det med barnets andning efter förlossningen?</label>
+          <label for="andning_efter">Hur gick det med patientens andning efter förlossningen?</label>
           <textarea id="andning_efter" name="andning_efter" placeholder="Beskriv..."></textarea>
         </div>
       </div>
@@ -398,7 +398,7 @@
         <div class="section-title"><span class="emoji">🍼</span> Amning & Näring</div>
 
         <div class="option-group">
-          <label>Ammades barnet?</label>
+          <label>Ammades patienten?</label>
           <div class="options">
             <label class="opt-label"><input type="radio" name="ammades" value="ja"> Ja</label>
             <label class="opt-label"><input type="radio" name="ammades" value="nej"> Nej</label>
@@ -406,7 +406,7 @@
         </div>
 
         <div class="field full">
-          <label for="hur_lange_ammad">Hur länge ammades barnet?</label>
+          <label for="hur_lange_ammad">Hur länge ammades patienten?</label>
           <input type="text" id="hur_lange_ammad" name="hur_lange_ammad" placeholder="T.ex. 6 månader">
         </div>
 
@@ -429,12 +429,12 @@
         </div>
 
         <div class="field full">
-          <label for="kolik">Hade barnet kolik? Om ja, utveckla:</label>
+          <label for="kolik">Hade patienten kolik? Om ja, utveckla:</label>
           <textarea id="kolik" name="kolik" placeholder="Beskriv..."></textarea>
         </div>
 
         <div class="field full">
-          <label for="krakningar">Kräktes barnet? Om ja, hur mycket/ofta?</label>
+          <label for="krakningar">Kräktes patienten? Om ja, hur mycket/ofta?</label>
           <textarea id="krakningar" name="krakningar" placeholder="Beskriv..."></textarea>
         </div>
 
@@ -454,7 +454,7 @@
         <div class="section-title"><span class="emoji">🧸</span> Motorisk Utveckling</div>
 
         <div class="field full">
-          <label for="krypning">När började barnet krypa? Kröp barnet symmetriskt innan det började stå upp? Om nej, hur då?</label>
+          <label for="krypning">När började patienten krypa? Kröp patienten symmetriskt innan hen började stå upp? Om nej, hur då?</label>
           <textarea id="krypning" name="krypning" placeholder="Beskriv..."></textarea>
         </div>
 
@@ -474,7 +474,7 @@
         <div class="section-title"><span class="emoji">💊</span> Hälsoshistorik</div>
 
         <div class="field full">
-          <label for="sjukdomar">Vilka typer av sjukdomar har barnet haft? Sinus-, hals- eller öroninfektioner, magont? Andra?</label>
+          <label for="sjukdomar">Vilka typer av sjukdomar har patienten haft? Sinus-, hals- eller öroninfektioner, magont? Andra?</label>
           <textarea id="sjukdomar" name="sjukdomar" placeholder="Beskriv..."></textarea>
         </div>
 
@@ -543,12 +543,12 @@
         </div>
 
         <div class="field full">
-          <label for="krasen">Kräsen ätare? Om ja, hur, när och vad äter barnet?</label>
+          <label for="krasen">Kräsen ätare? Om ja, hur, när och vad äter patienten?</label>
           <textarea id="krasen" name="krasen" placeholder="Beskriv..."></textarea>
         </div>
 
         <div class="option-group">
-          <label>Har barnet ofta hicka?</label>
+          <label>Har patienten ofta hicka?</label>
           <div class="options">
             <label class="opt-label"><input type="radio" name="hicka" value="ja"> Ja</label>
             <label class="opt-label"><input type="radio" name="hicka" value="nej"> Nej</label>
@@ -700,7 +700,7 @@
 
         <div class="field full">
           <label for="trauma">Tidigare trauma?</label>
-          <textarea id="trauma" name="trauma" placeholder="Beskriv vid behov..."></textarea>
+          <textarea id="trauma" name="trauma" placeholder="Beskriv"></textarea>
         </div>
       </div>
 
@@ -834,7 +834,7 @@
           }
         });
 
-        const note = `Kraniofacial Anamnes — Vuxen\nDatum: ${formData.datum || 'ej angivet'}\nFödelsedatum: ${formData.fodelsedatum || 'ej angivet'}\nConsent: ${formData.consent || 'ej angivet'}\n\n${noteLines.join('\n') || 'Inga ytterligare uppgifter.'}`;
+        const note = `Kraniofacial Anamnes\nDatum: ${formData.datum || 'ej angivet'}\nFödelsedatum: ${formData.fodelsedatum || 'ej angivet'}\nConsent: ${formData.consent || 'ej angivet'}\n\n${noteLines.join('\n') || 'Inga ytterligare uppgifter.'}`;
 
         // Generate PDF
         const { jsPDF } = window.jspdf;
@@ -858,7 +858,7 @@
         doc.setLineWidth(0.5);
         doc.line(margin, 12, pageW - margin, 12);
         addText('Airway Clinic', 10, false);
-        addText('Kraniofacial Anamnes — Vuxen', 18, true);
+        addText('Kraniofacial Anamnes', 18, true);
         doc.line(margin, y, pageW - margin, y);
         y += 6;
 
@@ -888,19 +888,19 @@
               { key: 'forlossning', q: 'Hur gick förlossningen?' },
               { key: 'forlossning_annat', q: 'Förlossning – annat' },
               { key: 'kejsarsnitt_beskriv', q: 'Om kejsarsnitt, beskriv förloppet:' },
-              { key: 'andning_efter', q: 'Hur gick det med barnets andning efter förlossningen?' }
+              { key: 'andning_efter', q: 'Hur gick det med patientens andning efter förlossningen?' }
             ]
           },
           {
             title: 'Amning & Näring',
             fields: [
-              { key: 'ammades', q: 'Ammades barnet?' },
-              { key: 'hur_lange_ammad', q: 'Hur länge ammades barnet?' },
+              { key: 'ammades', q: 'Ammades patienten?' },
+              { key: 'hur_lange_ammad', q: 'Hur länge ammades patienten?' },
               { key: 'smartam_amning', q: 'Smärtsam amning? Om ja, utveckla:' },
               { key: 'amningskonsult', q: 'Besökt amningskonsult?' },
               { key: 'amningskonsult_annat', q: 'Amningskonsult – annat' },
-              { key: 'kolik', q: 'Hade barnet kolik? Om ja, utveckla:' },
-              { key: 'krakningar', q: 'Kräktes barnet? Om ja, hur mycket/ofta?' },
+              { key: 'kolik', q: 'Hade patienten kolik? Om ja, utveckla:' },
+              { key: 'krakningar', q: 'Kräktes patienten? Om ja, hur mycket/ofta?' },
               { key: 'mjolkersattning', q: '(Delvis) mjölkersättning? Om ja, när och hur länge?' },
               { key: 'fast_mat', q: 'När introducerades fast mat och hur gick det? Dregling, sätta i halsen etc.' }
             ]
@@ -908,7 +908,7 @@
           {
             title: 'Motorisk Utveckling',
             fields: [
-              { key: 'krypning', q: 'När började barnet krypa? Kröp barnet symmetriskt innan det började stå upp?' },
+              { key: 'krypning', q: 'När började patienten krypa? Kröp patienten symmetriskt innan hen började stå upp?' },
               { key: 'forsta_steg', q: 'När kom första stegen?' },
               { key: 'finmotorik', q: 'Svårigheter med finmotorisk utveckling? (klippa, rita, pincettgrepp, knyta skorna)' }
             ]
@@ -916,7 +916,7 @@
           {
             title: 'Hälsoshistorik',
             fields: [
-              { key: 'sjukdomar', q: 'Vilka typer av sjukdomar har barnet haft? Sinus-, hals- eller öroninfektioner, magont?' },
+              { key: 'sjukdomar', q: 'Vilka typer av sjukdomar har patienten haft? Sinus-, hals- eller öroninfektioner, magont?' },
               { key: 'vaccinationer', q: 'Vaccinationer? Några reaktioner på specifika vaccinationer? Ej vaccinerad?' },
               { key: 'medicin', q: 'Tidigare användning av medicin eller antibiotika:' }
             ]
@@ -939,8 +939,8 @@
             title: 'Mat & Matsmältning',
             fields: [
               { key: 'bordsskick', q: 'Bordsskick, stora klunkar, äter snabbt/långsamt?' },
-              { key: 'krasen', q: 'Kräsen ätare? Om ja, hur, när och vad äter barnet?' },
-              { key: 'hicka', q: 'Har barnet ofta hicka?' },
+              { key: 'krasen', q: 'Kräsen ätare? Om ja, hur, när och vad äter patienten?' },
+              { key: 'hicka', q: 'Har patienten ofta hicka?' },
               { key: 'svaljning', q: 'Svårt/omöjligt att svälja vissa saker? Mat, piller, dryck?' },
               { key: 'gaser', q: 'Gaser eller uppblåst? Om ja, när, hur ofta?' }
             ]
