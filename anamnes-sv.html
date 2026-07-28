@@ -299,7 +299,7 @@
 
       <!-- ===== SECTION 1: KONTAKTUPPGIFTER ===== -->
       <div class="section">
-        <div class="section-title"><span class="emoji">👤</span> Kontaktuppgifter</div>
+        <div class="section-title"><span class="emoji">👤</span> Patientens kontaktuppgifter</div>
         <div class="fields">
           <div class="field">
             <label for="email">E-postadress *</label>
@@ -313,6 +313,10 @@
           <div class="field">
             <label for="fodelsedatum">Födelsedatum (ej personnummer)</label>
             <input type="text" id="fodelsedatum" name="fodelsedatum" placeholder="T.ex. 15 mars 1985">
+          </div>
+          <div class="field">
+            <label for="personnummer">Personnummer</label>
+            <input type="text" id="personnummer" name="personnummer" inputmode="numeric" placeholder="T.ex. 19850315-1234">
           </div>
           <div class="field">
             <label for="adress">Adress</label>
@@ -338,7 +342,7 @@
         <div class="section-title"><span class="emoji">🤰</span> Graviditet</div>
 
         <div class="option-group">
-          <label>Hur var graviditeten?</label>
+          <label>Hur var patientens mammas graviditet?</label>
           <div class="options vertical">
             <label class="opt-label"><input type="radio" name="graviditet" value="utan_anmarkning"> Utan anmärkning</label>
             <label class="opt-label"><input type="radio" name="graviditet" value="mamma_luftvagar"> Mamma hade luftvägsproblem under graviditeten</label>
@@ -353,7 +357,7 @@
 
         <div class="field full">
           <label for="tarmhalsa">Hur var mammans tarmhälsa?</label>
-          <textarea id="tarmhalsa" name="tarmhalsa" placeholder="Beskriv vid behov..."></textarea>
+          <textarea id="tarmhalsa" name="tarmhalsa" placeholder="Beskriv"></textarea>
         </div>
       </div>
 
@@ -370,7 +374,7 @@
             <label class="opt-label"><input type="checkbox" name="forlossning" value="epidural"> Epidural eller Pitocin</label>
             <label class="opt-label"><input type="checkbox" name="forlossning" value="langdragen"> Långdragen förlossning (aktiv förlossningstid över 12 timmar)</label>
             <label class="opt-label"><input type="checkbox" name="forlossning" value="kejsarsnitt"> Kejsarsnitt</label>
-            <label class="opt-label"><input type="checkbox" name="forlossning" value="syrgas"> Barnet behövde syrgas</label>
+            <label class="opt-label"><input type="checkbox" name="forlossning" value="syrgas"> Barnet eller mamman behövde syrgas</label>
             <label class="opt-label"><input type="checkbox" name="forlossning" value="annat"> Annat</label>
           </div>
           <div class="other-field" data-show-when-checkbox="forlossning=annat">
@@ -569,6 +573,7 @@
         <div class="option-group">
           <label>Problem med tonsiller eller adenoid?</label>
           <div class="options vertical">
+            <label class="opt-label"><input type="checkbox" name="tonsiller" value="inga_problem"> Inga problem</label>
             <label class="opt-label"><input type="checkbox" name="tonsiller" value="borttagna"> Borttagna</label>
             <label class="opt-label"><input type="checkbox" name="tonsiller" value="forstorade"> Ständigt/ofta förstorade/svullna</label>
             <label class="opt-label"><input type="checkbox" name="tonsiller" value="sväljningsproblem"> Sväljningssvårigheter</label>
@@ -595,17 +600,17 @@
         </div>
 
         <div class="field full">
-          <label for="sovstallning">Sovställning</label>
+          <label for="sovstallning">Sovställning/vaknar under natten/mardrömmar under natten?</label>
           <input type="text" id="sovstallning" name="sovstallning" placeholder="T.ex. på rygg, på sidan, på mage...">
         </div>
 
         <div class="field full">
-          <label for="gnisslar">Gnisslar tänder? Om ja, hur ofta?</label>
+          <label for="gnisslar">Pressar eller gnisslar tänder? Om ja, hur ofta?</label>
           <input type="text" id="gnisslar" name="gnisslar" placeholder="Beskriv...">
         </div>
 
         <div class="field full">
-          <label for="snarkar">Snarkar? Om ja, hur mycket/ofta?</label>
+          <label for="snarkar">Snarkar? Om ja, hur högt/hur ofta? Med öppen eller sluten mun?</label>
           <input type="text" id="snarkar" name="snarkar" placeholder="Beskriv...">
         </div>
 
@@ -630,7 +635,7 @@
         </div>
 
         <div class="field full">
-          <label for="oron">Ont i öronen? Om ja, hur ofta? Med/utan öronfluss? Berätta mer:</label>
+          <label for="oron">Ont i öronen? Om ja, hur ofta? Med/utan öronflux? Någon behandling för det? Berätta mer:</label>
           <textarea id="oron" name="oron" placeholder="Beskriv..."></textarea>
         </div>
       </div>
@@ -642,11 +647,11 @@
         <div class="option-group">
           <label>Andning</label>
           <div class="options vertical">
-            <label class="opt-label"><input type="checkbox" name="andning" value="utan_anmarkning"> Utan anmärkning</label>
-            <label class="opt-label"><input type="checkbox" name="andning" value="vasande"> Väsande</label>
-            <label class="opt-label"><input type="checkbox" name="andning" value="munandning"> Genom munnen</label>
             <label class="opt-label"><input type="checkbox" name="andning" value="nasandning"> Genom näsan</label>
+            <label class="opt-label"><input type="checkbox" name="andning" value="vasande"> Väsande</label>
             <label class="opt-label"><input type="checkbox" name="andning" value="nastäppt"> Nästäppt</label>
+            <label class="opt-label"><input type="checkbox" name="andning" value="munandning"> Genom munnen</label>
+            <label class="opt-label"><input type="checkbox" name="andning" value="kombination"> Kombination av näs- och munandning</label>
             <label class="opt-label"><input type="checkbox" name="andning" value="annat"> Annat</label>
           </div>
           <div class="other-field" data-show-when-checkbox="andning=annat">
@@ -655,12 +660,12 @@
         </div>
 
         <div class="field full">
-          <label for="allergier">Allergier? Om ja, vilka?</label>
+          <label for="allergier">Allergier/Astma/Lungproblem? Om ja, vilka?</label>
           <textarea id="allergier" name="allergier" placeholder="Beskriv..."></textarea>
         </div>
 
         <div class="field full">
-          <label for="husdjur">Husdjur? Om ja, vilka?</label>
+          <label for="husdjur">Husdjur? Om ja, vilka och hur länge?</label>
           <input type="text" id="husdjur" name="husdjur" placeholder="T.ex. hund, katt, kanin...">
         </div>
       </div>
@@ -670,7 +675,7 @@
         <div class="section-title"><span class="emoji">🧠</span> Hållning, Beteende & Fritid</div>
 
         <div class="field full">
-          <label for="hallning">Hur är hållningen? Ihopsjunken, slapp, halt? Etc.</label>
+          <label for="hallning">Hur är hållningen? Upprätt, ihopsjunken, slapp, halt? Etc.</label>
           <textarea id="hallning" name="hallning" placeholder="Beskriv..."></textarea>
         </div>
 
@@ -680,10 +685,14 @@
         </div>
 
         <div class="field full">
-          <label for="inlarning">Inlärningssvårigheter? Om ja, berätta mer:</label>
+          <label for="inlarning">Inlärnings- eller koncentrationssvårigheter? Om ja, berätta mer:</label>
           <textarea id="inlarning" name="inlarning" placeholder="Beskriv..."></textarea>
         </div>
 
+        <div class="field full">
+          <label for="energi">Energinivå under dagen?</label>
+          <textarea id="energi" name="energi" placeholder="Beskriv..."></textarea>
+        </div>
         <div class="field full">
           <label for="fritid">Fritidsaktiviteter, sport, musik, etc? Vilka?</label>
           <textarea id="fritid" name="fritid" placeholder="Beskriv..."></textarea>
@@ -699,7 +708,7 @@
       <div class="section">
         <div class="section-title"><span class="emoji">📝</span> Övriga anmärkningar</div>
         <div class="field full">
-          <label for="ovrigt">Ytterligare anmärkningar:</label>
+          <label for="ovrigt">Ytterligare anmärkningar som kan vara till hjälp:</label>
           <textarea id="ovrigt" name="ovrigt" placeholder="Något mer du vill tillägga..." style="min-height: 80px;"></textarea>
         </div>
       </div>
@@ -818,7 +827,7 @@
 
         // Build note from all responses
         const noteLines = [];
-        const skipKeys = ['namn', 'email', 'fodelsedatum', 'adress', 'datum', 'consent'];
+        const skipKeys = ['namn', 'email', 'fodelsedatum', 'personnummer', 'adress', 'datum', 'consent'];
         Object.entries(formData).forEach(([key, val]) => {
           if (!skipKeys.includes(key)) {
             noteLines.push(`${key}: ${val}`);
@@ -853,10 +862,11 @@
         doc.line(margin, y, pageW - margin, y);
         y += 6;
 
-        addText('Kontaktuppgifter', 13, true);
+        addText('Patientens kontaktuppgifter', 13, true);
         addText(`Namn: ${formData.namn || '-'}`, 10, false);
         addText(`E-post: ${formData.email}`, 10, false);
         addText(`Födelsedatum: ${formData.fodelsedatum || '-'}`, 10, false);
+        addText(`Personnummer: ${formData.personnummer || '-'}`, 10, false);
         addText(`Adress: ${formData.adress || '-'}`, 10, false);
         addText(`Datum: ${formData.datum || '-'}`, 10, false);
         addText(`Samtycke till datalagring: ${formData.consent === 'ja' ? 'Ja' : formData.consent === 'nej' ? 'Nej' : 'Ej angivet'}`, 10, false);
@@ -867,7 +877,7 @@
           {
             title: 'Graviditet',
             fields: [
-              { key: 'graviditet', q: 'Hur var graviditeten?' },
+              { key: 'graviditet', q: 'Hur var patientens mammas graviditet?' },
               { key: 'graviditet_annat', q: 'Graviditet – annat' },
               { key: 'tarmhalsa', q: 'Hur var mammans tarmhälsa?' }
             ]
@@ -947,9 +957,9 @@
             fields: [
               { key: 'sommen', q: 'Berätta om sömnen:' },
               { key: 'sangvatning', q: 'Problem med sängvätning? Om ja, hur ofta?' },
-              { key: 'sovstallning', q: 'Sovställning' },
-              { key: 'gnisslar', q: 'Gnisslar tänder? Om ja, hur ofta?' },
-              { key: 'snarkar', q: 'Snarkar? Om ja, hur mycket/ofta?' },
+              { key: 'sovstallning', q: 'Sovställning/vaknar under natten/mardrömmar under natten?' },
+              { key: 'gnisslar', q: 'Pressar eller gnisslar tänder? Om ja, hur ofta?' },
+              { key: 'snarkar', q: 'Snarkar? Om ja, hur högt/hur ofta? Med öppen eller sluten mun?' },
               { key: 'somnnapne', q: 'Sömnapné? Om ja, hur ofta/mycket?' }
             ]
           },
@@ -958,7 +968,7 @@
             fields: [
               { key: 'huvudvark', q: 'Huvudvärk? Om ja, berätta mer.' },
               { key: 'tmj', q: 'TMJ-smärta eller klickande käkleder? Om ja, berätta mer:' },
-              { key: 'oron', q: 'Ont i öronen? Om ja, hur ofta? Med/utan löpöra?' }
+              { key: 'oron', q: 'Ont i öronen? Om ja, hur ofta? Med/utan öronflux? Någon behandling för det?' }
             ]
           },
           {
@@ -966,16 +976,17 @@
             fields: [
               { key: 'andning', q: 'Andning' },
               { key: 'andning_annat', q: 'Andning – annat' },
-              { key: 'allergier', q: 'Allergier? Om ja, vilka?' },
-              { key: 'husdjur', q: 'Husdjur? Om ja, vilka?' }
+              { key: 'allergier', q: 'Allergier/Astma/Lungproblem? Om ja, vilka?' },
+              { key: 'husdjur', q: 'Husdjur? Om ja, vilka och hur länge?' },
             ]
           },
           {
             title: 'Hållning, Beteende & Fritid',
             fields: [
-              { key: 'hallning', q: 'Hur är hållningen? Ihopsjunken, slapp, halt? Etc.' },
+              { key: 'hallning', q: 'Hur är hållningen? Upprätt, ihopsjunken, slapp, halt? Etc.' },
               { key: 'beteende', q: 'Beteendesvårigheter eller neuropsykiatriska svårigheter? Om ja, berätta mer:' },
-              { key: 'inlarning', q: 'Inlärningssvårigheter? Om ja, berätta mer:' },
+              { key: 'inlarning', q: 'Inlärnings- eller koncentrationssvårigheter? Om ja, berätta mer:' },
+              { key: 'energi', q: 'Energinivå under dagen?' },
               { key: 'fritid', q: 'Fritidsaktiviteter, sport, musik, etc? Vilka?' },
               { key: 'trauma', q: 'Tidigare trauma?' }
             ]
@@ -983,7 +994,7 @@
           {
             title: 'Övrigt',
             fields: [
-              { key: 'ovrigt', q: 'Ytterligare anmärkningar:' }
+              { key: 'ovrigt', q: 'Ytterligare anmärkningar som kan vara till hjälp:' }
             ]
           }
         ];
