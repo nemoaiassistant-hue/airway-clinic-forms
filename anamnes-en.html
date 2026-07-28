@@ -264,7 +264,7 @@
 
       <!-- ===== SECTION 1: CONTACT ===== -->
       <div class="section">
-        <div class="section-title"><span class="emoji">👤</span> Contact Information</div>
+        <div class="section-title"><span class="emoji">👤</span> Patient's Contact Information</div>
         <div class="fields">
           <div class="field">
             <label for="email">Email *</label>
@@ -278,6 +278,10 @@
           <div class="field">
             <label for="fodelsedatum">Date of birth (not ID number)</label>
             <input type="text" id="fodelsedatum" name="fodelsedatum" placeholder="e.g. 15 March 1985">
+          </div>
+          <div class="field">
+            <label for="personnummer">Personnummer</label>
+            <input type="text" id="personnummer" name="personnummer" inputmode="numeric" placeholder="e.g. 19850315-1234">
           </div>
           <div class="field">
             <label for="adress">Address</label>
@@ -303,7 +307,7 @@
         <div class="section-title"><span class="emoji">🤰</span> Pregnancy</div>
 
         <div class="option-group">
-          <label>How was the pregnancy?</label>
+          <label>How was the patient's mother's pregnancy?</label>
           <div class="options vertical">
             <label class="opt-label"><input type="radio" name="graviditet" value="unremarkable"> Unremarkable</label>
             <label class="opt-label"><input type="radio" name="graviditet" value="respiratory_issues"> Mother had respiratory issues during pregnancy</label>
@@ -318,7 +322,7 @@
 
         <div class="field full">
           <label for="tarmhalsa">How was the mother's gut health?</label>
-          <textarea id="tarmhalsa" name="tarmhalsa" placeholder="Describe if relevant..."></textarea>
+          <textarea id="tarmhalsa" name="tarmhalsa" placeholder="Describe"></textarea>
         </div>
       </div>
 
@@ -335,7 +339,7 @@
             <label class="opt-label"><input type="checkbox" name="forlossning" value="epidural"> Epidural or Pitocin</label>
             <label class="opt-label"><input type="checkbox" name="forlossning" value="prolonged"> Prolonged labour (active labour over 12 hours)</label>
             <label class="opt-label"><input type="checkbox" name="forlossning" value="c_section"> Caesarean section</label>
-            <label class="opt-label"><input type="checkbox" name="forlossning" value="oxygen"> Baby needed oxygen</label>
+            <label class="opt-label"><input type="checkbox" name="forlossning" value="oxygen"> Baby or mother needed oxygen</label>
             <label class="opt-label"><input type="checkbox" name="forlossning" value="annat"> Other</label>
           </div>
           <div class="other-field" data-show-when-checkbox="forlossning=annat">
@@ -534,6 +538,7 @@
         <div class="option-group">
           <label>Problems with tonsils or adenoids?</label>
           <div class="options vertical">
+            <label class="opt-label"><input type="checkbox" name="tonsiller" value="inga_issue"> No issues</label>
             <label class="opt-label"><input type="checkbox" name="tonsiller" value="removed"> Removed</label>
             <label class="opt-label"><input type="checkbox" name="tonsiller" value="enlarged"> Constantly/often enlarged or swollen</label>
             <label class="opt-label"><input type="checkbox" name="tonsiller" value="swallowing_difficulty"> Swallowing difficulties</label>
@@ -560,17 +565,17 @@
         </div>
 
         <div class="field full">
-          <label for="sovstallning">Sleeping position</label>
+          <label for="sovstallning">Sleeping position/waking up/nightmares during the night?</label>
           <input type="text" id="sovstallning" name="sovstallning" placeholder="e.g. on back, side, stomach...">
         </div>
 
         <div class="field full">
-          <label for="gnisslar">Teeth grinding? If yes, how often?</label>
+          <label for="gnisslar">Teeth clenching or grinding? If yes, how often?</label>
           <input type="text" id="gnisslar" name="gnisslar" placeholder="Describe...">
         </div>
 
         <div class="field full">
-          <label for="snarkar">Snoring? If yes, how much/how often?</label>
+          <label for="snarkar">Snoring? If yes, how loud/how often? If yes with open or closed mouth?</label>
           <input type="text" id="snarkar" name="snarkar" placeholder="Describe...">
         </div>
 
@@ -595,7 +600,7 @@
         </div>
 
         <div class="field full">
-          <label for="oron">Ear pain? If yes, how often? With/without discharge? Tell us more:</label>
+          <label for="oron">Ear pain? If yes, how often? With/without discharge? Any treatments for it? Tell us more:</label>
           <textarea id="oron" name="oron" placeholder="Describe..."></textarea>
         </div>
       </div>
@@ -607,11 +612,11 @@
         <div class="option-group">
           <label>Breathing</label>
           <div class="options vertical">
-            <label class="opt-label"><input type="checkbox" name="andning" value="unremarkable"> Unremarkable</label>
-            <label class="opt-label"><input type="checkbox" name="andning" value="wheezing"> Wheezing</label>
-            <label class="opt-label"><input type="checkbox" name="andning" value="mouth_breathing"> Mouth breathing</label>
             <label class="opt-label"><input type="checkbox" name="andning" value="nasal"> Nasal breathing</label>
+            <label class="opt-label"><input type="checkbox" name="andning" value="wheezing"> Wheezing</label>
             <label class="opt-label"><input type="checkbox" name="andning" value="congested"> Congested</label>
+            <label class="opt-label"><input type="checkbox" name="andning" value="mouth_breathing"> Mouth breathing</label>
+            <label class="opt-label"><input type="checkbox" name="andning" value="kombination"> Combination of nasal and mouth breathing</label>
             <label class="opt-label"><input type="checkbox" name="andning" value="annat"> Other</label>
           </div>
           <div class="other-field" data-show-when-checkbox="andning=annat">
@@ -620,12 +625,12 @@
         </div>
 
         <div class="field full">
-          <label for="allergier">Allergies? If yes, which ones?</label>
+          <label for="allergier">Allergies/Asthma/Lung issues? If yes, which ones?</label>
           <textarea id="allergier" name="allergier" placeholder="Describe..."></textarea>
         </div>
 
         <div class="field full">
-          <label for="husdjur">Pets? If yes, which ones?</label>
+          <label for="husdjur">Pets? If yes, which ones and for how long?</label>
           <input type="text" id="husdjur" name="husdjur" placeholder="e.g. dog, cat, rabbit...">
         </div>
       </div>
@@ -635,7 +640,7 @@
         <div class="section-title"><span class="emoji">🧠</span> Posture, Behaviour & Activities</div>
 
         <div class="field full">
-          <label for="hallning">How is the posture? Slouched, loose, limping? Etc.</label>
+          <label for="hallning">How is the posture? Upright, Slouched, loose, limping? Etc.</label>
           <textarea id="hallning" name="hallning" placeholder="Describe..."></textarea>
         </div>
 
@@ -645,10 +650,14 @@
         </div>
 
         <div class="field full">
-          <label for="inlarning">Learning difficulties? If yes, tell us more:</label>
+          <label for="inlarning">Learning/focusing difficulties? If yes, tell us more:</label>
           <textarea id="inlarning" name="inlarning" placeholder="Describe..."></textarea>
         </div>
 
+        <div class="field full">
+          <label for="energi">Energy level throughout the day?</label>
+          <textarea id="energi" name="energi" placeholder="Describe..."></textarea>
+        </div>
         <div class="field full">
           <label for="fritid">Leisure activities, sports, music, etc? Which ones?</label>
           <textarea id="fritid" name="fritid" placeholder="Describe..."></textarea>
@@ -664,7 +673,7 @@
       <div class="section">
         <div class="section-title"><span class="emoji">📝</span> Additional Remarks</div>
         <div class="field full">
-          <label for="ovrigt">Any additional comments:</label>
+          <label for="ovrigt">Any additional comments that may be helpful:</label>
           <textarea id="ovrigt" name="ovrigt" placeholder="Anything else you'd like to add..." style="min-height: 80px;"></textarea>
         </div>
       </div>
@@ -769,7 +778,7 @@
         const lastName = parts.slice(1).join(' ') || '';
 
         const noteLines = [];
-        const skipKeys = ['namn', 'email', 'fodelsedatum', 'adress', 'datum', 'consent'];
+        const skipKeys = ['namn', 'email', 'fodelsedatum', 'personnummer', 'adress', 'datum', 'consent'];
         Object.entries(formData).forEach(([key, val]) => {
           if (!skipKeys.includes(key)) {
             noteLines.push(`${key}: ${val}`);
@@ -804,10 +813,11 @@
         doc.line(margin, y, pageW - margin, y);
         y += 6;
 
-        addText('Contact Information', 13, true);
+        addText("Patient's Contact Information", 13, true);
         addText(`Name: ${formData.namn || '-'}`, 10, false);
         addText(`Email: ${formData.email}`, 10, false);
         addText(`Date of Birth: ${formData.fodelsedatum || '-'}`, 10, false);
+        addText(`Personnummer: ${formData.personnummer || '-'}`, 10, false);
         addText(`Address: ${formData.adress || '-'}`, 10, false);
         addText(`Date: ${formData.datum || '-'}`, 10, false);
         addText(`Consent to data storage: ${formData.consent === 'ja' ? 'Yes' : formData.consent === 'nej' ? 'No' : 'Not provided'}`, 10, false);
@@ -817,7 +827,7 @@
           {
             title: 'Pregnancy',
             fields: [
-              { key: 'graviditet', q: 'How was the pregnancy?' },
+              { key: 'graviditet', q: 'How was the patient\'s mother\'s pregnancy?' },
               { key: 'graviditet_annat', q: 'Pregnancy – other' },
               { key: 'tarmhalsa', q: "How was the mother's gut health?" }
             ]
@@ -897,9 +907,9 @@
             fields: [
               { key: 'sommen', q: 'Tell us about sleep:' },
               { key: 'sangvatning', q: 'Bedwetting problems? If yes, how often?' },
-              { key: 'sovstallning', q: 'Sleeping position' },
-              { key: 'gnisslar', q: 'Teeth grinding? If yes, how often?' },
-              { key: 'snarkar', q: 'Snoring? If yes, how much/how often?' },
+              { key: 'sovstallning', q: 'Sleeping position/waking up/nightmares during the night?' },
+              { key: 'gnisslar', q: 'Teeth clenching or grinding? If yes, how often?' },
+              { key: 'snarkar', q: 'Snoring? If yes, how loud/how often? If yes with open or closed mouth?' },
               { key: 'somnnapne', q: 'Sleep apnoea? If yes, how often/how much?' }
             ]
           },
@@ -908,7 +918,7 @@
             fields: [
               { key: 'huvudvark', q: 'Headaches? If yes, tell us more.' },
               { key: 'tmj', q: 'TMJ pain or clicking jaw joints? If yes, tell us more:' },
-              { key: 'oron', q: 'Ear pain? If yes, how often? With/without discharge?' }
+              { key: 'oron', q: 'Ear pain? If yes, how often? With/without discharge? Any treatments for it?' },
             ]
           },
           {
@@ -916,16 +926,17 @@
             fields: [
               { key: 'andning', q: 'Breathing' },
               { key: 'andning_annat', q: 'Breathing – other' },
-              { key: 'allergier', q: 'Allergies? If yes, which ones?' },
-              { key: 'husdjur', q: 'Pets? If yes, which ones?' }
+              { key: 'allergier', q: 'Allergies/Asthma/Lung issues? If yes, which ones?' },
+              { key: 'husdjur', q: 'Pets? If yes, which ones and for how long?' },
             ]
           },
           {
             title: 'Posture, Behaviour & Activities',
             fields: [
-              { key: 'hallning', q: 'How is the posture? Slouched, loose, limping? Etc.' },
+              { key: 'hallning', q: 'How is the posture? Upright, Slouched, loose, limping? Etc.' },
               { key: 'beteende', q: 'Behavioural or neurodevelopmental difficulties? If yes, tell us more:' },
-              { key: 'inlarning', q: 'Learning difficulties? If yes, tell us more:' },
+              { key: 'inlarning', q: 'Learning/focusing difficulties? If yes, tell us more:' },
+              { key: 'energi', q: 'Energy level throughout the day?' },
               { key: 'fritid', q: 'Leisure activities, sports, music, etc? Which ones?' },
               { key: 'trauma', q: 'Previous trauma?' }
             ]
@@ -933,7 +944,7 @@
           {
             title: 'Additional Remarks',
             fields: [
-              { key: 'ovrigt', q: 'Any additional comments:' }
+              { key: 'ovrigt', q: 'Any additional comments that may be helpful:' }
             ]
           }
         ];
