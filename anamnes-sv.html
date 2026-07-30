@@ -306,31 +306,27 @@
             <span class="error-msg">Ange en giltig e-postadress</span>
           </div>
           <div class="field">
-            <label for="namn">Namn</label>
-            <input type="text" id="namn" name="namn" placeholder="För- och efternamn">
+            <label for="namn">Namn *</label>
+            <input type="text" id="namn" name="namn" required placeholder="För- och efternamn">
           </div>
           <div class="field">
-            <label for="fodelsedatum">Födelsedatum (ej personnummer)</label>
-            <input type="text" id="fodelsedatum" name="fodelsedatum" placeholder="T.ex. 15 mars 1985">
-          </div>
-          <div class="field">
-            <label for="personnummer">Personnummer</label>
-            <input type="text" id="personnummer" name="personnummer" inputmode="numeric" placeholder="T.ex. 19850315-1234">
+            <label for="fodelsedatum">Födelsedatum *</label>
+            <input type="date" id="fodelsedatum" name="fodelsedatum" required>
           </div>
           <div class="field">
             <label for="adress">Adress</label>
             <input type="text" id="adress" name="adress" placeholder="Gata, postnummer, ort">
           </div>
           <div class="field">
-            <label for="datum">Datum</label>
-            <input type="date" id="datum" name="datum">
+            <label for="datum">Datum *</label>
+            <input type="date" id="datum" name="datum" required>
           </div>
         </div>
 
         <div class="option-group" style="margin-top: 14px;">
-          <label>Godkänner du att uppgifter sparas i vår databas?</label>
+          <label>Godkänner du att uppgifter sparas i vår databas? *</label>
           <div class="options">
-            <label class="opt-label"><input type="radio" name="consent" value="ja"> Ja</label>
+            <label class="opt-label"><input type="radio" name="consent" value="ja" required> Ja</label>
             <label class="opt-label"><input type="radio" name="consent" value="nej"> Nej</label>
           </div>
         </div>
@@ -865,7 +861,6 @@
         addText(`Namn: ${formData.namn || '-'}`, 10, false);
         addText(`E-post: ${formData.email}`, 10, false);
         addText(`Födelsedatum: ${formData.fodelsedatum || '-'}`, 10, false);
-        addText(`Personnummer: ${formData.personnummer || '-'}`, 10, false);
         addText(`Adress: ${formData.adress || '-'}`, 10, false);
         addText(`Datum: ${formData.datum || '-'}`, 10, false);
         addText(`Samtycke till datalagring: ${formData.consent === 'ja' ? 'Ja' : formData.consent === 'nej' ? 'Nej' : 'Ej angivet'}`, 10, false);
