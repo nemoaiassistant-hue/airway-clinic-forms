@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Airway Clinic – Medicinsk Historik</title>
+  <title>Airway Clinic – Anamnes</title>
   <style>
     :root {
       --bg: #f3f2f3;
@@ -292,7 +292,7 @@
       <img class="logo-img" src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/Z9UtrrCvJc8ObhTIILLF/media/697504ceeb392b3e880ee4d4.png" alt="Airway Clinic logotyp">
     </div>
 
-    <h1>Medicinsk Historik</h1>
+    <h1>Anamnes</h1>
 
     <form id="anamnes-form">
 
@@ -829,7 +829,7 @@
           }
         });
 
-        const note = `Medicinsk Historik (SV)\nDatum: ${formData.datum || 'ej angivet'}\nFödelsedatum: ${formData.fodelsedatum || 'ej angivet'}\nConsent: ${formData.consent || 'ej angivet'}\n\n${noteLines.join('\n') || 'Inga ytterligare uppgifter.'}`;
+        const note = `Anamnes (SV)\nDatum: ${formData.datum || 'ej angivet'}\nFödelsedatum: ${formData.fodelsedatum || 'ej angivet'}\nConsent: ${formData.consent || 'ej angivet'}\n\n${noteLines.join('\n') || 'Inga ytterligare uppgifter.'}`;
 
         // Generate PDF
         const { jsPDF } = window.jspdf;
@@ -853,7 +853,7 @@
         doc.setLineWidth(0.5);
         doc.line(margin, 12, pageW - margin, 12);
         addText('Airway Clinic', 10, false);
-        addText('Medicinsk Historik', 18, true);
+        addText('Anamnes', 18, true);
         doc.line(margin, y, pageW - margin, y);
         y += 6;
 
