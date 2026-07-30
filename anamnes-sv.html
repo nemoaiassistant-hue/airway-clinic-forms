@@ -489,9 +489,18 @@
           <textarea id="sjukdomar" name="sjukdomar" placeholder="Beskriv..."></textarea>
         </div>
 
+        <div class="option-group">
+          <label>Har patienten vaccinerats?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="vaccinationer" value="ja_helt"> Ja, helt</label>
+            <label class="opt-label"><input type="radio" name="vaccinationer" value="ja_delvis"> Ja, delvis</label>
+            <label class="opt-label"><input type="radio" name="vaccinationer" value="nej"> Nej</label>
+          </div>
+        </div>
+
         <div class="field full">
-          <label for="vaccinationer">Vaccinationer? Några reaktioner på specifika vaccinationer? Ej vaccinerad?</label>
-          <textarea id="vaccinationer" name="vaccinationer" placeholder="Beskriv..."></textarea>
+          <label for="vaccinationer_reaktioner">Några reaktioner på specifika vaccinationer?</label>
+          <textarea id="vaccinationer_reaktioner" name="vaccinationer_reaktioner" placeholder="Beskriv..."></textarea>
         </div>
 
         <div class="field full">
@@ -934,7 +943,8 @@
             title: 'Hälsoshistorik',
             fields: [
               { key: 'sjukdomar', q: 'Har patienten haft några allvarliga sjukdomar? Såsom bihåle-, hals- eller öroninfektioner, magont m.m.?' },
-              { key: 'vaccinationer', q: 'Vaccinationer? Några reaktioner på specifika vaccinationer? Ej vaccinerad?' },
+              { key: 'vaccinationer', q: 'Har patienten vaccinerats?' },
+              { key: 'vaccinationer_reaktioner', q: 'Några reaktioner på specifika vaccinationer?' },
               { key: 'medicin', q: 'Nuvarande och tidigare användning av medicin eller antibiotika:' }
             ]
           },

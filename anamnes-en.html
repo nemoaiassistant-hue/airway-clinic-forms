@@ -454,9 +454,18 @@
           <textarea id="sjukdomar" name="sjukdomar" placeholder="Describe..."></textarea>
         </div>
 
+        <div class="option-group">
+          <label>Has the patient been vaccinated?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="vaccinationer" value="yes_fully"> Yes, fully</label>
+            <label class="opt-label"><input type="radio" name="vaccinationer" value="yes_partially"> Yes, partially</label>
+            <label class="opt-label"><input type="radio" name="vaccinationer" value="no"> No</label>
+          </div>
+        </div>
+
         <div class="field full">
-          <label for="vaccinationer">Vaccinations? Any reactions to specific vaccinations? Not vaccinated?</label>
-          <textarea id="vaccinationer" name="vaccinationer" placeholder="Describe..."></textarea>
+          <label for="vaccinationer_reaktioner">Any reactions to specific vaccinations?</label>
+          <textarea id="vaccinationer_reaktioner" name="vaccinationer_reaktioner" placeholder="Describe..."></textarea>
         </div>
 
         <div class="field full">
@@ -884,7 +893,8 @@
             title: 'Health History',
             fields: [
               { key: 'sjukdomar', q: 'Has the patient had any serious illnesses? Such as sinus, throat or ear infections, stomach pain, etc?' },
-              { key: 'vaccinationer', q: 'Vaccinations? Any reactions to specific vaccinations? Not vaccinated?' },
+              { key: 'vaccinationer', q: 'Has the patient been vaccinated?' },
+              { key: 'vaccinationer_reaktioner', q: 'Any reactions to specific vaccinations?' },
               { key: 'medicin', q: 'Current and previous use of medication or antibiotics:' }
             ]
           },
