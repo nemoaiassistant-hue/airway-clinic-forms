@@ -74,6 +74,14 @@
       line-height: 1.5;
     }
 
+    .section-note {
+      color: var(--muted);
+      font-size: 13px;
+      font-style: italic;
+      margin: 4px 0 12px 0;
+      padding: 0;
+    }
+
     /* Progress bar */
     .progress-bar {
       position: sticky;
@@ -305,6 +313,10 @@
             <input type="text" id="namn" name="namn" required placeholder="För- och efternamn">
           </div>
           <div class="field">
+            <label for="phone">Telefon</label>
+            <input type="tel" id="phone" name="phone" placeholder="Telefonnummer">
+          </div>
+          <div class="field">
             <label for="email">E-postadress *</label>
             <input type="email" id="email" name="email" required placeholder="din@email.se">
             <span class="error-msg">Ange en giltig e-postadress</span>
@@ -335,6 +347,7 @@
       <!-- ===== SECTION 2: GRAVIDITET ===== -->
       <div class="section">
         <div class="section-title"><span class="emoji">🤰</span> Graviditet</div>
+        <p class="section-note">Om inte aktuellt, hoppa över detta avsnitt.</p>
 
         <div class="option-group">
           <label>Hur var patientens mammas graviditet?</label>
@@ -359,6 +372,7 @@
       <!-- ===== SECTION 3: FÖRLOSSNING ===== -->
       <div class="section">
         <div class="section-title"><span class="emoji">👶</span> Förlossning</div>
+        <p class="section-note">Om inte aktuellt, hoppa över detta avsnitt.</p>
 
         <div class="option-group">
           <label>Hur gick förlossningen?</label>
@@ -391,6 +405,7 @@
       <!-- ===== SECTION 4: AMNING & NÄRING ===== -->
       <div class="section">
         <div class="section-title"><span class="emoji">🍼</span> Amning & Näring</div>
+        <p class="section-note">Om inte aktuellt, hoppa över detta avsnitt.</p>
 
         <div class="option-group">
           <label>Ammades patienten?</label>
@@ -447,6 +462,7 @@
       <!-- ===== SECTION 5: MOTORISK UTVECKLING ===== -->
       <div class="section">
         <div class="section-title"><span class="emoji">🧸</span> Motorisk Utveckling</div>
+        <p class="section-note">Om inte aktuellt, hoppa över detta avsnitt.</p>
 
         <div class="field full">
           <label for="krypning">När började patienten krypa? Kröp patienten symmetriskt innan hen började stå upp? Om inte, beskriv:</label>
@@ -649,6 +665,7 @@
             <label class="opt-label"><input type="checkbox" name="andning" value="munandning"> Genom munnen</label>
             <label class="opt-label"><input type="checkbox" name="andning" value="kombination"> Kombination av näs- och munandning</label>
             <label class="opt-label"><input type="checkbox" name="andning" value="annat"> Annat</label>
+            <label class="opt-label"><input type="checkbox" name="andning" value="inga"> Inga</label>
           </div>
           <div class="other-field" data-show-when-checkbox="andning=annat">
             <input type="text" name="andning_annat" placeholder="Beskriv...">
@@ -727,6 +744,9 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script>
+    // Auto-populate today's date
+    document.getElementById('datum').value = new Date().toISOString().split('T')[0];
+
     // Show "other" fields for radio groups
     document.querySelectorAll('[data-show-when]').forEach(el => {
       const [name, value] = el.dataset.showWhen.split('=');
@@ -862,6 +882,7 @@
         addText(`Namn: ${formData.namn || '-'}`, 10, false);
         addText(`E-post: ${formData.email}`, 10, false);
         addText(`Födelsedatum: ${formData.fodelsedatum || '-'}`, 10, false);
+        addText(`Telefon: ${formData.phone || '-'}`, 10, false);
         addText(`Adress: ${formData.adress || '-'}`, 10, false);
         addText(`Datum: ${formData.datum || '-'}`, 10, false);
         addText(`Samtycke till datalagring: ${formData.consent === 'ja' ? 'Ja' : formData.consent === 'nej' ? 'Nej' : 'Ej angivet'}`, 10, false);
@@ -1026,7 +1047,7 @@
             firstName: firstName || formData.email.split('@')[0],
             lastName: lastName,
             email: formData.email,
-            phone: '',
+            phone: formData.phone || '',
             symptoms: noteLines,
             _formType: 'kraniofacial-anamnes',
             pdfBase64: pdfBase64

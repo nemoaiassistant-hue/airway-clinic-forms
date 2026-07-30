@@ -74,6 +74,14 @@
       line-height: 1.5;
     }
 
+    .section-note {
+      color: var(--muted);
+      font-size: 13px;
+      font-style: italic;
+      margin: 4px 0 12px 0;
+      padding: 0;
+    }
+
     .section {
       background: var(--section-bg);
       border: 1px solid var(--box);
@@ -270,6 +278,10 @@
             <input type="text" id="namn" name="namn" required placeholder="First and last name">
           </div>
           <div class="field">
+            <label for="phone">Phone</label>
+            <input type="tel" id="phone" name="phone" placeholder="Phone number">
+          </div>
+          <div class="field">
             <label for="email">Email *</label>
             <input type="email" id="email" name="email" required placeholder="your@email.com">
             <span class="error-msg">Please enter a valid email address</span>
@@ -291,8 +303,8 @@
         <div class="option-group" style="margin-top: 14px;">
           <label>Do you consent to your data being stored in our database? *</label>
           <div class="options">
-            <label class="opt-label"><input type="radio" name="consent" value="ja" required> Yes</label>
-            <label class="opt-label"><input type="radio" name="consent" value="nej"> No</label>
+            <label class="opt-label"><input type="radio" name="consent" value="yes" required> Yes</label>
+            <label class="opt-label"><input type="radio" name="consent" value="no"> No</label>
           </div>
         </div>
       </div>
@@ -300,6 +312,7 @@
       <!-- ===== SECTION 2: PREGNANCY ===== -->
       <div class="section">
         <div class="section-title"><span class="emoji">🤰</span> Pregnancy</div>
+        <p class="section-note">If not applicable, please skip this section.</p>
 
         <div class="option-group">
           <label>How was the patient's mother's pregnancy?</label>
@@ -324,6 +337,7 @@
       <!-- ===== SECTION 3: BIRTH ===== -->
       <div class="section">
         <div class="section-title"><span class="emoji">👶</span> Birth</div>
+        <p class="section-note">If not applicable, please skip this section.</p>
 
         <div class="option-group">
           <label>How was the delivery?</label>
@@ -356,6 +370,7 @@
       <!-- ===== SECTION 4: BREASTFEEDING & NUTRITION ===== -->
       <div class="section">
         <div class="section-title"><span class="emoji">🍼</span> Breastfeeding & Nutrition</div>
+        <p class="section-note">If not applicable, please skip this section.</p>
 
         <div class="option-group">
           <label>Was the patient breastfed?</label>
@@ -412,6 +427,7 @@
       <!-- ===== SECTION 5: MOTOR DEVELOPMENT ===== -->
       <div class="section">
         <div class="section-title"><span class="emoji">🧸</span> Motor Development</div>
+        <p class="section-note">If not applicable, please skip this section.</p>
 
         <div class="field full">
           <label for="krypning">When did the patient start crawling? Did they crawl symmetrically before standing? If not, explain?</label>
@@ -614,6 +630,7 @@
             <label class="opt-label"><input type="checkbox" name="andning" value="mouth_breathing"> Mouth breathing</label>
             <label class="opt-label"><input type="checkbox" name="andning" value="kombination"> Combination of nasal and mouth breathing</label>
             <label class="opt-label"><input type="checkbox" name="andning" value="annat"> Other</label>
+            <label class="opt-label"><input type="checkbox" name="andning" value="inga"> None</label>
           </div>
           <div class="other-field" data-show-when-checkbox="andning=annat">
             <input type="text" name="andning_annat" placeholder="Please describe...">
@@ -692,6 +709,9 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script>
+    // Auto-populate today's date
+    document.getElementById('datum').value = new Date().toISOString().split('T')[0];
+
     // Show "other" fields for radio groups
     document.querySelectorAll('[data-show-when]').forEach(el => {
       const [name, value] = el.dataset.showWhen.split('=');
@@ -813,6 +833,7 @@
         addText(`Name: ${formData.namn || '-'}`, 10, false);
         addText(`Email: ${formData.email}`, 10, false);
         addText(`Date of Birth: ${formData.fodelsedatum || '-'}`, 10, false);
+        addText(`Phone: ${formData.phone || '-'}`, 10, false);
         addText(`Address: ${formData.adress || '-'}`, 10, false);
         addText(`Date: ${formData.datum || '-'}`, 10, false);
         addText(`Consent to data storage: ${formData.consent === 'ja' ? 'Yes' : formData.consent === 'nej' ? 'No' : 'Not provided'}`, 10, false);
@@ -975,7 +996,7 @@
             firstName: firstName || formData.email.split('@')[0],
             lastName: lastName,
             email: formData.email,
-            phone: '',
+            phone: formData.phone || '',
             symptoms: noteLines,
             _formType: 'kraniofacial-anamnes-en',
             pdfBase64: pdfBase64
