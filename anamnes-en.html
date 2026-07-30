@@ -279,8 +279,8 @@
             <input type="date" id="fodelsedatum" name="fodelsedatum" required>
           </div>
           <div class="field">
-            <label for="adress">Address</label>
-            <input type="text" id="adress" name="adress" placeholder="Street, postcode, city">
+            <label for="adress">Address *</label>
+            <input type="text" id="adress" name="adress" required placeholder="Street, postcode, city">
           </div>
           <div class="field">
             <label for="datum">Date *</label>
@@ -414,7 +414,7 @@
         <div class="section-title"><span class="emoji">🧸</span> Motor Development</div>
 
         <div class="field full">
-          <label for="krypning">When did the patient start crawling? Did they crawl symmetrically before standing? If no, how?</label>
+          <label for="krypning">When did the patient start crawling? Did they crawl symmetrically before standing? If not, explain?</label>
           <textarea id="krypning" name="krypning" placeholder="Describe..."></textarea>
         </div>
 
@@ -852,7 +852,7 @@
           {
             title: 'Motor Development',
             fields: [
-              { key: 'krypning', q: 'When did the baby start crawling? Did they crawl symmetrically before standing?' },
+              { key: 'krypning', q: 'When did the patient start crawling? Did they crawl symmetrically before standing?' },
               { key: 'forsta_steg', q: 'When were the first steps taken?' },
               { key: 'finmotorik', q: 'Fine motor difficulties? (cutting, drawing, pincer grasp, tying shoes)' }
             ]
