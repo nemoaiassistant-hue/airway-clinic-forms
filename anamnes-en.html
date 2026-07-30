@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Airway Clinic – Craniofacial History (Adult)</title>
+  <title>Airway Clinic – Medical History</title>
   <style>
     :root {
       --bg: #f3f2f3;
@@ -257,8 +257,7 @@
       <img class="logo-img" src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/Z9UtrrCvJc8ObhTIILLF/media/697504ceeb392b3e880ee4d4.png" alt="Airway Clinic logo">
     </div>
 
-    <h1>Craniofacial History</h1>
-    <p class="subtitle">Questions related to the growth of the head and face.</p>
+    <h1>Medical History</h1>
 
     <form id="anamnes-form">
 
@@ -785,7 +784,7 @@
           }
         });
 
-        const note = `Craniofacial History — Adult (EN)\nDate: ${formData.datum || 'not provided'}\nDOB: ${formData.fodelsedatum || 'not provided'}\nConsent: ${formData.consent || 'not provided'}\n\n${noteLines.join('\n') || 'No additional details.'}`;
+        const note = `Medical History (EN)\nDate: ${formData.datum || 'not provided'}\nDOB: ${formData.fodelsedatum || 'not provided'}\nConsent: ${formData.consent || 'not provided'}\n\n${noteLines.join('\n') || 'No additional details.'}`;
 
         // Generate PDF
         const { jsPDF } = window.jspdf;
@@ -809,7 +808,7 @@
         doc.setLineWidth(0.5);
         doc.line(margin, 12, pageW - margin, 12);
         addText('Airway Clinic', 10, false);
-        addText('Craniofacial History', 18, true);
+        addText('Medical History', 18, true);
         doc.line(margin, y, pageW - margin, y);
         y += 6;
 
