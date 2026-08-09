@@ -1,0 +1,745 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Airway Clinic – Allmän Tandläkarhistorik</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    :root {
+      --bg: #f3f2f3;
+      --ink: #31305f;
+      --text: #4b4b63;
+      --muted: #6f6f7a;
+      --gold: #b99645;
+      --gold-hover: #d4b055;
+      --line: #6c6e88;
+      --box: #d9d9de;
+      --success: #2e7d32;
+      --error: #c62828;
+      --section-bg: #ebeaeb;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #e9e9ec;
+      font-family: Arial, sans-serif;
+      color: var(--text);
+      padding: 24px 16px;
+      min-height: 100vh;
+    }
+
+    .sheet {
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--bg);
+      border: 2px solid var(--line);
+      padding: 32px 34px 28px;
+    }
+
+    @media (max-width: 600px) {
+      .sheet { padding: 20px 18px 24px; }
+      h1 { font-size: 28px !important; }
+    }
+
+    .top {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 14px;
+    }
+
+    .logo-img {
+      height: 60px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    h1 {
+      margin: 12px 0 8px 0;
+      color: var(--ink);
+      font-size: 36px;
+      line-height: 1.1;
+      font-family: "Arial Narrow", Arial, sans-serif;
+      font-weight: 800;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: var(--muted);
+      font-size: 15px;
+      margin-bottom: 28px;
+      line-height: 1.5;
+    }
+
+    .section-note {
+      color: var(--muted);
+      font-size: 13px;
+      font-style: italic;
+      margin: 4px 0 12px 0;
+      padding: 0;
+    }
+
+    .section {
+      background: var(--section-bg);
+      border: 1px solid var(--box);
+      border-radius: 8px;
+      padding: 20px 22px;
+      margin-bottom: 20px;
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-title .emoji { font-size: 20px; }
+
+    .fields {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    @media (max-width: 600px) {
+      .fields { grid-template-columns: 1fr; }
+    }
+
+    .field { display: flex; flex-direction: column; margin-bottom: 4px; }
+    .field.full { grid-column: 1 / -1; }
+
+    .field label, .option-group > label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 5px;
+      line-height: 1.3;
+    }
+
+    .field input, .field textarea, .field select {
+      padding: 9px 12px;
+      font-size: 15px;
+      border: 2px solid var(--box);
+      border-radius: 4px;
+      background: #fff;
+      color: var(--text);
+      transition: border-color 0.2s;
+      font-family: inherit;
+    }
+    .field textarea { resize: vertical; min-height: 60px; }
+    .field input:focus, .field textarea:focus, .field select:focus {
+      outline: none;
+      border-color: var(--gold);
+    }
+    .field input.error, .field textarea.error {
+      border-color: var(--error);
+    }
+    .field .error-msg {
+      color: var(--error);
+      font-size: 11px;
+      margin-top: 3px;
+      display: none;
+    }
+
+    .option-group {
+      margin-bottom: 14px;
+    }
+    .option-group > label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+    .options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .options.vertical { flex-direction: column; gap: 6px; }
+
+    .opt-label {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 14px;
+      cursor: pointer;
+      padding: 4px 10px;
+      border-radius: 4px;
+      border: 1px solid var(--box);
+      background: #fff;
+      transition: all 0.15s;
+      line-height: 1.3;
+    }
+    .opt-label:hover {
+      border-color: var(--gold);
+      background: #faf6ef;
+    }
+    .opt-label input[type="radio"],
+    .opt-label input[type="checkbox"] {
+      accent-color: var(--gold);
+      width: 16px; height: 16px;
+      flex-shrink: 0;
+    }
+
+    .check-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+    @media (max-width: 600px) {
+      .check-grid { grid-template-columns: 1fr; }
+    }
+
+    .submit-wrap {
+      text-align: center;
+      margin-top: 24px;
+    }
+    .submit-btn {
+      background: var(--gold);
+      color: #fff;
+      border: none;
+      padding: 14px 48px;
+      font-size: 18px;
+      font-weight: 700;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s;
+      font-family: inherit;
+    }
+    .submit-btn:hover { background: var(--gold-hover); }
+    .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    .submit-error {
+      color: var(--error);
+      font-size: 14px;
+      margin-top: 12px;
+      display: none;
+    }
+
+    .success-msg {
+      display: none;
+      text-align: center;
+      padding: 40px 20px;
+    }
+    .success-msg .check {
+      font-size: 48px;
+      color: var(--success);
+      margin-bottom: 16px;
+    }
+    .success-msg h2 {
+      color: var(--ink);
+      font-size: 24px;
+      margin-bottom: 8px;
+    }
+    .success-msg p {
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    .foot {
+      margin-top: 20px;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="sheet">
+    <div class="top">
+      <img class="logo-img" src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/Z9UtrrCvJc8ObhTIILLF/media/697504ceeb392b3e880ee4d4.png" alt="Airway Clinic logotyp">
+    </div>
+
+    <h1>Allmän Tandläkarhistorik</h1>
+    <p class="subtitle">Airway Clinic Stockholm</p>
+
+    <form id="anamnes-form">
+
+      <!-- ===== AVSNITT 1: PATIENTUPPGIFTER ===== -->
+      <div class="section">
+        <div class="section-title"><span class="emoji">👤</span> Patientuppgifter</div>
+        <div class="fields">
+          <div class="field">
+            <label for="namn">Namn *</label>
+            <input type="text" id="namn" name="namn" required placeholder="För- och efternamn">
+          </div>
+          <div class="field">
+            <label for="fodelsedatum">Födelsedatum *</label>
+            <input type="date" id="fodelsedatum" name="fodelsedatum" required>
+          </div>
+          <div class="field">
+            <label for="phone">Telefon *</label>
+            <input type="tel" id="phone" name="phone" required placeholder="Telefonnummer">
+          </div>
+          <div class="field">
+            <label for="email">E-post *</label>
+            <input type="email" id="email" name="email" required placeholder="din@email.com">
+          </div>
+          <div class="field">
+            <label for="adress">Adress *</label>
+            <input type="text" id="adress" name="adress" required placeholder="Gata, postnummer, ort">
+          </div>
+          <div class="field">
+            <label for="datum">Datum *</label>
+            <input type="date" id="datum" name="datum" required>
+          </div>
+        </div>
+
+        <div class="option-group" style="margin-top: 14px;">
+          <label>Samtycker du till att dina uppgifter lagras i vår databas? *</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="consent" value="yes" required> Ja</label>
+            <label class="opt-label"><input type="radio" name="consent" value="no"> Nej</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== AVSNITT 2: BESÖKSANLEDNING ===== -->
+      <div class="section">
+        <div class="section-title"><span class="emoji">🦷</span> Besöksanledning</div>
+        <div class="field full" style="margin-bottom:14px;">
+          <label for="reason">Vad har fört dig till tandläkaren idag? *</label>
+          <textarea id="reason" name="reason" required placeholder="Beskriv ditt huvudsakliga besvär eller anledning till besöket"></textarea>
+        </div>
+        <div class="field full" style="margin-bottom:14px;">
+          <label for="pain_duration">Om du har smärta eller obehag, hur länge har det varit ett problem?</label>
+          <input type="text" id="pain_duration" name="pain_duration" placeholder="t.ex. 3 dagar, 2 veckor, flera månader">
+        </div>
+        <div class="option-group">
+          <label>Hur skulle du bedöma eventuell smärta eller obehag?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="pain_level" value="none"> Ingen</label>
+            <label class="opt-label"><input type="radio" name="pain_level" value="mild"> Lätt</label>
+            <label class="opt-label"><input type="radio" name="pain_level" value="moderate"> Måttlig</label>
+            <label class="opt-label"><input type="radio" name="pain_level" value="severe"> Svår</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== AVSNITT 3: SJUKDOMAR ===== -->
+      <div class="section">
+        <div class="section-title"><span class="emoji">❤️</span> Sjukdomar</div>
+        <p class="section-note">Kryssa för sjukdomar du har eller har haft tidigare.</p>
+        <div class="check-grid">
+          <label class="opt-label"><input type="checkbox" name="conditions" value="heart_disease"> Hjärtsjukdom</label>
+          <label class="opt-label"><input type="checkbox" name="conditions" value="high_bp"> Hög blodtryck</label>
+          <label class="opt-label"><input type="checkbox" name="conditions" value="diabetes"> Diabetes</label>
+          <label class="opt-label"><input type="checkbox" name="conditions" value="thyroid"> Sköldkörtelsjukdom</label>
+          <label class="opt-label"><input type="checkbox" name="conditions" value="asthma"> Astma</label>
+          <label class="opt-label"><input type="checkbox" name="conditions" value="respiratory"> Annan lungsjukdom</label>
+          <label class="opt-label"><input type="checkbox" name="conditions" value="kidney"> Njursjukdom</label>
+          <label class="opt-label"><input type="checkbox" name="conditions" value="liver"> Leversjukdom</label>
+          <label class="opt-label"><input type="checkbox" name="conditions" value="bleeding"> Blödningsrubbning</label>
+          <label class="opt-label"><input type="checkbox" name="conditions" value="cancer"> Cancer / strålbehandling</label>
+          <label class="opt-label"><input type="checkbox" name="conditions" value="arthritis"> Ledgångsreumatism</label>
+          <label class="opt-label"><input type="checkbox" name="conditions" value="stomach"> Magsår / sura uppstötningar</label>
+          <label class="opt-label"><input type="checkbox" name="conditions" value="osteoporosis"> Benskörhet</label>
+          <label class="opt-label"><input type="checkbox" name="conditions" value="epilepsy"> Epilepsi / kramper</label>
+          <label class="opt-label"><input type="checkbox" name="conditions" value="mental_health"> Ångest / depression</label>
+          <label class="opt-label"><input type="checkbox" name="conditions" value="pregnant"> Gravid</label>
+        </div>
+        <div class="field full" style="margin-top:14px;">
+          <label for="conditions_other">Andra sjukdomar som inte listas ovan:</label>
+          <textarea id="conditions_other" name="conditions_other" placeholder="Beskriv andra sjukdomar"></textarea>
+        </div>
+      </div>
+
+      <!-- ===== AVSNITT 4: LÄKEMEDEL ===== -->
+      <div class="section">
+        <div class="section-title"><span class="emoji">💊</span> Läkemedel</div>
+        <div class="field full" style="margin-bottom:14px;">
+          <label for="medications">Nuvarande läkemedel (inklusive receptfria och kosttillskott):</label>
+          <textarea id="medications" name="medications" placeholder="Lista alla läkemedel och doser"></textarea>
+        </div>
+        <div class="option-group">
+          <label>Tar du för närvarande några blodförtunnande läkemedel?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="blood_thinners" value="yes"> Ja</label>
+            <label class="opt-label"><input type="radio" name="blood_thinners" value="no"> Nej</label>
+            <label class="opt-label"><input type="radio" name="blood_thinners" value="unsure"> Osäker</label>
+          </div>
+        </div>
+        <div class="option-group">
+          <label>Har du någonsin tagit bisfosfonatläkemedel (mot benskörhet)?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="bisphosphonates" value="yes"> Ja</label>
+            <label class="opt-label"><input type="radio" name="bisphosphonates" value="no"> Nej</label>
+            <label class="opt-label"><input type="radio" name="bisphosphonates" value="unsure"> Osäker</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== AVSNITT 5: ALLERGIER ===== -->
+      <div class="section">
+        <div class="section-title"><span class="emoji">⚠️</span> Allergier</div>
+        <div class="field full" style="margin-bottom:14px;">
+          <label for="allergies">Har du några allergier? (läkemedel, latex, livsmedel etc.)</label>
+          <textarea id="allergies" name="allergies" placeholder="Lista eventuella allergier eller skriv 'Inga'"></textarea>
+        </div>
+      </div>
+
+      <!-- ===== AVSNITT 6: TANDVÅRDSHISTORIK ===== -->
+      <div class="section">
+        <div class="section-title"><span class="emoji">🦷</span> Tandvårdshistorik</div>
+        <div class="field" style="margin-bottom:14px;">
+          <label for="last_visit">När var ditt senaste tandläkarbesök?</label>
+          <input type="text" id="last_visit" name="last_visit" placeholder="t.ex. för 6 månader sedan, för 2 år sedan">
+        </div>
+        <div class="option-group">
+          <label>Hur ofta besöker du tandläkaren?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="visit_freq" value="6months"> Var 6:e månad</label>
+            <label class="opt-label"><input type="radio" name="visit_freq" value="yearly"> Årligen</label>
+            <label class="opt-label"><input type="radio" name="visit_freq" value="rarely"> Sällan / bara vid smärta</label>
+            <label class="opt-label"><input type="radio" name="visit_freq" value="never"> Aldrig</label>
+          </div>
+        </div>
+        <p class="section-note">Kryssa för det som stämmer:</p>
+        <div class="check-grid">
+          <label class="opt-label"><input type="checkbox" name="dental_issues" value="fillings"> Tidigare lagningar</label>
+          <label class="opt-label"><input type="checkbox" name="dental_issues" value="crowns"> Kronor eller broar</label>
+          <label class="opt-label"><input type="checkbox" name="dental_issues" value="root_canal"> Rotfyllning</label>
+          <label class="opt-label"><input type="checkbox" name="dental_issues" value="extractions"> Tandextraktioner</label>
+          <label class="opt-label"><input type="checkbox" name="dental_issues" value="ortho"> Tandreglering (tandställning)</label>
+          <label class="opt-label"><input type="checkbox" name="dental_issues" value="implants"> Tandimplantat</label>
+          <label class="opt-label"><input type="checkbox" name="dental_issues" value="jaw_clicking"> Käkledsklickande / knäppning</label>
+          <label class="opt-label"><input type="checkbox" name="dental_issues" value="grinding"> Tandgnissling / tandpressning</label>
+          <label class="opt-label"><input type="checkbox" name="dental_issues" value="sensitivity"> Känslighet för kyla/värme/sött</label>
+          <label class="opt-label"><input type="checkbox" name="dental_issues" value="bleeding_gums"> Blödande tandkött</label>
+          <label class="opt-label"><input type="checkbox" name="dental_issues" value="dry_mouth"> Muntorrhet</label>
+          <label class="opt-label"><input type="checkbox" name="dental_issues" value="bad_breath"> Ihållande dålig andedräkt</label>
+          <label class="opt-label"><input type="checkbox" name="dental_issues" value="loose_teeth"> Lösa tänder</label>
+          <label class="opt-label"><input type="checkbox" name="dental_issues" value="wisdom"> Problem med visdomständer</label>
+        </div>
+        <div class="field full" style="margin-top:14px;">
+          <label for="dental_other">Några andra tandproblem eller historik?</label>
+          <textarea id="dental_other" name="dental_other" placeholder="Beskriv"></textarea>
+        </div>
+      </div>
+
+      <!-- ===== AVSNITT 7: MUNHYGIEN & LIVSSTIL ===== -->
+      <div class="section">
+        <div class="section-title"><span class="emoji">🪥</span> Munhygien & Livsstil</div>
+        <div class="option-group">
+          <label>Hur ofta borstar du tänderna?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="brushing" value="1day"> En gång om dagen</label>
+            <label class="opt-label"><input type="radio" name="brushing" value="2day"> Två gånger om dagen</label>
+            <label class="opt-label"><input type="radio" name="brushing" value="3day"> Tre gånger om dagen</label>
+            <label class="opt-label"><input type="radio" name="brushing" value="rarely"> Sällan</label>
+          </div>
+        </div>
+        <div class="option-group">
+          <label>Använder du tandtråd eller mellanragsborstar?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="flossing" value="daily"> Dagligen</label>
+            <label class="opt-label"><input type="radio" name="flossing" value="sometimes"> Ibland</label>
+            <label class="opt-label"><input type="radio" name="flossing" value="no"> Nej</label>
+          </div>
+        </div>
+        <div class="option-group">
+          <label>Röker du eller använder tobaksprodukter?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="smoking" value="never"> Aldrig</label>
+            <label class="opt-label"><input type="radio" name="smoking" value="former"> Tidigare rökare</label>
+            <label class="opt-label"><input type="radio" name="smoking" value="cigarettes"> Rökare (cigaretter)</label>
+            <label class="opt-label"><input type="radio" name="smoking" value="vaping"> Vaping/e-cigaretter</label>
+          </div>
+        </div>
+        <div class="field full">
+          <label for="coffee">Hur många koppar kaffe, te eller andra färgande drycker per dag?</label>
+          <input type="text" id="coffee" name="coffee" placeholder="t.ex. 2-3 koppar">
+        </div>
+      </div>
+
+      <!-- ===== AVSNITT 8: TANDVÅRDSORO ===== -->
+      <div class="section">
+        <div class="section-title"><span class="emoji">😰</span> Tandvårdsoro</div>
+        <div class="option-group">
+          <label>Hur känner du inför att besöka tandläkaren?</label>
+          <div class="options vertical">
+            <label class="opt-label"><input type="radio" name="anxiety" value="relaxed"> Avslappnad — inga bekymmer</label>
+            <label class="opt-label"><input type="radio" name="anxiety" value="slightly"> Lite nervös</label>
+            <label class="opt-label"><input type="radio" name="anxiety" value="anxious"> Orolig</label>
+            <label class="opt-label"><input type="radio" name="anxiety" value="very_anxious"> Mycket orolig / tandvårdsfobi</label>
+          </div>
+        </div>
+        <div class="field full">
+          <label for="anxiety_notes">Om du känner dig nervös, vad hjälper? Ellra tidigare negativa upplevelser?</label>
+          <textarea id="anxiety_notes" name="anxiety_notes" placeholder="Beskriv"></textarea>
+        </div>
+      </div>
+
+      <!-- ===== AVSNITT 9: NÖDKONTAKT ===== -->
+      <div class="section">
+        <div class="section-title"><span class="emoji">📞</span> Nödkontakt</div>
+        <div class="fields">
+          <div class="field">
+            <label for="emerg_name">Nödkontaktnamn *</label>
+            <input type="text" id="emerg_name" name="emerg_name" required placeholder="För- och efternamn">
+          </div>
+          <div class="field">
+            <label for="emerg_phone">Nödkontakt telefon *</label>
+            <input type="tel" id="emerg_phone" name="emerg_phone" required placeholder="Telefonnummer">
+          </div>
+          <div class="field">
+            <label for="emerg_relation">Relation till patient *</label>
+            <input type="text" id="emerg_relation" name="emerg_relation" required placeholder="t.ex. Förälder, partner, syskon">
+          </div>
+          <div class="field">
+            <label for="doctor">Har du en husläkare?</label>
+            <input type="text" id="doctor" name="doctor" placeholder="Läkarens namn (valfritt)">
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== AVSNITT 10: YTTERLIGARE ANTECKNINGAR ===== -->
+      <div class="section">
+        <div class="section-title"><span class="emoji">📝</span> Ytterligare anteckningar</div>
+        <div class="field full">
+          <label for="ovrigt">Finns det något mer du vill att vi ska veta?</label>
+          <textarea id="ovrigt" name="ovrigt" placeholder="Ytterligare information som kan vara till hjälp"></textarea>
+        </div>
+      </div>
+
+      <div class="submit-wrap">
+        <button type="submit" class="submit-btn" id="submitBtn">Skicka historik</button>
+        <div class="submit-error" id="submitError"></div>
+      </div>
+    </form>
+
+    <div class="success-msg" id="success">
+      <div class="check">✅</div>
+      <h2>Tack!</h2>
+      <p>Din tandläkarhistorik har skickats in.<br>Vi kontaktar dig om vi behöver mer information.</p>
+    </div>
+
+    <div class="foot">
+      🔒 Din information hanteras konfidentiellt i enlighet med GDPR.<br>
+      Airway Clinic Stockholm · airwayclinic.se
+    </div>
+  </div>
+
+  <script>
+    // ====== Form submission ======
+    const form = document.getElementById('anamnes-form');
+    const submitBtn = document.getElementById('submitBtn');
+    const submitError = document.getElementById('submitError');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Skickar...';
+      submitError.style.display = 'none';
+
+      try {
+        const formData = {};
+        new FormData(form).forEach((val, key) => {
+          if (formData[key]) {
+            if (!Array.isArray(formData[key])) formData[key] = [formData[key]];
+            formData[key].push(val);
+          } else {
+            formData[key] = val;
+          }
+        });
+
+        Object.keys(formData).forEach(k => {
+          if (Array.isArray(formData[k])) formData[k] = formData[k].join(', ');
+        });
+
+        const [firstName, ...rest] = (formData.namn || '').split(' ');
+        const lastName = rest.join(' ');
+
+        // ====== Build PDF ======
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        const margin = 10;
+        const pageWidth = doc.internal.pageSize.getWidth();
+        const usable = pageWidth - margin * 2;
+        let y = 15;
+
+        function addText(text, fontSize, bold) {
+          doc.setFontSize(fontSize);
+          doc.setFont('helvetica', bold ? 'bold' : 'normal');
+          const lines = doc.splitTextToSize(text, usable);
+          lines.forEach(line => {
+            if (y > 280) { doc.addPage(); y = 15; }
+            doc.text(line, margin, y);
+            y += fontSize * 0.4 + 1;
+          });
+        }
+
+        // Header
+        doc.setFillColor(49, 48, 95);
+        doc.rect(0, 0, pageWidth, 22, 'F');
+        doc.setTextColor(255, 255, 255);
+        doc.setFontSize(16);
+        doc.setFont('helvetica', 'bold');
+        doc.text('Airway Clinic — Allmän Tandläkarhistorik', margin, 14);
+        doc.setTextColor(75, 75, 99);
+        y = 28;
+
+        const sections = [
+          {
+            title: 'Patientuppgifter',
+            fields: [
+              { key: 'namn', q: 'Namn' },
+              { key: 'fodelsedatum', q: 'Födelsedatum' },
+              { key: 'phone', q: 'Telefon' },
+              { key: 'email', q: 'E-post' },
+              { key: 'adress', q: 'Adress' },
+              { key: 'datum', q: 'Datum' },
+              { key: 'consent', q: 'Samtycke till datalagring' },
+            ]
+          },
+          {
+            title: 'Besöksanledning',
+            fields: [
+              { key: 'reason', q: 'Huvudsakligt besvär / anledning' },
+              { key: 'pain_duration', q: 'Besvärets varaktighet' },
+              { key: 'pain_level', q: 'Smärta/obehagsnivå' },
+            ]
+          },
+          {
+            title: 'Sjukdomar',
+            fields: [
+              { key: 'conditions', q: 'Sjukdomar (kryssade)' },
+              { key: 'conditions_other', q: 'Andra sjukdomar' },
+            ]
+          },
+          {
+            title: 'Läkemedel',
+            fields: [
+              { key: 'medications', q: 'Nuvarande läkemedel' },
+              { key: 'blood_thinners', q: 'Blodförtunnande läkemedel?' },
+              { key: 'bisphosphonates', q: 'Bisfosfonater?' },
+            ]
+          },
+          {
+            title: 'Allergier',
+            fields: [
+              { key: 'allergies', q: 'Allergier' },
+            ]
+          },
+          {
+            title: 'Tandvårdshistorik',
+            fields: [
+              { key: 'last_visit', q: 'Senaste tandläkarbesök' },
+              { key: 'visit_freq', q: 'Besöksfrekvens' },
+              { key: 'dental_issues', q: 'Tandproblem (kryssade)' },
+              { key: 'dental_other', q: 'Andra tandproblem' },
+            ]
+          },
+          {
+            title: 'Munhygien & Livsstil',
+            fields: [
+              { key: 'brushing', q: 'Borstningsfrekvens' },
+              { key: 'flossing', q: 'Tandtråd' },
+              { key: 'smoking', q: 'Rökning/tobak' },
+              { key: 'coffee', q: 'Kaffe/te/färgande drycker' },
+            ]
+          },
+          {
+            title: 'Tandvårdsoro',
+            fields: [
+              { key: 'anxiety', q: 'Oro-nivå' },
+              { key: 'anxiety_notes', q: 'Oro-anteckningar' },
+            ]
+          },
+          {
+            title: 'Nödkontakt',
+            fields: [
+              { key: 'emerg_name', q: 'Nödkontaktnamn' },
+              { key: 'emerg_phone', q: 'Nödkontakt telefon' },
+              { key: 'emerg_relation', q: 'Relation' },
+              { key: 'doctor', q: 'Husläkare' },
+            ]
+          },
+          {
+            title: 'Ytterligare anteckningar',
+            fields: [
+              { key: 'ovrigt', q: 'Ytterligare information' },
+            ]
+          }
+        ];
+
+        sections.forEach(section => {
+          if (y + 12 > 280) { doc.addPage(); y = 15; }
+          doc.setFillColor(55, 183, 181);
+          doc.rect(margin, y, usable, 7, 'F');
+          doc.setTextColor(255, 255, 255);
+          doc.setFontSize(12);
+          doc.setFont('helvetica', 'bold');
+          doc.text(section.title, margin + 3, y + 5.5);
+          doc.setTextColor(75, 75, 99);
+          y += 12;
+
+          section.fields.forEach(f => {
+            const val = formData[f.key];
+            if (val === undefined || val === null || val === '') return;
+            const displayVal = String(val).replace(/_/g, ' ');
+            addText(f.q, 10, true);
+            addText(displayVal, 10, false);
+            y += 3;
+          });
+          y += 3;
+        });
+
+        const pdfBase64 = doc.output('datauristring').split(',')[1];
+
+        // ====== Build note lines ======
+        const noteLines = [];
+        sections.forEach(section => {
+          const relevant = section.fields
+            .map(f => ({ ...f, val: formData[f.key] }))
+            .filter(f => f.val !== undefined && f.val !== null && f.val !== '');
+          if (relevant.length === 0) return;
+          noteLines.push(`### ${section.title}`);
+          relevant.forEach(f => {
+            noteLines.push(`• ${f.q}: ${String(f.val).replace(/_/g, ' ')}`);
+          });
+        });
+
+        // ====== Submit to worker ======
+        const res = await fetch('https://airway-clinic-proxy.airwayclinicproxy.workers.dev/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            firstName: firstName || formData.email.split('@')[0],
+            lastName: lastName,
+            email: formData.email,
+            phone: formData.phone || '',
+            symptoms: noteLines,
+            _formType: 'general-dental-anamnes-sv',
+            pdfBase64: pdfBase64
+          })
+        });
+
+        if (!res.ok) {
+          const errData = await res.json().catch(() => ({}));
+          throw new Error(errData.error || 'Could not submit');
+        }
+
+        form.style.display = 'none';
+        document.getElementById('success').style.display = 'block';
+
+      } catch (err) {
+        console.error('Submission error:', err);
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Skicka historik';
+        submitError.textContent = 'Något gick fel: ' + (err.message || 'Okänt fel');
+        submitError.style.display = 'block';
+      }
+    });
+  </script>
+</body>
+</html>

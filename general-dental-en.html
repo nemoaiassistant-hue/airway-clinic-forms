@@ -1,0 +1,756 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Airway Clinic – General Dental Medical History</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    :root {
+      --bg: #f3f2f3;
+      --ink: #31305f;
+      --text: #4b4b63;
+      --muted: #6f6f7a;
+      --gold: #b99645;
+      --gold-hover: #d4b055;
+      --line: #6c6e88;
+      --box: #d9d9de;
+      --success: #2e7d32;
+      --error: #c62828;
+      --section-bg: #ebeaeb;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #e9e9ec;
+      font-family: Arial, sans-serif;
+      color: var(--text);
+      padding: 24px 16px;
+      min-height: 100vh;
+    }
+
+    .sheet {
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--bg);
+      border: 2px solid var(--line);
+      padding: 32px 34px 28px;
+    }
+
+    @media (max-width: 600px) {
+      .sheet { padding: 20px 18px 24px; }
+      h1 { font-size: 28px !important; }
+    }
+
+    .top {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 14px;
+    }
+
+    .logo-img {
+      height: 60px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    h1 {
+      margin: 12px 0 8px 0;
+      color: var(--ink);
+      font-size: 36px;
+      line-height: 1.1;
+      font-family: "Arial Narrow", Arial, sans-serif;
+      font-weight: 800;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: var(--muted);
+      font-size: 15px;
+      margin-bottom: 28px;
+      line-height: 1.5;
+    }
+
+    .section-note {
+      color: var(--muted);
+      font-size: 13px;
+      font-style: italic;
+      margin: 4px 0 12px 0;
+      padding: 0;
+    }
+
+    .section {
+      background: var(--section-bg);
+      border: 1px solid var(--box);
+      border-radius: 8px;
+      padding: 20px 22px;
+      margin-bottom: 20px;
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-title .emoji { font-size: 20px; }
+
+    .fields {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    @media (max-width: 600px) {
+      .fields { grid-template-columns: 1fr; }
+    }
+
+    .field { display: flex; flex-direction: column; margin-bottom: 4px; }
+    .field.full { grid-column: 1 / -1; }
+
+    .field label, .option-group > label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 5px;
+      line-height: 1.3;
+    }
+
+    .field input, .field textarea, .field select {
+      padding: 9px 12px;
+      font-size: 15px;
+      border: 2px solid var(--box);
+      border-radius: 4px;
+      background: #fff;
+      color: var(--text);
+      transition: border-color 0.2s;
+      font-family: inherit;
+    }
+    .field textarea { resize: vertical; min-height: 60px; }
+    .field input:focus, .field textarea:focus, .field select:focus {
+      outline: none;
+      border-color: var(--gold);
+    }
+    .field input.error, .field textarea.error {
+      border-color: var(--error);
+    }
+    .field .error-msg {
+      color: var(--error);
+      font-size: 11px;
+      margin-top: 3px;
+      display: none;
+    }
+
+    .option-group {
+      margin-bottom: 14px;
+    }
+    .option-group > label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+    .options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .options.vertical { flex-direction: column; gap: 6px; }
+
+    .opt-label {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 14px;
+      cursor: pointer;
+      padding: 4px 10px;
+      border-radius: 4px;
+      border: 1px solid var(--box);
+      background: #fff;
+      transition: all 0.15s;
+      line-height: 1.3;
+    }
+    .opt-label:hover {
+      border-color: var(--gold);
+      background: #faf6ef;
+    }
+    .opt-label input[type="radio"],
+    .opt-label input[type="checkbox"] {
+      accent-color: var(--gold);
+      width: 16px; height: 16px;
+      flex-shrink: 0;
+    }
+
+    .check-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+    @media (max-width: 600px) {
+      .check-grid { grid-template-columns: 1fr; }
+    }
+
+    .submit-wrap {
+      text-align: center;
+      margin-top: 24px;
+    }
+    .submit-btn {
+      background: var(--gold);
+      color: #fff;
+      border: none;
+      padding: 14px 48px;
+      font-size: 18px;
+      font-weight: 700;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s;
+      font-family: inherit;
+    }
+    .submit-btn:hover { background: var(--gold-hover); }
+    .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    .submit-error {
+      color: var(--error);
+      font-size: 14px;
+      margin-top: 12px;
+      display: none;
+    }
+
+    .success-msg {
+      display: none;
+      text-align: center;
+      padding: 40px 20px;
+    }
+    .success-msg .check {
+      font-size: 48px;
+      color: var(--success);
+      margin-bottom: 16px;
+    }
+    .success-msg h2 {
+      color: var(--ink);
+      font-size: 24px;
+      margin-bottom: 8px;
+    }
+    .success-msg p {
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    .foot {
+      margin-top: 20px;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="sheet">
+    <div class="top">
+      <img class="logo-img" src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/Z9UtrrCvJc8ObhTIILLF/media/697504ceeb392b3e880ee4d4.png" alt="Airway Clinic logo">
+    </div>
+
+    <h1>General Dental Medical History</h1>
+    <p class="subtitle">Airway Clinic Stockholm</p>
+
+    <form id="anamnes-form">
+
+      <!-- ===== SECTION 1: PATIENT DETAILS ===== -->
+      <div class="section">
+        <div class="section-title"><span class="emoji">👤</span> Patient Details</div>
+        <div class="fields">
+          <div class="field">
+            <label for="namn">Name *</label>
+            <input type="text" id="namn" name="namn" required placeholder="First and last name">
+          </div>
+          <div class="field">
+            <label for="fodelsedatum">Date of birth *</label>
+            <input type="date" id="fodelsedatum" name="fodelsedatum" required>
+          </div>
+          <div class="field">
+            <label for="phone">Phone *</label>
+            <input type="tel" id="phone" name="phone" required placeholder="Phone number">
+          </div>
+          <div class="field">
+            <label for="email">Email *</label>
+            <input type="email" id="email" name="email" required placeholder="your@email.com">
+          </div>
+          <div class="field">
+            <label for="adress">Address *</label>
+            <input type="text" id="adress" name="adress" required placeholder="Street, postcode, city">
+          </div>
+          <div class="field">
+            <label for="datum">Date *</label>
+            <input type="date" id="datum" name="datum" required>
+          </div>
+        </div>
+
+        <div class="option-group" style="margin-top: 14px;">
+          <label>Do you consent to your data being stored in our database? *</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="consent" value="yes" required> Yes</label>
+            <label class="opt-label"><input type="radio" name="consent" value="no"> No</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== SECTION 2: REASON FOR VISIT ===== -->
+      <div class="section">
+        <div class="section-title"><span class="emoji">🦷</span> Reason for Visit</div>
+        <div class="field full" style="margin-bottom:14px;">
+          <label for="reason">What brings you to the dentist today? *</label>
+          <textarea id="reason" name="reason" required placeholder="Describe your main concern or reason for visit"></textarea>
+        </div>
+        <div class="field full" style="margin-bottom:14px;">
+          <label for="pain_duration">If you have pain or discomfort, how long has it been a problem?</label>
+          <input type="text" id="pain_duration" name="pain_duration" placeholder="e.g., 3 days, 2 weeks, several months">
+        </div>
+        <div class="option-group">
+          <label>How would you rate any pain or discomfort?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="pain_level" value="none"> None</label>
+            <label class="opt-label"><input type="radio" name="pain_level" value="mild"> Mild</label>
+            <label class="opt-label"><input type="radio" name="pain_level" value="moderate"> Moderate</label>
+            <label class="opt-label"><input type="radio" name="pain_level" value="severe"> Severe</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== SECTION 3: MEDICAL CONDITIONS ===== -->
+      <div class="section">
+        <div class="section-title"><span class="emoji">❤️</span> Medical Conditions</div>
+        <p class="section-note">Check any conditions you have or have had in the past.</p>
+        <div class="check-grid">
+          <label class="opt-label"><input type="checkbox" name="conditions" value="heart_disease"> Heart disease</label>
+          <label class="opt-label"><input type="checkbox" name="conditions" value="high_bp"> High blood pressure</label>
+          <label class="opt-label"><input type="checkbox" name="conditions" value="diabetes"> Diabetes</label>
+          <label class="opt-label"><input type="checkbox" name="conditions" value="thyroid"> Thyroid condition</label>
+          <label class="opt-label"><input type="checkbox" name="conditions" value="asthma"> Asthma</label>
+          <label class="opt-label"><input type="checkbox" name="conditions" value="respiratory"> Other respiratory condition</label>
+          <label class="opt-label"><input type="checkbox" name="conditions" value="kidney"> Kidney disease</label>
+          <label class="opt-label"><input type="checkbox" name="conditions" value="liver"> Liver disease</label>
+          <label class="opt-label"><input type="checkbox" name="conditions" value="bleeding"> Bleeding disorder</label>
+          <label class="opt-label"><input type="checkbox" name="conditions" value="cancer"> Cancer / radiotherapy</label>
+          <label class="opt-label"><input type="checkbox" name="conditions" value="arthritis"> Arthritis</label>
+          <label class="opt-label"><input type="checkbox" name="conditions" value="stomach"> Stomach ulcer / acid reflux</label>
+          <label class="opt-label"><input type="checkbox" name="conditions" value="osteoporosis"> Osteoporosis</label>
+          <label class="opt-label"><input type="checkbox" name="conditions" value="epilepsy"> Epilepsy / seizures</label>
+          <label class="opt-label"><input type="checkbox" name="conditions" value="mental_health"> Anxiety / depression</label>
+          <label class="opt-label"><input type="checkbox" name="conditions" value="pregnant"> Pregnant</label>
+        </div>
+        <div class="field full" style="margin-top:14px;">
+          <label for="conditions_other">Other medical conditions not listed above:</label>
+          <textarea id="conditions_other" name="conditions_other" placeholder="Describe any other conditions"></textarea>
+        </div>
+      </div>
+
+      <!-- ===== SECTION 4: MEDICATIONS ===== -->
+      <div class="section">
+        <div class="section-title"><span class="emoji">💊</span> Medications</div>
+        <div class="field full" style="margin-bottom:14px;">
+          <label for="medications">Current medications (including over-the-counter and supplements):</label>
+          <textarea id="medications" name="medications" placeholder="List all medications and dosages"></textarea>
+        </div>
+        <div class="option-group">
+          <label>Are you currently taking any blood thinners?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="blood_thinners" value="yes"> Yes</label>
+            <label class="opt-label"><input type="radio" name="blood_thinners" value="no"> No</label>
+            <label class="opt-label"><input type="radio" name="blood_thinners" value="unsure"> Not sure</label>
+          </div>
+        </div>
+        <div class="option-group">
+          <label>Have you ever taken bisphosphonate medication (for osteoporosis)?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="bisphosphonates" value="yes"> Yes</label>
+            <label class="opt-label"><input type="radio" name="bisphosphonates" value="no"> No</label>
+            <label class="opt-label"><input type="radio" name="bisphosphonates" value="unsure"> Not sure</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== SECTION 5: ALLERGIES ===== -->
+      <div class="section">
+        <div class="section-title"><span class="emoji">⚠️</span> Allergies</div>
+        <div class="field full" style="margin-bottom:14px;">
+          <label for="allergies">Do you have any allergies? (medications, latex, foods, etc.)</label>
+          <textarea id="allergies" name="allergies" placeholder="List any allergies or write 'None'"></textarea>
+        </div>
+      </div>
+
+      <!-- ===== SECTION 6: DENTAL HISTORY ===== -->
+      <div class="section">
+        <div class="section-title"><span class="emoji">🦷</span> Dental History</div>
+        <div class="field" style="margin-bottom:14px;">
+          <label for="last_visit">When was your last dental visit?</label>
+          <input type="text" id="last_visit" name="last_visit" placeholder="e.g., 6 months ago, 2 years ago">
+        </div>
+        <div class="option-group">
+          <label>How often do you visit the dentist?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="visit_freq" value="6months"> Every 6 months</label>
+            <label class="opt-label"><input type="radio" name="visit_freq" value="yearly"> Yearly</label>
+            <label class="opt-label"><input type="radio" name="visit_freq" value="rarely"> Rarely / only when in pain</label>
+            <label class="opt-label"><input type="radio" name="visit_freq" value="never"> Never</label>
+          </div>
+        </div>
+        <p class="section-note">Check any that apply to you:</p>
+        <div class="check-grid">
+          <label class="opt-label"><input type="checkbox" name="dental_issues" value="fillings"> Previous fillings</label>
+          <label class="opt-label"><input type="checkbox" name="dental_issues" value="crowns"> Crowns or bridges</label>
+          <label class="opt-label"><input type="checkbox" name="dental_issues" value="root_canal"> Root canal treatment</label>
+          <label class="opt-label"><input type="checkbox" name="dental_issues" value="extractions"> Tooth extractions</label>
+          <label class="opt-label"><input type="checkbox" name="dental_issues" value="ortho"> Orthodontic treatment (braces)</label>
+          <label class="opt-label"><input type="checkbox" name="dental_issues" value="implants"> Dental implants</label>
+          <label class="opt-label"><input type="checkbox" name="dental_issues" value="jaw_clicking"> Jaw clicking / popping</label>
+          <label class="opt-label"><input type="checkbox" name="dental_issues" value="grinding"> Teeth grinding / clenching</label>
+          <label class="opt-label"><input type="checkbox" name="dental_issues" value="sensitivity"> Sensitivity to hot/cold/sweet</label>
+          <label class="opt-label"><input type="checkbox" name="dental_issues" value="bleeding_gums"> Bleeding gums</label>
+          <label class="opt-label"><input type="checkbox" name="dental_issues" value="dry_mouth"> Dry mouth</label>
+          <label class="opt-label"><input type="checkbox" name="dental_issues" value="bad_breath"> Persistent bad breath</label>
+          <label class="opt-label"><input type="checkbox" name="dental_issues" value="loose_teeth"> Loose teeth</label>
+          <label class="opt-label"><input type="checkbox" name="dental_issues" value="wisdom"> Wisdom tooth problems</label>
+        </div>
+        <div class="field full" style="margin-top:14px;">
+          <label for="dental_other">Any other dental concerns or history?</label>
+          <textarea id="dental_other" name="dental_other" placeholder="Describe"></textarea>
+        </div>
+      </div>
+
+      <!-- ===== SECTION 7: ORAL HYGIENE & LIFESTYLE ===== -->
+      <div class="section">
+        <div class="section-title"><span class="emoji">🪥</span> Oral Hygiene & Lifestyle</div>
+        <div class="option-group">
+          <label>How often do you brush your teeth?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="brushing" value="1day"> Once a day</label>
+            <label class="opt-label"><input type="radio" name="brushing" value="2day"> Twice a day</label>
+            <label class="opt-label"><input type="radio" name="brushing" value="3day"> Three times a day</label>
+            <label class="opt-label"><input type="radio" name="brushing" value="rarely"> Rarely</label>
+          </div>
+        </div>
+        <div class="option-group">
+          <label>Do you use dental floss or interdental brushes?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="flossing" value="daily"> Daily</label>
+            <label class="opt-label"><input type="radio" name="flossing" value="sometimes"> Sometimes</label>
+            <label class="opt-label"><input type="radio" name="flossing" value="no"> No</label>
+          </div>
+        </div>
+        <div class="option-group">
+          <label>Do you smoke or use tobacco products?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="smoking" value="never"> Never</label>
+            <label class="opt-label"><input type="radio" name="smoking" value="former"> Former smoker</label>
+            <label class="opt-label"><input type="radio" name="smoking" value="cigarettes"> Current cigarettes</label>
+            <label class="opt-label"><input type="radio" name="smoking" value="vaping"> Current vaping</label>
+          </div>
+        </div>
+        <div class="field full">
+          <label for="coffee">How many cups of coffee, tea, or staining drinks per day?</label>
+          <input type="text" id="coffee" name="coffee" placeholder="e.g., 2-3 cups">
+        </div>
+      </div>
+
+      <!-- ===== SECTION 8: DENTAL ANXIETY ===== -->
+      <div class="section">
+        <div class="section-title"><span class="emoji">😰</span> Dental Anxiety</div>
+        <div class="option-group">
+          <label>How do you feel about visiting the dentist?</label>
+          <div class="options vertical">
+            <label class="opt-label"><input type="radio" name="anxiety" value="relaxed"> Relaxed — no concerns</label>
+            <label class="opt-label"><input type="radio" name="anxiety" value="slightly"> Slightly nervous</label>
+            <label class="opt-label"><input type="radio" name="anxiety" value="anxious"> Anxious</label>
+            <label class="opt-label"><input type="radio" name="anxiety" value="very_anxious"> Very anxious / dental phobia</label>
+          </div>
+        </div>
+        <div class="field full">
+          <label for="anxiety_notes">If you feel nervous, what helps? Or any previous negative experiences?</label>
+          <textarea id="anxiety_notes" name="anxiety_notes" placeholder="Describe"></textarea>
+        </div>
+      </div>
+
+      <!-- ===== SECTION 9: EMERGENCY CONTACT ===== -->
+      <div class="section">
+        <div class="section-title"><span class="emoji">📞</span> Emergency Contact</div>
+        <div class="fields">
+          <div class="field">
+            <label for="emerg_name">Emergency contact name *</label>
+            <input type="text" id="emerg_name" name="emerg_name" required placeholder="Full name">
+          </div>
+          <div class="field">
+            <label for="emerg_phone">Emergency contact phone *</label>
+            <input type="tel" id="emerg_phone" name="emerg_phone" required placeholder="Phone number">
+          </div>
+          <div class="field">
+            <label for="emerg_relation">Relationship to patient *</label>
+            <input type="text" id="emerg_relation" name="emerg_relation" required placeholder="e.g., Parent, spouse, sibling">
+          </div>
+          <div class="field">
+            <label for="doctor">Do you have a GP / family doctor?</label>
+            <input type="text" id="doctor" name="doctor" placeholder="Doctor's name (optional)">
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== SECTION 10: ADDITIONAL NOTES ===== -->
+      <div class="section">
+        <div class="section-title"><span class="emoji">📝</span> Additional Notes</div>
+        <div class="field full">
+          <label for="ovrigt">Is there anything else you would like us to know?</label>
+          <textarea id="ovrigt" name="ovrigt" placeholder="Any additional information that may be helpful"></textarea>
+        </div>
+      </div>
+
+      <div class="submit-wrap">
+        <button type="submit" class="submit-btn" id="submitBtn">Submit History</button>
+        <div class="submit-error" id="submitError"></div>
+      </div>
+    </form>
+
+    <div class="success-msg" id="success">
+      <div class="check">✅</div>
+      <h2>Thank you!</h2>
+      <p>Your medical history has been submitted successfully.<br>We will contact you if we need any further information.</p>
+    </div>
+
+    <div class="foot">
+      🔒 Your information is handled confidentially in accordance with GDPR.<br>
+      Airway Clinic Stockholm · airwayclinic.se
+    </div>
+  </div>
+
+  <script>
+    // ====== Conditional "Other" fields ======
+    document.querySelectorAll('.other-field').forEach(el => {
+      const [name, val] = el.dataset.showWhen.split('=');
+      document.querySelectorAll(`input[name="${name}"]`).forEach(input => {
+        input.addEventListener('change', () => {
+          el.classList.toggle('visible', input.value === val && input.checked);
+        });
+      });
+    });
+
+    // ====== Form submission ======
+    const form = document.getElementById('anamnes-form');
+    const submitBtn = document.getElementById('submitBtn');
+    const submitError = document.getElementById('submitError');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Submitting...';
+      submitError.style.display = 'none';
+
+      try {
+        const formData = {};
+        new FormData(form).forEach((val, key) => {
+          if (formData[key]) {
+            if (!Array.isArray(formData[key])) formData[key] = [formData[key]];
+            formData[key].push(val);
+          } else {
+            formData[key] = val;
+          }
+        });
+
+        // Flatten arrays to comma-separated
+        Object.keys(formData).forEach(k => {
+          if (Array.isArray(formData[k])) formData[k] = formData[k].join(', ');
+        });
+
+        const [firstName, ...rest] = (formData.namn || '').split(' ');
+        const lastName = rest.join(' ');
+
+        // ====== Build PDF ======
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        const margin = 10;
+        const pageWidth = doc.internal.pageSize.getWidth();
+        const usable = pageWidth - margin * 2;
+        let y = 15;
+
+        function addText(text, fontSize, bold) {
+          doc.setFontSize(fontSize);
+          doc.setFont('helvetica', bold ? 'bold' : 'normal');
+          const lines = doc.splitTextToSize(text, usable);
+          lines.forEach(line => {
+            if (y > 280) { doc.addPage(); y = 15; }
+            doc.text(line, margin, y);
+            y += fontSize * 0.4 + 1;
+          });
+        }
+
+        // Header
+        doc.setFillColor(49, 48, 95);
+        doc.rect(0, 0, pageWidth, 22, 'F');
+        doc.setTextColor(255, 255, 255);
+        doc.setFontSize(16);
+        doc.setFont('helvetica', 'bold');
+        doc.text('Airway Clinic — General Dental Medical History', margin, 14);
+        doc.setTextColor(75, 75, 99);
+        y = 28;
+
+        const sections = [
+          {
+            title: 'Patient Details',
+            fields: [
+              { key: 'namn', q: 'Name' },
+              { key: 'fodelsedatum', q: 'Date of birth' },
+              { key: 'phone', q: 'Phone' },
+              { key: 'email', q: 'Email' },
+              { key: 'adress', q: 'Address' },
+              { key: 'datum', q: 'Date' },
+              { key: 'consent', q: 'Consent to data storage' },
+            ]
+          },
+          {
+            title: 'Reason for Visit',
+            fields: [
+              { key: 'reason', q: 'Main concern / reason for visit' },
+              { key: 'pain_duration', q: 'Duration of problem' },
+              { key: 'pain_level', q: 'Pain/discomfort level' },
+            ]
+          },
+          {
+            title: 'Medical Conditions',
+            fields: [
+              { key: 'conditions', q: 'Conditions (checked)' },
+              { key: 'conditions_other', q: 'Other conditions' },
+            ]
+          },
+          {
+            title: 'Medications',
+            fields: [
+              { key: 'medications', q: 'Current medications' },
+              { key: 'blood_thinners', q: 'Taking blood thinners?' },
+              { key: 'bisphosphonates', q: 'Taken bisphosphonates?' },
+            ]
+          },
+          {
+            title: 'Allergies',
+            fields: [
+              { key: 'allergies', q: 'Allergies' },
+            ]
+          },
+          {
+            title: 'Dental History',
+            fields: [
+              { key: 'last_visit', q: 'Last dental visit' },
+              { key: 'visit_freq', q: 'Visit frequency' },
+              { key: 'dental_issues', q: 'Dental issues (checked)' },
+              { key: 'dental_other', q: 'Other dental concerns' },
+            ]
+          },
+          {
+            title: 'Oral Hygiene & Lifestyle',
+            fields: [
+              { key: 'brushing', q: 'Brushing frequency' },
+              { key: 'flossing', q: 'Flossing' },
+              { key: 'smoking', q: 'Smoking/tobacco' },
+              { key: 'coffee', q: 'Coffee/tea/staining drinks' },
+            ]
+          },
+          {
+            title: 'Dental Anxiety',
+            fields: [
+              { key: 'anxiety', q: 'Anxiety level' },
+              { key: 'anxiety_notes', q: 'Anxiety notes' },
+            ]
+          },
+          {
+            title: 'Emergency Contact',
+            fields: [
+              { key: 'emerg_name', q: 'Emergency contact name' },
+              { key: 'emerg_phone', q: 'Emergency contact phone' },
+              { key: 'emerg_relation', q: 'Relationship' },
+              { key: 'doctor', q: 'GP / family doctor' },
+            ]
+          },
+          {
+            title: 'Additional Notes',
+            fields: [
+              { key: 'ovrigt', q: 'Additional information' },
+            ]
+          }
+        ];
+
+        sections.forEach(section => {
+          if (y + 12 > 280) { doc.addPage(); y = 15; }
+          doc.setFillColor(55, 183, 181);
+          doc.rect(margin, y, usable, 7, 'F');
+          doc.setTextColor(255, 255, 255);
+          doc.setFontSize(12);
+          doc.setFont('helvetica', 'bold');
+          doc.text(section.title, margin + 3, y + 5.5);
+          doc.setTextColor(75, 75, 99);
+          y += 12;
+
+          section.fields.forEach(f => {
+            const val = formData[f.key];
+            if (val === undefined || val === null || val === '') return;
+            const displayVal = String(val).replace(/_/g, ' ');
+            addText(f.q, 10, true);
+            addText(displayVal, 10, false);
+            y += 3;
+          });
+          y += 3;
+        });
+
+        const pdfBase64 = doc.output('datauristring').split(',')[1];
+
+        // ====== Build note lines ======
+        const noteLines = [];
+        sections.forEach(section => {
+          const relevant = section.fields
+            .map(f => ({ ...f, val: formData[f.key] }))
+            .filter(f => f.val !== undefined && f.val !== null && f.val !== '');
+          if (relevant.length === 0) return;
+          noteLines.push(`### ${section.title}`);
+          relevant.forEach(f => {
+            noteLines.push(`• ${f.q}: ${String(f.val).replace(/_/g, ' ')}`);
+          });
+        });
+
+        // ====== Submit to worker ======
+        const res = await fetch('https://airway-clinic-proxy.airwayclinicproxy.workers.dev/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            firstName: firstName || formData.email.split('@')[0],
+            lastName: lastName,
+            email: formData.email,
+            phone: formData.phone || '',
+            symptoms: noteLines,
+            _formType: 'general-dental-anamnes-en',
+            pdfBase64: pdfBase64
+          })
+        });
+
+        if (!res.ok) {
+          const errData = await res.json().catch(() => ({}));
+          throw new Error(errData.error || 'Could not submit');
+        }
+
+        form.style.display = 'none';
+        document.getElementById('success').style.display = 'block';
+
+      } catch (err) {
+        console.error('Submission error:', err);
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Submit History';
+        submitError.textContent = 'Something went wrong: ' + (err.message || 'Unknown error');
+        submitError.style.display = 'block';
+      }
+    });
+  </script>
+</body>
+</html>
