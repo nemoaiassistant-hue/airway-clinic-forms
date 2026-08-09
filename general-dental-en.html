@@ -289,7 +289,7 @@
             <input type="text" id="adress" name="adress" required placeholder="Street, postcode, city">
           </div>
           <div class="field">
-            <label for="datum">Date *</label>
+            <label for="datum">Today's date *</label>
             <input type="date" id="datum" name="datum" required>
           </div>
         </div>
@@ -307,8 +307,8 @@
       <div class="section">
         <div class="section-title"><span class="emoji">🦷</span> Reason for Visit</div>
         <div class="field full" style="margin-bottom:14px;">
-          <label for="reason">What brings you to the dentist today? *</label>
-          <textarea id="reason" name="reason" required placeholder="Describe your main concern or reason for visit"></textarea>
+          <label for="reason">What brings you to the dentist today?</label>
+          <input type="text" id="reason" name="reason" placeholder="e.g., Routine check-up, toothache, cleaning">
         </div>
         <div class="field full" style="margin-bottom:14px;">
           <label for="pain_duration">If you have pain or discomfort, how long has it been a problem?</label>
@@ -351,6 +351,10 @@
           <label for="conditions_other">Other medical conditions not listed above:</label>
           <textarea id="conditions_other" name="conditions_other" placeholder="Describe any other conditions"></textarea>
         </div>
+        <div class="field full" style="margin-top:14px;">
+          <label for="doctor">Do you have a GP / family doctor?</label>
+          <input type="text" id="doctor" name="doctor" placeholder="Doctor's name (optional)">
+        </div>
       </div>
 
       <!-- ===== SECTION 4: MEDICATIONS ===== -->
@@ -369,7 +373,7 @@
           </div>
         </div>
         <div class="option-group">
-          <label>Have you ever taken bisphosphonate medication (for osteoporosis)?</label>
+          <label>Have you ever taken medication for osteoporosis (bone loss)?</label>
           <div class="options">
             <label class="opt-label"><input type="radio" name="bisphosphonates" value="yes"> Yes</label>
             <label class="opt-label"><input type="radio" name="bisphosphonates" value="no"> No</label>
@@ -455,10 +459,6 @@
             <label class="opt-label"><input type="radio" name="smoking" value="vaping"> Current vaping</label>
           </div>
         </div>
-        <div class="field full">
-          <label for="coffee">How many cups of coffee, tea, or staining drinks per day?</label>
-          <input type="text" id="coffee" name="coffee" placeholder="e.g., 2-3 cups">
-        </div>
       </div>
 
       <!-- ===== SECTION 8: DENTAL ANXIETY ===== -->
@@ -474,7 +474,7 @@
           </div>
         </div>
         <div class="field full">
-          <label for="anxiety_notes">If you feel nervous, what helps? Or any previous negative experiences?</label>
+          <label for="anxiety_notes">Is there anything that would make you more comfortable during your visit?</label>
           <textarea id="anxiety_notes" name="anxiety_notes" placeholder="Describe"></textarea>
         </div>
       </div>
@@ -494,10 +494,6 @@
           <div class="field">
             <label for="emerg_relation">Relationship to patient *</label>
             <input type="text" id="emerg_relation" name="emerg_relation" required placeholder="e.g., Parent, spouse, sibling">
-          </div>
-          <div class="field">
-            <label for="doctor">Do you have a GP / family doctor?</label>
-            <input type="text" id="doctor" name="doctor" placeholder="Doctor's name (optional)">
           </div>
         </div>
       </div>
@@ -625,6 +621,7 @@
             fields: [
               { key: 'conditions', q: 'Conditions (checked)' },
               { key: 'conditions_other', q: 'Other conditions' },
+              { key: 'doctor', q: 'GP / family doctor' },
             ]
           },
           {
@@ -656,7 +653,6 @@
               { key: 'brushing', q: 'Brushing frequency' },
               { key: 'flossing', q: 'Flossing' },
               { key: 'smoking', q: 'Smoking/tobacco' },
-              { key: 'coffee', q: 'Coffee/tea/staining drinks' },
             ]
           },
           {
@@ -672,7 +668,6 @@
               { key: 'emerg_name', q: 'Emergency contact name' },
               { key: 'emerg_phone', q: 'Emergency contact phone' },
               { key: 'emerg_relation', q: 'Relationship' },
-              { key: 'doctor', q: 'GP / family doctor' },
             ]
           },
           {

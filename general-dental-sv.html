@@ -289,7 +289,7 @@
             <input type="text" id="adress" name="adress" required placeholder="Gata, postnummer, ort">
           </div>
           <div class="field">
-            <label for="datum">Datum *</label>
+            <label for="datum">Dagens datum *</label>
             <input type="date" id="datum" name="datum" required>
           </div>
         </div>
@@ -307,8 +307,8 @@
       <div class="section">
         <div class="section-title"><span class="emoji">🦷</span> Besöksanledning</div>
         <div class="field full" style="margin-bottom:14px;">
-          <label for="reason">Vad har fört dig till tandläkaren idag? *</label>
-          <textarea id="reason" name="reason" required placeholder="Beskriv ditt huvudsakliga besvär eller anledning till besöket"></textarea>
+          <label for="reason">Vad har fört dig till tandläkaren idag?</label>
+          <input type="text" id="reason" name="reason" placeholder="t.ex. Rutinkontroll, tandvärk, rengöring">
         </div>
         <div class="field full" style="margin-bottom:14px;">
           <label for="pain_duration">Om du har smärta eller obehag, hur länge har det varit ett problem?</label>
@@ -351,6 +351,10 @@
           <label for="conditions_other">Andra sjukdomar som inte listas ovan:</label>
           <textarea id="conditions_other" name="conditions_other" placeholder="Beskriv andra sjukdomar"></textarea>
         </div>
+        <div class="field full" style="margin-top:14px;">
+          <label for="doctor">Har du en husläkare?</label>
+          <input type="text" id="doctor" name="doctor" placeholder="Läkarens namn (valfritt)">
+        </div>
       </div>
 
       <!-- ===== AVSNITT 4: LÄKEMEDEL ===== -->
@@ -369,7 +373,7 @@
           </div>
         </div>
         <div class="option-group">
-          <label>Har du någonsin tagit bisfosfonatläkemedel (mot benskörhet)?</label>
+          <label>Har du någonsin tagit läkemedel mot benskörhet?</label>
           <div class="options">
             <label class="opt-label"><input type="radio" name="bisphosphonates" value="yes"> Ja</label>
             <label class="opt-label"><input type="radio" name="bisphosphonates" value="no"> Nej</label>
@@ -455,10 +459,6 @@
             <label class="opt-label"><input type="radio" name="smoking" value="vaping"> Vaping/e-cigaretter</label>
           </div>
         </div>
-        <div class="field full">
-          <label for="coffee">Hur många koppar kaffe, te eller andra färgande drycker per dag?</label>
-          <input type="text" id="coffee" name="coffee" placeholder="t.ex. 2-3 koppar">
-        </div>
       </div>
 
       <!-- ===== AVSNITT 8: TANDVÅRDSORO ===== -->
@@ -474,7 +474,7 @@
           </div>
         </div>
         <div class="field full">
-          <label for="anxiety_notes">Om du känner dig nervös, vad hjälper? Ellra tidigare negativa upplevelser?</label>
+          <label for="anxiety_notes">Finns det något som skulle göra dig mer bekväm under ditt besök?</label>
           <textarea id="anxiety_notes" name="anxiety_notes" placeholder="Beskriv"></textarea>
         </div>
       </div>
@@ -494,10 +494,6 @@
           <div class="field">
             <label for="emerg_relation">Relation till patient *</label>
             <input type="text" id="emerg_relation" name="emerg_relation" required placeholder="t.ex. Förälder, partner, syskon">
-          </div>
-          <div class="field">
-            <label for="doctor">Har du en husläkare?</label>
-            <input type="text" id="doctor" name="doctor" placeholder="Läkarens namn (valfritt)">
           </div>
         </div>
       </div>
@@ -614,6 +610,7 @@
             fields: [
               { key: 'conditions', q: 'Sjukdomar (kryssade)' },
               { key: 'conditions_other', q: 'Andra sjukdomar' },
+              { key: 'doctor', q: 'Husläkare' },
             ]
           },
           {
@@ -645,7 +642,6 @@
               { key: 'brushing', q: 'Borstningsfrekvens' },
               { key: 'flossing', q: 'Tandtråd' },
               { key: 'smoking', q: 'Rökning/tobak' },
-              { key: 'coffee', q: 'Kaffe/te/färgande drycker' },
             ]
           },
           {
@@ -661,7 +657,6 @@
               { key: 'emerg_name', q: 'Nödkontaktnamn' },
               { key: 'emerg_phone', q: 'Nödkontakt telefon' },
               { key: 'emerg_relation', q: 'Relation' },
-              { key: 'doctor', q: 'Husläkare' },
             ]
           },
           {
