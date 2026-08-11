@@ -331,7 +331,7 @@
         <p class="section-note">Kryssa för sjukdomar du har eller har haft tidigare.</p>
         <div class="check-grid">
           <label class="opt-label"><input type="checkbox" name="conditions" value="heart_disease"> Hjärtsjukdom</label>
-          <label class="opt-label"><input type="checkbox" name="conditions" value="high_bp"> Hög blodtryck</label>
+          <label class="opt-label"><input type="checkbox" name="conditions" value="high_bp"> Högt blodtryck</label>
           <label class="opt-label"><input type="checkbox" name="conditions" value="diabetes"> Diabetes</label>
           <label class="opt-label"><input type="checkbox" name="conditions" value="thyroid"> Sköldkörtelsjukdom</label>
           <label class="opt-label"><input type="checkbox" name="conditions" value="asthma"> Astma</label>
@@ -349,7 +349,7 @@
         </div>
         <div class="field full" style="margin-top:14px;">
           <label for="conditions_other">Andra sjukdomar som inte listas ovan:</label>
-          <textarea id="conditions_other" name="conditions_other" placeholder="Beskriv andra sjukdomar"></textarea>
+          <textarea id="conditions_other" name="conditions_other" placeholder="Beskriv andra sjukdomar..."></textarea>
         </div>
         <div class="field full" style="margin-top:14px;">
           <label for="doctor">Har du en husläkare?</label>
@@ -426,7 +426,7 @@
         </div>
         <div class="field full" style="margin-top:14px;">
           <label for="dental_other">Några andra tandproblem eller historik?</label>
-          <textarea id="dental_other" name="dental_other" placeholder="Beskriv"></textarea>
+          <textarea id="dental_other" name="dental_other" placeholder="Beskriv..."></textarea>
         </div>
       </div>
 
@@ -456,7 +456,7 @@
             <label class="opt-label"><input type="radio" name="smoking" value="never"> Aldrig</label>
             <label class="opt-label"><input type="radio" name="smoking" value="former"> Tidigare rökare</label>
             <label class="opt-label"><input type="radio" name="smoking" value="cigarettes"> Rökare (cigaretter)</label>
-            <label class="opt-label"><input type="radio" name="smoking" value="vaping"> Vaping/e-cigaretter</label>
+            <label class="opt-label"><input type="radio" name="smoking" value="vaping"> E-cigaretter</label>
           </div>
         </div>
       </div>
@@ -475,7 +475,7 @@
         </div>
         <div class="field full">
           <label for="anxiety_notes">Finns det något som skulle göra dig mer bekväm under ditt besök?</label>
-          <textarea id="anxiety_notes" name="anxiety_notes" placeholder="Beskriv"></textarea>
+          <textarea id="anxiety_notes" name="anxiety_notes" placeholder="Beskriv..."></textarea>
         </div>
       </div>
 
@@ -503,7 +503,7 @@
         <div class="section-title"><span class="emoji">📝</span> Ytterligare anteckningar</div>
         <div class="field full">
           <label for="ovrigt">Finns det något mer du vill att vi ska veta?</label>
-          <textarea id="ovrigt" name="ovrigt" placeholder="Ytterligare information som kan vara till hjälp"></textarea>
+          <textarea id="ovrigt" name="ovrigt" placeholder="Ytterligare information som kan vara till hjälp..."></textarea>
         </div>
       </div>
 
@@ -721,7 +721,7 @@
 
         if (!res.ok) {
           const errData = await res.json().catch(() => ({}));
-          throw new Error(errData.error || 'Could not submit');
+          throw new Error(errData.error || 'Kunde inte skicka');
         }
 
         form.style.display = 'none';
