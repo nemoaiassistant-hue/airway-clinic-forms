@@ -340,7 +340,7 @@
           <label class="opt-label"><input type="checkbox" name="conditions" value="liver"> Leversjukdom</label>
           <label class="opt-label"><input type="checkbox" name="conditions" value="bleeding"> Blödningsrubbning</label>
           <label class="opt-label"><input type="checkbox" name="conditions" value="cancer"> Cancer / strålbehandling</label>
-          <label class="opt-label"><input type="checkbox" name="conditions" value="arthritis"> Ledgångsreumatism</label>
+          <label class="opt-label"><input type="checkbox" name="conditions" value="arthritis"> Artrit / Hypermobilitet</label>
           <label class="opt-label"><input type="checkbox" name="conditions" value="stomach"> Magsår / sura uppstötningar</label>
           <label class="opt-label"><input type="checkbox" name="conditions" value="osteoporosis"> Benskörhet</label>
           <label class="opt-label"><input type="checkbox" name="conditions" value="epilepsy"> Epilepsi / kramper</label>
@@ -350,10 +350,6 @@
         <div class="field full" style="margin-top:14px;">
           <label for="conditions_other">Andra sjukdomar som inte listas ovan:</label>
           <textarea id="conditions_other" name="conditions_other" placeholder="Beskriv andra sjukdomar..."></textarea>
-        </div>
-        <div class="field full" style="margin-top:14px;">
-          <label for="doctor">Har du en husläkare?</label>
-          <input type="text" id="doctor" name="doctor" placeholder="Läkarens namn (valfritt)">
         </div>
       </div>
 
@@ -395,7 +391,7 @@
       <div class="section">
         <div class="section-title"><span class="emoji">🦷</span> Tandvårdshistorik</div>
         <div class="field" style="margin-bottom:14px;">
-          <label for="last_visit">När var ditt senaste tandläkarbesök?</label>
+          <label for="last_visit">När var din senaste tandläkarundersökning?</label>
           <input type="text" id="last_visit" name="last_visit" placeholder="t.ex. för 6 månader sedan, för 2 år sedan">
         </div>
         <div class="option-group">
@@ -427,6 +423,10 @@
         <div class="field full" style="margin-top:14px;">
           <label for="dental_other">Några andra tandproblem eller historik?</label>
           <textarea id="dental_other" name="dental_other" placeholder="Beskriv..."></textarea>
+        </div>
+        <div class="field full" style="margin-top:14px;">
+          <label for="dental_explain">Förklara kryssrutorna ovan:</label>
+          <textarea id="dental_explain" name="dental_explain" placeholder="Ge mer detaljer om det du kryssat för..."></textarea>
         </div>
       </div>
 
@@ -610,7 +610,6 @@
             fields: [
               { key: 'conditions', q: 'Sjukdomar (kryssade)' },
               { key: 'conditions_other', q: 'Andra sjukdomar' },
-              { key: 'doctor', q: 'Husläkare' },
             ]
           },
           {
@@ -630,10 +629,11 @@
           {
             title: 'Tandvårdshistorik',
             fields: [
-              { key: 'last_visit', q: 'Senaste tandläkarbesök' },
+              { key: 'last_visit', q: 'Senaste tandläkarundersökning' },
               { key: 'visit_freq', q: 'Besöksfrekvens' },
               { key: 'dental_issues', q: 'Tandproblem (kryssade)' },
               { key: 'dental_other', q: 'Andra tandproblem' },
+              { key: 'dental_explain', q: 'Förklaring av kryssrutor' },
             ]
           },
           {
