@@ -351,6 +351,10 @@
           <label for="conditions_other">Other medical conditions not listed above:</label>
           <textarea id="conditions_other" name="conditions_other" placeholder="Describe any other conditions"></textarea>
         </div>
+        <div class="field full" style="margin-top:14px;">
+          <label for="conditions_explain">Explain any ticked boxes above:</label>
+          <textarea id="conditions_explain" name="conditions_explain" placeholder="Provide more detail about anything you ticked..."></textarea>
+        </div>
       </div>
 
       <!-- ===== SECTION 4: MEDICATIONS ===== -->
@@ -423,10 +427,6 @@
         <div class="field full" style="margin-top:14px;">
           <label for="dental_other">Any other dental concerns or history?</label>
           <textarea id="dental_other" name="dental_other" placeholder="Describe..."></textarea>
-        </div>
-        <div class="field full" style="margin-top:14px;">
-          <label for="dental_explain">Explain any ticked boxes above:</label>
-          <textarea id="dental_explain" name="dental_explain" placeholder="Provide more detail about anything you ticked..."></textarea>
         </div>
       </div>
 
@@ -621,6 +621,7 @@
             fields: [
               { key: 'conditions', q: 'Conditions (checked)' },
               { key: 'conditions_other', q: 'Other conditions' },
+              { key: 'conditions_explain', q: 'Explanation of ticked boxes' },
             ]
           },
           {
@@ -644,7 +645,6 @@
               { key: 'visit_freq', q: 'Visit frequency' },
               { key: 'dental_issues', q: 'Dental issues (checked)' },
               { key: 'dental_other', q: 'Other dental concerns' },
-              { key: 'dental_explain', q: 'Explanation of ticked boxes' },
             ]
           },
           {

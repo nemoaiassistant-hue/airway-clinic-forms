@@ -351,6 +351,10 @@
           <label for="conditions_other">Andra sjukdomar som inte listas ovan:</label>
           <textarea id="conditions_other" name="conditions_other" placeholder="Beskriv andra sjukdomar..."></textarea>
         </div>
+        <div class="field full" style="margin-top:14px;">
+          <label for="conditions_explain">Förklara kryssrutorna ovan:</label>
+          <textarea id="conditions_explain" name="conditions_explain" placeholder="Ge mer detaljer om det du kryssat för..."></textarea>
+        </div>
       </div>
 
       <!-- ===== AVSNITT 4: LÄKEMEDEL ===== -->
@@ -423,10 +427,6 @@
         <div class="field full" style="margin-top:14px;">
           <label for="dental_other">Några andra tandproblem eller historik?</label>
           <textarea id="dental_other" name="dental_other" placeholder="Beskriv..."></textarea>
-        </div>
-        <div class="field full" style="margin-top:14px;">
-          <label for="dental_explain">Förklara kryssrutorna ovan:</label>
-          <textarea id="dental_explain" name="dental_explain" placeholder="Ge mer detaljer om det du kryssat för..."></textarea>
         </div>
       </div>
 
@@ -610,6 +610,7 @@
             fields: [
               { key: 'conditions', q: 'Sjukdomar (kryssade)' },
               { key: 'conditions_other', q: 'Andra sjukdomar' },
+              { key: 'conditions_explain', q: 'Förklaring av kryssrutor' },
             ]
           },
           {
@@ -633,7 +634,6 @@
               { key: 'visit_freq', q: 'Besöksfrekvens' },
               { key: 'dental_issues', q: 'Tandproblem (kryssade)' },
               { key: 'dental_other', q: 'Andra tandproblem' },
-              { key: 'dental_explain', q: 'Förklaring av kryssrutor' },
             ]
           },
           {
