@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="sv">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Airway Clinic – Tandläkarhistorik</title>
+  <title>Airway Clinic – Komplett Hälsodokumentation</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <style>
     :root {
@@ -40,7 +40,7 @@
 
     @media (max-width: 600px) {
       .sheet { padding: 20px 18px 24px; }
-      h1 { font-size: 28px !important; }
+      h1 { font-size: 26px !important; }
     }
 
     .top {
@@ -59,7 +59,7 @@
     h1 {
       margin: 12px 0 8px 0;
       color: var(--ink);
-      font-size: 36px;
+      font-size: 34px;
       line-height: 1.1;
       font-family: "Arial Narrow", Arial, sans-serif;
       font-weight: 800;
@@ -71,8 +71,17 @@
       text-align: center;
       color: var(--muted);
       font-size: 15px;
+      margin-bottom: 8px;
+      line-height: 1.5;
+    }
+
+    .form-intro {
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
       margin-bottom: 28px;
       line-height: 1.5;
+      font-style: italic;
     }
 
     .section-note {
@@ -139,15 +148,6 @@
       outline: none;
       border-color: var(--gold);
     }
-    .field input.error, .field textarea.error {
-      border-color: var(--error);
-    }
-    .field .error-msg {
-      color: var(--error);
-      font-size: 11px;
-      margin-top: 3px;
-      display: none;
-    }
 
     .option-group {
       margin-bottom: 14px;
@@ -196,6 +196,32 @@
     @media (max-width: 600px) {
       .check-grid { grid-template-columns: 1fr; }
     }
+
+    .yn-group {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+    .yn-group .yn-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ink);
+      flex: 1;
+      line-height: 1.4;
+      padding-top: 5px;
+    }
+    .yn-group .yn-opts {
+      display: flex;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+    .yn-detail {
+      display: none;
+      margin-bottom: 14px;
+      margin-left: 0;
+    }
+    .yn-detail.visible { display: block; }
 
     .submit-wrap {
       text-align: center;
@@ -256,25 +282,34 @@
 <body>
   <div class="sheet">
     <div class="top">
-      <img class="logo-img" src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/Z9UtrrCvJc8ObhTIILLF/media/697504ceeb392b3e880ee4d4.png" alt="Airway Clinic logotyp">
+      <img class="logo-img" src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/Z9UtrrCvJc8ObhTIILLF/media/697504ceeb392b3e880ee4d4.png" alt="Airway Clinic logo">
     </div>
 
-    <h1>Tandläkarhistorik</h1>
+    <h1>Komplett Hälsodokumentation</h1>
     <p class="subtitle">Airway Clinic Stockholm</p>
+    <p class="form-intro">Komplett dokumentation av tand-, luftvägs-, sömn-, käkleds- och muskuloskeletala hälsa</p>
 
     <form id="anamnes-form">
 
-      <!-- ===== AVSNITT 1: PATIENTUPPGIFTER ===== -->
+      <!-- ===== SECTION 1: PERSONAL DETAILS ===== -->
       <div class="section">
-        <div class="section-title"><span class="emoji">👤</span> Patientuppgifter</div>
+        <div class="section-title"><span class="emoji">👤</span> Personuppgifter</div>
         <div class="fields">
           <div class="field">
-            <label for="namn">Namn *</label>
+            <label for="namn">Fullständigt namn *</label>
             <input type="text" id="namn" name="namn" required placeholder="För- och efternamn">
+          </div>
+          <div class="field">
+            <label for="preferred_name">Smeknamn/Företrädesnamn</label>
+            <input type="text" id="preferred_name" name="preferred_name" placeholder="Vad ska vi kalla dig?">
           </div>
           <div class="field">
             <label for="fodelsedatum">Födelsedatum *</label>
             <input type="date" id="fodelsedatum" name="fodelsedatum" required>
+          </div>
+          <div class="field">
+            <label for="pronouns">Pronomen (valfritt)</label>
+            <input type="text" id="pronouns" name="pronouns" placeholder="t.ex. hon/henne, han/honom, hen/henom">
           </div>
           <div class="field">
             <label for="phone">Telefon *</label>
@@ -282,16 +317,48 @@
           </div>
           <div class="field">
             <label for="email">E-post *</label>
-            <input type="email" id="email" name="email" required placeholder="din@email.com">
+            <input type="email" id="email" name="email" required placeholder="din@epost.se">
           </div>
           <div class="field">
             <label for="adress">Adress *</label>
-            <input type="text" id="adress" name="adress" required placeholder="Gata, postnummer, ort">
+            <input type="text" id="adress" name="adress" required placeholder="Gatuadress, postnummer, ort">
+          </div>
+          <div class="field">
+            <label for="occupation">Yrke</label>
+            <input type="text" id="occupation" name="occupation" placeholder="Ditt yrke">
           </div>
           <div class="field">
             <label for="datum">Dagens datum *</label>
             <input type="date" id="datum" name="datum" required>
           </div>
+          <div class="field">
+            <label for="referral">Hur hittade du oss?</label>
+            <input type="text" id="referral" name="referral" placeholder="t.ex. vän, Google, remiss">
+          </div>
+        </div>
+
+        <div class="fields" style="margin-top: 14px;">
+          <div class="field">
+            <label for="doctor">Allmänläkare</label>
+            <input type="text" id="doctor" name="doctor" placeholder="Läkarens namn">
+          </div>
+          <div class="field">
+            <label for="doctor_phone">Läkarens telefon</label>
+            <input type="tel" id="doctor_phone" name="doctor_phone" placeholder="Telefonnummer">
+          </div>
+          <div class="field">
+            <label for="prev_dentist">Tidigare tandläkare</label>
+            <input type="text" id="prev_dentist" name="prev_dentist" placeholder="Klinik eller tandläkarens namn">
+          </div>
+          <div class="field">
+            <label for="last_visit">Senaste tandläkarundersökning</label>
+            <input type="text" id="last_visit" name="last_visit" placeholder="t.ex. 6 månader sedan, 2 år sedan">
+          </div>
+        </div>
+
+        <div class="field full" style="margin-top: 14px;">
+          <label for="reason">Huvudsaklig anledning till dagens besök</label>
+          <textarea id="reason" name="reason" placeholder="t.ex. rutinkontroll, tandvärk, konsultation, rengöring"></textarea>
         </div>
 
         <div class="option-group" style="margin-top: 14px;">
@@ -303,69 +370,94 @@
         </div>
       </div>
 
-      <!-- ===== AVSNITT 2: BESÖKSANLEDNING ===== -->
+      <!-- ===== SECTION 2: GENERAL MEDICAL HISTORY ===== -->
       <div class="section">
-        <div class="section-title"><span class="emoji">🦷</span> Besöksanledning</div>
-        <div class="field full" style="margin-bottom:14px;">
-          <label for="reason">Vad är anledningen till ditt besök idag?</label>
-          <input type="text" id="reason" name="reason" placeholder="t.ex. Rutinkontroll, tandvärk, rengöring">
-        </div>
-        <div class="field full" style="margin-bottom:14px;">
-          <label for="pain_duration">Om du har smärta eller obehag, hur länge har det varit ett problem?</label>
-          <input type="text" id="pain_duration" name="pain_duration" placeholder="t.ex. 3 dagar, 2 veckor, flera månader">
-        </div>
-        <div class="option-group">
-          <label>Hur skulle du bedöma eventuell smärta eller obehag?</label>
-          <div class="options">
-            <label class="opt-label"><input type="radio" name="pain_level" value="none"> Ingen</label>
-            <label class="opt-label"><input type="radio" name="pain_level" value="mild"> Lätt</label>
-            <label class="opt-label"><input type="radio" name="pain_level" value="moderate"> Måttligt</label>
-            <label class="opt-label"><input type="radio" name="pain_level" value="severe"> Svårt</label>
-          </div>
-        </div>
-      </div>
+        <div class="section-title"><span class="emoji">❤️</span> Allmän sjukdomshistoria</div>
 
-      <!-- ===== AVSNITT 3: SJUKDOMAR ===== -->
-      <div class="section">
-        <div class="section-title"><span class="emoji">❤️</span> Sjukdomar</div>
-        <p class="section-note">Kryssa för sjukdomar du har eller har haft tidigare.</p>
+        <div class="yn-group" id="yn-under_care">
+          <span class="yn-label">Får du för närvarande medicinsk vård?</span>
+          <span class="yn-opts">
+            <label class="opt-label"><input type="radio" name="under_care" value="no"> Nej</label>
+            <label class="opt-label"><input type="radio" name="under_care" value="yes"> Ja</label>
+          </span>
+        </div>
+        <div class="yn-detail" id="detail-under_care">
+          <div class="field full"><textarea name="under_care_detail" placeholder="Förklara..."></textarea></div>
+        </div>
+
+        <div class="yn-group" id="yn-hospitalised">
+          <span class="yn-label">Har du någonsin varit inneliggande på sjukhus eller genomgått en större operation?</span>
+          <span class="yn-opts">
+            <label class="opt-label"><input type="radio" name="hospitalised" value="no"> Nej</label>
+            <label class="opt-label"><input type="radio" name="hospitalised" value="yes"> Ja</label>
+          </span>
+        </div>
+        <div class="yn-detail" id="detail-hospitalised">
+          <div class="field full"><textarea name="hospitalised_detail" placeholder="Lämna detaljer..."></textarea></div>
+        </div>
+
+        <div class="yn-group" id="yn-recent_illness">
+          <span class="yn-label">Har du haft någon nyligare sjukdom, skada, operation eller betydande hälsoförändring?</span>
+          <span class="yn-opts">
+            <label class="opt-label"><input type="radio" name="recent_illness" value="no"> Nej</label>
+            <label class="opt-label"><input type="radio" name="recent_illness" value="yes"> Ja</label>
+          </span>
+        </div>
+        <div class="yn-detail" id="detail-recent_illness">
+          <div class="field full"><textarea name="recent_illness_detail" placeholder="Lämna detaljer..."></textarea></div>
+        </div>
+
+        <div class="yn-group" id="yn-anaesthetic">
+          <span class="yn-label">Har du någonsin haft en ovanlig reaktion på lokalbedövning eller sedering?</span>
+          <span class="yn-opts">
+            <label class="opt-label"><input type="radio" name="anaesthetic" value="no"> Nej</label>
+            <label class="opt-label"><input type="radio" name="anaesthetic" value="yes"> Ja</label>
+          </span>
+        </div>
+        <div class="yn-detail" id="detail-anaesthetic">
+          <div class="field full"><textarea name="anaesthetic_detail" placeholder="Lämna detaljer..."></textarea></div>
+        </div>
+
+        <p class="section-note" style="margin-top: 16px;">Kryssa för eventuella tillstånd du har eller har haft:</p>
         <div class="check-grid">
           <label class="opt-label"><input type="checkbox" name="conditions" value="heart_disease"> Hjärtsjukdom</label>
           <label class="opt-label"><input type="checkbox" name="conditions" value="high_bp"> Högt blodtryck</label>
           <label class="opt-label"><input type="checkbox" name="conditions" value="diabetes"> Diabetes</label>
           <label class="opt-label"><input type="checkbox" name="conditions" value="thyroid"> Sköldkörtelsjukdom</label>
           <label class="opt-label"><input type="checkbox" name="conditions" value="asthma"> Astma</label>
-          <label class="opt-label"><input type="checkbox" name="conditions" value="respiratory"> Annan lungsjukdom</label>
+          <label class="opt-label"><input type="checkbox" name="conditions" value="respiratory"> Annan luftvägssjukdom</label>
           <label class="opt-label"><input type="checkbox" name="conditions" value="kidney"> Njursjukdom</label>
           <label class="opt-label"><input type="checkbox" name="conditions" value="liver"> Leversjukdom</label>
-          <label class="opt-label"><input type="checkbox" name="conditions" value="bleeding"> Blödningsrubbning</label>
+          <label class="opt-label"><input type="checkbox" name="conditions" value="bleeding"> Blödarsjukdom</label>
           <label class="opt-label"><input type="checkbox" name="conditions" value="cancer"> Cancer / strålbehandling</label>
           <label class="opt-label"><input type="checkbox" name="conditions" value="arthritis"> Artrit / Hypermobilitet</label>
-          <label class="opt-label"><input type="checkbox" name="conditions" value="stomach"> Magsår / sura uppstötningar</label>
+          <label class="opt-label"><input type="checkbox" name="conditions" value="stomach"> Magsår / syraåterflöde</label>
           <label class="opt-label"><input type="checkbox" name="conditions" value="osteoporosis"> Benskörhet</label>
           <label class="opt-label"><input type="checkbox" name="conditions" value="epilepsy"> Epilepsi / kramper</label>
           <label class="opt-label"><input type="checkbox" name="conditions" value="mental_health"> Ångest / depression</label>
-          <label class="opt-label"><input type="checkbox" name="conditions" value="pregnant"> Gravid</label>
+          <label class="opt-label"><input type="checkbox" name="conditions" value="autoimmune"> Autoimmun / inflammatorisk</label>
+          <label class="opt-label"><input type="checkbox" name="conditions" value="neurological"> Neurologisk sjukdom</label>
+          <label class="opt-label"><input type="checkbox" name="conditions" value="pregnant"> För närvarande gravid</label>
         </div>
         <div class="field full" style="margin-top:14px;">
-          <label for="conditions_other">Andra sjukdomar som inte listas ovan:</label>
-          <textarea id="conditions_other" name="conditions_other" placeholder="Beskriv andra sjukdomar..."></textarea>
+          <label for="conditions_other">Andra sjukdomstillstånd som inte listas ovan:</label>
+          <textarea id="conditions_other" name="conditions_other" placeholder="Beskriv andra tillstånd"></textarea>
         </div>
         <div class="field full" style="margin-top:14px;">
-          <label for="conditions_explain">Förklara kryssrutorna ovan:</label>
-          <textarea id="conditions_explain" name="conditions_explain" placeholder="Ge mer detaljer om det du kryssat för..."></textarea>
+          <label for="conditions_explain">Förklara eventuella ikryssade rutor ovan:</label>
+          <textarea id="conditions_explain" name="conditions_explain" placeholder="Ge mer detaljer om det du har kryssat i..."></textarea>
         </div>
       </div>
 
-      <!-- ===== AVSNITT 4: LÄKEMEDEL ===== -->
+      <!-- ===== SECTION 3: MEDICATIONS ===== -->
       <div class="section">
-        <div class="section-title"><span class="emoji">💊</span> Läkemedel</div>
+        <div class="section-title"><span class="emoji">💊</span> Mediciner</div>
         <div class="field full" style="margin-bottom:14px;">
-          <label for="medications">Nuvarande läkemedel (inklusive receptfria):</label>
-          <textarea id="medications" name="medications" placeholder="Lista alla läkemedel och doser"></textarea>
+          <label for="medications">Nuvarande mediciner (inklusive receptfria och kosttillskott):</label>
+          <textarea id="medications" name="medications" placeholder="Lista alla mediciner, kosttillskott och doser"></textarea>
         </div>
         <div class="option-group">
-          <label>Tar du för närvarande några blodförtunnande läkemedel?</label>
+          <label>Tar du för närvarande blodförtunnande medicin?</label>
           <div class="options">
             <label class="opt-label"><input type="radio" name="blood_thinners" value="yes"> Ja</label>
             <label class="opt-label"><input type="radio" name="blood_thinners" value="no"> Nej</label>
@@ -373,7 +465,7 @@
           </div>
         </div>
         <div class="option-group">
-          <label>Har du någonsin tagit läkemedel mot benskörhet?</label>
+          <label>Har du någonsin tagit medicin mot benskörhet?</label>
           <div class="options">
             <label class="opt-label"><input type="radio" name="bisphosphonates" value="yes"> Ja</label>
             <label class="opt-label"><input type="radio" name="bisphosphonates" value="no"> Nej</label>
@@ -382,24 +474,21 @@
         </div>
       </div>
 
-      <!-- ===== AVSNITT 5: ALLERGIER ===== -->
+      <!-- ===== SECTION 4: ALLERGIES ===== -->
       <div class="section">
         <div class="section-title"><span class="emoji">⚠️</span> Allergier</div>
         <div class="field full" style="margin-bottom:14px;">
-          <label for="allergies">Har du några allergier? (läkemedel, latex, livsmedel etc.)</label>
-          <textarea id="allergies" name="allergies" placeholder="Lista eventuella allergier eller skriv 'Inga'"></textarea>
+          <label for="allergies">Har du några allergier eller överkänslighetsreaktioner? (mediciner, latex, livsmedel, dentala material)</label>
+          <textarea id="allergies" name="allergies" placeholder="Lista allergier eller skriv 'Inga'"></textarea>
         </div>
       </div>
 
-      <!-- ===== AVSNITT 6: TANDVÅRDSHISTORIK ===== -->
+      <!-- ===== SECTION 5: DENTAL HISTORY ===== -->
       <div class="section">
-        <div class="section-title"><span class="emoji">🦷</span> Tandvårdshistorik</div>
-        <div class="field" style="margin-bottom:14px;">
-          <label for="last_visit">När var din senaste tandläkarundersökning?</label>
-          <input type="text" id="last_visit" name="last_visit" placeholder="t.ex. för 6 månader sedan, för 2 år sedan">
-        </div>
+        <div class="section-title"><span class="emoji">🦷</span> Tandläkarhistorik</div>
+
         <div class="option-group">
-          <label>Hur ofta besöker du tandläkaren?</label>
+          <label>Hur ofta går du normalt på tandläkaren?</label>
           <div class="options">
             <label class="opt-label"><input type="radio" name="visit_freq" value="6months"> Var 6:e månad</label>
             <label class="opt-label"><input type="radio" name="visit_freq" value="yearly"> Årligen</label>
@@ -407,32 +496,596 @@
             <label class="opt-label"><input type="radio" name="visit_freq" value="never"> Aldrig</label>
           </div>
         </div>
+
+        <div class="yn-group" id="yn-ortho_prev">
+          <span class="yn-label">Har du haft tidigare ortodontisk behandling (tandställning)?</span>
+          <span class="yn-opts">
+            <label class="opt-label"><input type="radio" name="ortho_prev" value="no"> Nej</label>
+            <label class="opt-label"><input type="radio" name="ortho_prev" value="yes"> Ja</label>
+          </span>
+        </div>
+        <div class="yn-detail" id="detail-ortho_prev">
+          <div class="field full"><textarea name="ortho_prev_detail" placeholder="Typ och när (t.ex. tandställning 12-14 år)"></textarea></div>
+        </div>
+
+        <div class="yn-group" id="yn-jaw_prev">
+          <span class="yn-label">Har du haft tidigare käk-, bett-, luftvägs- eller ansiktsbehandling?</span>
+          <span class="yn-opts">
+            <label class="opt-label"><input type="radio" name="jaw_prev" value="no"> Nej</label>
+            <label class="opt-label"><input type="radio" name="jaw_prev" value="yes"> Ja</label>
+          </span>
+        </div>
+        <div class="yn-detail" id="detail-jaw_prev">
+          <div class="field full"><textarea name="jaw_prev_detail" placeholder="Lämna detaljer..."></textarea></div>
+        </div>
+
         <p class="section-note">Kryssa för det som stämmer:</p>
         <div class="check-grid">
           <label class="opt-label"><input type="checkbox" name="dental_issues" value="fillings"> Tidigare lagningar</label>
           <label class="opt-label"><input type="checkbox" name="dental_issues" value="crowns"> Kronor eller broar</label>
           <label class="opt-label"><input type="checkbox" name="dental_issues" value="root_canal"> Rotfyllning</label>
-          <label class="opt-label"><input type="checkbox" name="dental_issues" value="extractions"> Tandextraktioner</label>
-          <label class="opt-label"><input type="checkbox" name="dental_issues" value="ortho"> Tandreglering (tandställning)</label>
+          <label class="opt-label"><input type="checkbox" name="dental_issues" value="extractions"> Tandutdragningar</label>
           <label class="opt-label"><input type="checkbox" name="dental_issues" value="implants"> Tandimplantat</label>
-          <label class="opt-label"><input type="checkbox" name="dental_issues" value="jaw_clicking"> Käkledsklickande / knäppning</label>
-          <label class="opt-label"><input type="checkbox" name="dental_issues" value="grinding"> Tandgnissling / tandpressning</label>
-          <label class="opt-label"><input type="checkbox" name="dental_issues" value="sensitivity"> Känslighet för kyla/värme/sött</label>
-          <label class="opt-label"><input type="checkbox" name="dental_issues" value="bleeding_gums"> Blödande tandkött</label>
-          <label class="opt-label"><input type="checkbox" name="dental_issues" value="dry_mouth"> Muntorrhet</label>
-          <label class="opt-label"><input type="checkbox" name="dental_issues" value="bad_breath"> Ihållande dålig andedräkt</label>
-          <label class="opt-label"><input type="checkbox" name="dental_issues" value="loose_teeth"> Lösa tänder</label>
           <label class="opt-label"><input type="checkbox" name="dental_issues" value="wisdom"> Problem med visdomständer</label>
+          <label class="opt-label"><input type="checkbox" name="dental_issues" value="broken_teeth"> Trasiga, slitna eller flisade tänder</label>
+          <label class="opt-label"><input type="checkbox" name="dental_issues" value="jaw_clicking"> Käkknäppningar / knakanden</label>
+          <label class="opt-label"><input type="checkbox" name="dental_issues" value="grinding"> Tandgnissling / tandpressning</label>
+          <label class="opt-label"><input type="checkbox" name="dental_issues" value="bleeding_gums"> Blödande tandkött</label>
+          <label class="opt-label"><input type="checkbox" name="dental_issues" value="loose_teeth"> Lösa tänder eller tandköttsrecession</label>
+          <label class="opt-label"><input type="checkbox" name="dental_issues" value="food_trapping"> Mat fastnar mellan tänderna</label>
         </div>
+
+        <div class="option-group" style="margin-top:14px;">
+          <label>Känns dina tänder känsliga?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="sensitivity" value="no"> Nej</label>
+            <label class="opt-label"><input type="radio" name="sensitivity" value="cold"> Ja — to cold</label>
+            <label class="opt-label"><input type="radio" name="sensitivity" value="hot"> Ja — to hot</label>
+            <label class="opt-label"><input type="radio" name="sensitivity" value="sweet"> Ja — to sweet</label>
+            <label class="opt-label"><input type="radio" name="sensitivity" value="biting"> Ja — when biting</label>
+          </div>
+        </div>
+
         <div class="field full" style="margin-top:14px;">
-          <label for="dental_other">Några andra tandproblem eller historik?</label>
-          <textarea id="dental_other" name="dental_other" placeholder="Beskriv..."></textarea>
+          <label for="dental_other">Nuvarande tandvärk, ansiktssmärta, svullnad eller andra tandproblem?</label>
+          <textarea id="dental_other" name="dental_other" placeholder="Beskriv nuvarande besvär..."></textarea>
         </div>
       </div>
 
-      <!-- ===== AVSNITT 7: MUNHYGIEN & LIVSSTIL ===== -->
+      <!-- ===== SECTION 6: BREATHING & AIRWAY HEALTH ===== -->
       <div class="section">
-        <div class="section-title"><span class="emoji">🪥</span> Munhygien & Livsstil</div>
+        <div class="section-title"><span class="emoji">👃</span> Andning och Luftvägar</div>
+
+        <div class="option-group">
+          <label>Hur andas du vanligtvis?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="breathing_mode" value="nose"> Främst genom näsan</label>
+            <label class="opt-label"><input type="radio" name="breathing_mode" value="mouth"> Främst genom munnen</label>
+            <label class="opt-label"><input type="radio" name="breathing_mode" value="both"> Både och</label>
+            <label class="opt-label"><input type="radio" name="breathing_mode" value="unsure"> Osäker</label>
+          </div>
+        </div>
+        <div class="option-group">
+          <label>Andas du genom munnen under dagen?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="mouth_breath_day" value="no"> Nej</label>
+            <label class="opt-label"><input type="radio" name="mouth_breath_day" value="sometimes"> Ibland</label>
+            <label class="opt-label"><input type="radio" name="mouth_breath_day" value="often"> Ofta</label>
+          </div>
+        </div>
+        <div class="option-group">
+          <label>Vaknar du med muntorrhet eller törst?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="dry_mouth_wake" value="no"> Nej</label>
+            <label class="opt-label"><input type="radio" name="dry_mouth_wake" value="sometimes"> Ibland</label>
+            <label class="opt-label"><input type="radio" name="dry_mouth_wake" value="often"> Ofta</label>
+          </div>
+        </div>
+        <div class="option-group">
+          <label>Har du kronisk nästäppa eller svårt att andas genom näsan?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="nasal_congestion" value="no"> Nej</label>
+            <label class="opt-label"><input type="radio" name="nasal_congestion" value="sometimes"> Ibland</label>
+            <label class="opt-label"><input type="radio" name="nasal_congestion" value="often"> Ofta</label>
+          </div>
+        </div>
+
+        <div class="yn-group" id="yn-allergies_nasal">
+          <span class="yn-label">Har du allergier, bihåleproblem, återkommande infektioner eller täppt näsa?</span>
+          <span class="yn-opts">
+            <label class="opt-label"><input type="radio" name="allergies_nasal" value="no"> Nej</label>
+            <label class="opt-label"><input type="radio" name="allergies_nasal" value="yes"> Ja</label>
+          </span>
+        </div>
+        <div class="yn-detail" id="detail-allergies_nasal">
+          <div class="field full"><textarea name="allergies_nasal_detail" placeholder="Lämna detaljer..."></textarea></div>
+        </div>
+
+        <div class="yn-group" id="yn-airway_surgery">
+          <span class="yn-label">Har du genomgått näs-, bihåle-, septum-, turbinat- eller luftvägskirurgi?</span>
+          <span class="yn-opts">
+            <label class="opt-label"><input type="radio" name="airway_surgery" value="no"> Nej</label>
+            <label class="opt-label"><input type="radio" name="airway_surgery" value="yes"> Ja</label>
+          </span>
+        </div>
+        <div class="yn-detail" id="detail-airway_surgery">
+          <div class="field full"><textarea name="airway_surgery_detail" placeholder="Lämna detaljer..."></textarea></div>
+        </div>
+
+        <div class="option-group">
+          <label>Snarkar du?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="snoring" value="no"> Nej</label>
+            <label class="opt-label"><input type="radio" name="snoring" value="occasionally"> Ibland</label>
+            <label class="opt-label"><input type="radio" name="snoring" value="frequently"> Ofta</label>
+            <label class="opt-label"><input type="radio" name="snoring" value="loudly"> Högt</label>
+          </div>
+        </div>
+        <div class="option-group">
+          <label>Har någon lagt märke till andningspauser under din sömn?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="breathing_pauses" value="no"> Nej</label>
+            <label class="opt-label"><input type="radio" name="breathing_pauses" value="yes"> Ja</label>
+            <label class="opt-label"><input type="radio" name="breathing_pauses" value="unsure"> Osäker</label>
+          </div>
+        </div>
+        <div class="option-group">
+          <label>Vaknar du gaspande, kvävd eller med känsla av att inte få tillräckligt med luft?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="gasping" value="no"> Nej</label>
+            <label class="opt-label"><input type="radio" name="gasping" value="yes"> Ja</label>
+            <label class="opt-label"><input type="radio" name="gasping" value="unsure"> Osäker</label>
+          </div>
+        </div>
+        <div class="option-group">
+          <label>Har du svårt att hålla läpparna bekvämt stängda i vila?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="lip_closure" value="no"> Nej</label>
+            <label class="opt-label"><input type="radio" name="lip_closure" value="yes"> Ja</label>
+          </div>
+        </div>
+
+        <div class="yn-group" id="yn-exercise_breath">
+          <span class="yn-label">Har du svårt att andas under fysisk ansträngning?</span>
+          <span class="yn-opts">
+            <label class="opt-label"><input type="radio" name="exercise_breath" value="no"> Nej</label>
+            <label class="opt-label"><input type="radio" name="exercise_breath" value="yes"> Ja</label>
+          </span>
+        </div>
+        <div class="yn-detail" id="detail-exercise_breath">
+          <div class="field full"><textarea name="exercise_breath_detail" placeholder="Lämna detaljer..."></textarea></div>
+        </div>
+      </div>
+
+      <!-- ===== SECTION 7: SLEEP HEALTH ===== -->
+      <div class="section">
+        <div class="section-title"><span class="emoji">😴</span> Sömnhälsa</div>
+
+        <div class="fields">
+          <div class="field">
+            <label for="bedtime_weekday">Vanlig läggdags (vardagar)</label>
+            <input type="text" id="bedtime_weekday" name="bedtime_weekday" placeholder="t.ex. 22:30">
+          </div>
+          <div class="field">
+            <label for="bedtime_weekend">Vanlig läggdags (helger)</label>
+            <input type="text" id="bedtime_weekend" name="bedtime_weekend" placeholder="e.g., 23:30">
+          </div>
+          <div class="field">
+            <label for="sleep_hours">Hur många timmar sover du vanligtvis?</label>
+            <input type="text" id="sleep_hours" name="sleep_hours" placeholder="t.ex. 7 timmar">
+          </div>
+        </div>
+
+        <div class="option-group" style="margin-top:14px;">
+          <label>Har du svårt att somna?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="sleep_onset" value="no"> Nej</label>
+            <label class="opt-label"><input type="radio" name="sleep_onset" value="sometimes"> Ibland</label>
+            <label class="opt-label"><input type="radio" name="sleep_onset" value="often"> Ofta</label>
+          </div>
+        </div>
+        <div class="option-group">
+          <label>Vaknar du ofta under natten?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="night_waking" value="no"> Nej</label>
+            <label class="opt-label"><input type="radio" name="night_waking" value="sometimes"> Ibland</label>
+            <label class="opt-label"><input type="radio" name="night_waking" value="often"> Ofta</label>
+          </div>
+        </div>
+        <div class="option-group">
+          <label>Vaknar du utvilad?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="wake_rested" value="usually"> Vanligtvis</label>
+            <label class="opt-label"><input type="radio" name="wake_rested" value="sometimes"> Ibland</label>
+            <label class="opt-label"><input type="radio" name="wake_rested" value="rarely"> Sällan</label>
+          </div>
+        </div>
+        <div class="option-group">
+          <label>Upplever du dagssömnighet eller trötthet?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="daytime_sleepiness" value="no"> Nej</label>
+            <label class="opt-label"><input type="radio" name="daytime_sleepiness" value="sometimes"> Ibland</label>
+            <label class="opt-label"><input type="radio" name="daytime_sleepiness" value="often"> Ofta</label>
+          </div>
+        </div>
+        <div class="option-group">
+          <label>Morgonhuvudvärk eller ansikts-/käkbesvär?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="morning_headache" value="no"> Nej</label>
+            <label class="opt-label"><input type="radio" name="morning_headache" value="sometimes"> Ibland</label>
+            <label class="opt-label"><input type="radio" name="morning_headache" value="often"> Ofta</label>
+          </div>
+        </div>
+
+        <div class="yn-group" id="yn-night_sweat">
+          <span class="yn-label">Nattsvettningar, rastlös sömn eller frekventa positionsbyten?</span>
+          <span class="yn-opts">
+            <label class="opt-label"><input type="radio" name="night_sweat" value="no"> Nej</label>
+            <label class="opt-label"><input type="radio" name="night_sweat" value="yes"> Ja</label>
+          </span>
+        </div>
+        <div class="yn-detail" id="detail-night_sweat">
+          <div class="field full"><textarea name="night_sweat_detail" placeholder="Lämna detaljer..."></textarea></div>
+        </div>
+
+        <div class="yn-group" id="yn-sleep_study">
+          <span class="yn-label">Har du någonsin gjort en sömnutredning eller diagnostiserats med sömnapné?</span>
+          <span class="yn-opts">
+            <label class="opt-label"><input type="radio" name="sleep_study" value="no"> Nej</label>
+            <label class="opt-label"><input type="radio" name="sleep_study" value="yes"> Ja</label>
+          </span>
+        </div>
+        <div class="yn-detail" id="detail-sleep_study">
+          <div class="field full"><textarea name="sleep_study_detail" placeholder="Lämna detaljer (när, resultat, diagnos)..."></textarea></div>
+        </div>
+
+        <div class="yn-group" id="yn-cpap">
+          <span class="yn-label">Använder du CPAP, en bettskena eller annan sömnhjälp?</span>
+          <span class="yn-opts">
+            <label class="opt-label"><input type="radio" name="cpap" value="no"> Nej</label>
+            <label class="opt-label"><input type="radio" name="cpap" value="yes"> Ja</label>
+          </span>
+        </div>
+        <div class="yn-detail" id="detail-cpap">
+          <div class="field full"><textarea name="cpap_detail" placeholder="Lämna detaljer..."></textarea></div>
+        </div>
+
+        <div class="yn-group" id="yn-partner_report">
+          <span class="yn-label">Har en partner eller familjemedlem rapporterat snarkning, gnisslande eller andningspauser?</span>
+          <span class="yn-opts">
+            <label class="opt-label"><input type="radio" name="partner_report" value="no"> Nej</label>
+            <label class="opt-label"><input type="radio" name="partner_report" value="yes"> Ja</label>
+          </span>
+        </div>
+        <div class="yn-detail" id="detail-partner_report">
+          <div class="field full"><textarea name="partner_report_detail" placeholder="Lämna detaljer..."></textarea></div>
+        </div>
+      </div>
+
+      <!-- ===== SECTION 8: TMJ, JAW & FACIAL FUNCTION ===== -->
+      <div class="section">
+        <div class="section-title"><span class="emoji">🗣️</span> Käkled, Ansikte och Tuggfunktion</div>
+
+        <div class="option-group">
+          <label>Har du smärta i käklederna (framför öronen)?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="tmj_pain" value="no"> Nej</label>
+            <label class="opt-label"><input type="radio" name="tmj_pain" value="left"> Vänster</label>
+            <label class="opt-label"><input type="radio" name="tmj_pain" value="right"> Höger</label>
+            <label class="opt-label"><input type="radio" name="tmj_pain" value="both"> Både och</label>
+          </div>
+        </div>
+        <div class="option-group">
+          <label>Upplever du klickande, knakande, malande eller andra käkljud?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="tmj_sounds" value="no"> Nej</label>
+            <label class="opt-label"><input type="radio" name="tmj_sounds" value="left"> Vänster</label>
+            <label class="opt-label"><input type="radio" name="tmj_sounds" value="right"> Höger</label>
+            <label class="opt-label"><input type="radio" name="tmj_sounds" value="both"> Både och</label>
+          </div>
+        </div>
+
+        <div class="yn-group" id="yn-jaw_lock">
+          <span class="yn-label">Låser sig käken eller fastnar den öppen eller stängd?</span>
+          <span class="yn-opts">
+            <label class="opt-label"><input type="radio" name="jaw_lock" value="no"> Nej</label>
+            <label class="opt-label"><input type="radio" name="jaw_lock" value="yes"> Ja</label>
+          </span>
+        </div>
+        <div class="yn-detail" id="detail-jaw_lock">
+          <div class="field full"><textarea name="jaw_lock_detail" placeholder="Lämna detaljer..."></textarea></div>
+        </div>
+
+        <div class="option-group">
+          <label>Är det svårt eller begränsat att öppna munnen?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="limited_opening" value="no"> Nej</label>
+            <label class="opt-label"><input type="radio" name="limited_opening" value="yes"> Ja</label>
+          </div>
+        </div>
+        <div class="option-group">
+          <label>Har du smärta vid tuggning, gäspning eller bett?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="chew_pain" value="no"> Nej</label>
+            <label class="opt-label"><input type="radio" name="chew_pain" value="yes"> Ja</label>
+          </div>
+        </div>
+        <div class="option-group">
+          <label>Pressar du tänder eller käke under dagen?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="day_clench" value="no"> Nej</label>
+            <label class="opt-label"><input type="radio" name="day_clench" value="yes"> Ja</label>
+            <label class="opt-label"><input type="radio" name="day_clench" value="unsure"> Osäker</label>
+          </div>
+        </div>
+        <div class="option-group">
+          <label>Vaknar du med käkspänning, tandömhet eller ansiktssmärta?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="morning_jaw" value="no"> Nej</label>
+            <label class="opt-label"><input type="radio" name="morning_jaw" value="yes"> Ja</label>
+          </div>
+        </div>
+
+        <div class="yn-group" id="yn-headaches">
+          <span class="yn-label">Upplever du huvudvärk, tinningsmärta eller smärta runt öronen?</span>
+          <span class="yn-opts">
+            <label class="opt-label"><input type="radio" name="headaches" value="no"> Nej</label>
+            <label class="opt-label"><input type="radio" name="headaches" value="yes"> Ja</label>
+          </span>
+        </div>
+        <div class="yn-detail" id="detail-headaches">
+          <div class="field full"><label for="headaches_freq" style="font-size:12px;font-weight:400">Frequency</label><textarea name="headaches_detail" placeholder="Frekvens (t.ex. dagligen, veckovis, månatligen)..."></textarea></div>
+        </div>
+
+        <div class="option-group">
+          <label>Har du nack-/axelspänningar i samband med käkbesvär?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="neck_tension" value="no"> Nej</label>
+            <label class="opt-label"><input type="radio" name="neck_tension" value="yes"> Ja</label>
+          </div>
+        </div>
+
+        <div class="yn-group" id="yn-tmd_diag">
+          <span class="yn-label">Har du tidigare diagnostiserats med TMD/TMJ eller fått en bettskena?</span>
+          <span class="yn-opts">
+            <label class="opt-label"><input type="radio" name="tmd_diag" value="no"> Nej</label>
+            <label class="opt-label"><input type="radio" name="tmd_diag" value="yes"> Ja</label>
+          </span>
+        </div>
+        <div class="yn-detail" id="detail-tmd_diag">
+          <div class="field full"><textarea name="tmd_diag_detail" placeholder="Lämna detaljer..."></textarea></div>
+        </div>
+      </div>
+
+      <!-- ===== SECTION 9: MUSCULAR & MUSCULOSKELETAL ===== -->
+      <div class="section">
+        <div class="section-title"><span class="emoji">💪</span> Muskulär och Muskuloskeletal Hälsa</div>
+
+        <div class="yn-group" id="yn-muscle_pain">
+          <span class="yn-label">Har du återkommande muskelstramhet, spasmer eller smärta?</span>
+          <span class="yn-opts">
+            <label class="opt-label"><input type="radio" name="muscle_pain" value="no"> Nej</label>
+            <label class="opt-label"><input type="radio" name="muscle_pain" value="yes"> Ja</label>
+          </span>
+        </div>
+        <div class="yn-detail" id="detail-muscle_pain">
+          <div class="field full"><textarea name="muscle_pain_detail" placeholder="Vilka områden?"></textarea></div>
+        </div>
+
+        <div class="option-group">
+          <label>Huvud-/ansiktsmuskelbesvär (kryssa för alla som gäller):</label>
+          <div class="options">
+            <label class="opt-label"><input type="checkbox" name="head_muscle" value="jaw"> Käke</label>
+            <label class="opt-label"><input type="checkbox" name="head_muscle" value="temples"> Tinningar</label>
+            <label class="opt-label"><input type="checkbox" name="head_muscle" value="cheeks"> Kindar</label>
+            <label class="opt-label"><input type="checkbox" name="head_muscle" value="eyes"> Runt ögonen</label>
+            <label class="opt-label"><input type="checkbox" name="head_muscle" value="neck"> Nacke</label>
+          </div>
+        </div>
+        <div class="option-group">
+          <label>Hållningsrelaterade besvär (kryssa för alla som gäller):</label>
+          <div class="options">
+            <label class="opt-label"><input type="checkbox" name="posture_symptoms" value="neck"> Nacke</label>
+            <label class="opt-label"><input type="checkbox" name="posture_symptoms" value="shoulders"> Axlar</label>
+            <label class="opt-label"><input type="checkbox" name="posture_symptoms" value="upper_back"> Övre rygg</label>
+            <label class="opt-label"><input type="checkbox" name="posture_symptoms" value="lower_back"> Nedre rygg</label>
+          </div>
+        </div>
+
+        <div class="yn-group" id="yn-whiplash">
+          <span class="yn-label">Har du haft whiplash, hjärnskakning eller betydande huvud-/nackskada?</span>
+          <span class="yn-opts">
+            <label class="opt-label"><input type="radio" name="whiplash" value="no"> Nej</label>
+            <label class="opt-label"><input type="radio" name="whiplash" value="yes"> Ja</label>
+          </span>
+        </div>
+        <div class="yn-detail" id="detail-whiplash">
+          <div class="field full"><textarea name="whiplash_detail" placeholder="Lämna detaljer..."></textarea></div>
+        </div>
+
+        <div class="yn-group" id="yn-chronic_pain">
+          <span class="yn-label">Har du kronisk nack-, axel-, rygg- eller höftsmärta?</span>
+          <span class="yn-opts">
+            <label class="opt-label"><input type="radio" name="chronic_pain" value="no"> Nej</label>
+            <label class="opt-label"><input type="radio" name="chronic_pain" value="yes"> Ja</label>
+          </span>
+        </div>
+        <div class="yn-detail" id="detail-chronic_pain">
+          <div class="field full"><textarea name="chronic_pain_detail" placeholder="Lämna detaljer..."></textarea></div>
+        </div>
+
+        <div class="yn-group" id="yn-posture_asym">
+          <span class="yn-label">Lägger du märke till asymmetri i hållning, axelhöjd, huvudposition eller gång?</span>
+          <span class="yn-opts">
+            <label class="opt-label"><input type="radio" name="posture_asym" value="no"> Nej</label>
+            <label class="opt-label"><input type="radio" name="posture_asym" value="yes"> Ja</label>
+          </span>
+        </div>
+        <div class="yn-detail" id="detail-posture_asym">
+          <div class="field full"><textarea name="posture_asym_detail" placeholder="Lämna detaljer..."></textarea></div>
+        </div>
+
+        <div class="option-group">
+          <label>Har du ledhypermobilitet eller ovanligt flexibla leder?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="hypermobility" value="no"> Nej</label>
+            <label class="opt-label"><input type="radio" name="hypermobility" value="yes"> Ja</label>
+            <label class="opt-label"><input type="radio" name="hypermobility" value="unsure"> Osäker</label>
+          </div>
+        </div>
+
+        <div class="yn-group" id="yn-physio">
+          <span class="yn-label">Har du fått fysioterapi, osteopati, kiropraktik eller annan muskuloskeletal behandling?</span>
+          <span class="yn-opts">
+            <label class="opt-label"><input type="radio" name="physio" value="no"> Nej</label>
+            <label class="opt-label"><input type="radio" name="physio" value="yes"> Ja</label>
+          </span>
+        </div>
+        <div class="yn-detail" id="detail-physio">
+          <div class="field full"><textarea name="physio_detail" placeholder="Lämna detaljer..."></textarea></div>
+        </div>
+
+        <div class="yn-group" id="yn-activity_symptoms">
+          <span class="yn-label">Påverkar fysisk aktivitet, hållning eller stress dina käk-/ansiktssymtom?</span>
+          <span class="yn-opts">
+            <label class="opt-label"><input type="radio" name="activity_symptoms" value="no"> Nej</label>
+            <label class="opt-label"><input type="radio" name="activity_symptoms" value="yes"> Ja</label>
+          </span>
+        </div>
+        <div class="yn-detail" id="detail-activity_symptoms">
+          <div class="field full"><textarea name="activity_symptoms_detail" placeholder="Förklara..."></textarea></div>
+        </div>
+      </div>
+
+      <!-- ===== SECTION 10: ORAL HABITS & MYOFUNCTIONAL ===== -->
+      <div class="section">
+        <div class="section-title"><span class="emoji">👅</span> Ovanor och Myofunktionell Hälsa</div>
+
+        <div class="option-group">
+          <label>Vilar din tunga mot gommen när du inte talar eller äter?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="tongue_rest" value="usually"> Vanligtvis</label>
+            <label class="opt-label"><input type="radio" name="tongue_rest" value="sometimes"> Ibland</label>
+            <label class="opt-label"><input type="radio" name="tongue_rest" value="rarely"> Sällan</label>
+            <label class="opt-label"><input type="radio" name="tongue_rest" value="unsure"> Osäker</label>
+          </div>
+        </div>
+        <div class="option-group">
+          <label>Har du tungpress eller svårt att placera tungan på gommen?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="tongue_thrust" value="no"> Nej</label>
+            <label class="opt-label"><input type="radio" name="tongue_thrust" value="yes"> Ja</label>
+            <label class="opt-label"><input type="radio" name="tongue_thrust" value="unsure"> Osäker</label>
+          </div>
+        </div>
+
+        <div class="yn-group" id="yn-oral_habits">
+          <span class="yn-label">Biter du naglar, läppar eller kinder, eller suger tumme/finger?</span>
+          <span class="yn-opts">
+            <label class="opt-label"><input type="radio" name="oral_habits" value="no"> Nej</label>
+            <label class="opt-label"><input type="radio" name="oral_habits" value="yes"> Ja</label>
+          </span>
+        </div>
+        <div class="yn-detail" id="detail-oral_habits">
+          <div class="field full"><textarea name="oral_habits_detail" placeholder="Lämna detaljer..."></textarea></div>
+        </div>
+
+        <div class="yn-group" id="yn-chewing_pref">
+          <span class="yn-label">Har du svårt att tugga på båda sidor eller föredrar du en sida?</span>
+          <span class="yn-opts">
+            <label class="opt-label"><input type="radio" name="chewing_pref" value="no"> Nej</label>
+            <label class="opt-label"><input type="radio" name="chewing_pref" value="yes"> Ja</label>
+          </span>
+        </div>
+        <div class="yn-detail" id="detail-chewing_pref">
+          <div class="field full"><textarea name="chewing_pref_detail" placeholder="Föredragen sida och detaljer..."></textarea></div>
+        </div>
+
+        <div class="yn-group" id="yn-swallowing">
+          <span class="yn-label">Har du sväljsvårigheter, hostningar eller känsla av att mat fastnar?</span>
+          <span class="yn-opts">
+            <label class="opt-label"><input type="radio" name="swallowing" value="no"> Nej</label>
+            <label class="opt-label"><input type="radio" name="swallowing" value="yes"> Ja</label>
+          </span>
+        </div>
+        <div class="yn-detail" id="detail-swallowing">
+          <div class="field full"><textarea name="swallowing_detail" placeholder="Lämna detaljer..."></textarea></div>
+        </div>
+
+        <div class="yn-group" id="yn-speech">
+          <span class="yn-label">Har du talbesvär eller tidigare talterapi?</span>
+          <span class="yn-opts">
+            <label class="opt-label"><input type="radio" name="speech" value="no"> Nej</label>
+            <label class="opt-label"><input type="radio" name="speech" value="yes"> Ja</label>
+          </span>
+        </div>
+        <div class="yn-detail" id="detail-speech">
+          <div class="field full"><textarea name="speech_detail" placeholder="Lämna detaljer..."></textarea></div>
+        </div>
+
+        <div class="option-group">
+          <label>Lägger du märke till spänningar i tunga, läppar eller kinder i vila?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="oral_tension" value="no"> Nej</label>
+            <label class="opt-label"><input type="radio" name="oral_tension" value="yes"> Ja</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== SECTION 11: NUTRITION, DRYNESS & REFLUX ===== -->
+      <div class="section">
+        <div class="section-title"><span class="emoji">🍎</span> Kost, Muntorrhet och Reflux</div>
+
+        <div class="option-group">
+          <label>Hur ofta konsumerar du sockerhaltiga livsmedel/drycker eller sura drycker?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="sugar_intake" value="rarely"> Sällan</label>
+            <label class="opt-label"><input type="radio" name="sugar_intake" value="occasionally"> Ibland</label>
+            <label class="opt-label"><input type="radio" name="sugar_intake" value="daily"> Dagligen</label>
+            <label class="opt-label"><input type="radio" name="sugar_intake" value="several"> Flera gånger/dag</label>
+          </div>
+        </div>
+        <div class="option-group">
+          <label>Upplever du ofta muntorrhet?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="dry_mouth" value="no"> Nej</label>
+            <label class="opt-label"><input type="radio" name="dry_mouth" value="day"> Ja — during the day</label>
+            <label class="opt-label"><input type="radio" name="dry_mouth" value="night"> Ja — at night</label>
+            <label class="opt-label"><input type="radio" name="dry_mouth" value="both"> Ja — both</label>
+          </div>
+        </div>
+        <div class="option-group">
+          <label>Har du halsbränna, syraåterflöde eller uppstötningar?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="reflux" value="no"> Nej</label>
+            <label class="opt-label"><input type="radio" name="reflux" value="occasional"> Tillfälligt</label>
+            <label class="opt-label"><input type="radio" name="reflux" value="frequent"> Ofta</label>
+          </div>
+        </div>
+        <div class="option-group">
+          <label>Upplever du illamående/kräkningar eller frekvent sur smak?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="nausea" value="no"> Nej</label>
+            <label class="opt-label"><input type="radio" name="nausea" value="yes"> Ja</label>
+          </div>
+        </div>
+
+        <div class="yn-group" id="yn-special_diet">
+          <span class="yn-label">Följer du en specialkost eller har kostrestriktioner?</span>
+          <span class="yn-opts">
+            <label class="opt-label"><input type="radio" name="special_diet" value="no"> Nej</label>
+            <label class="opt-label"><input type="radio" name="special_diet" value="yes"> Ja</label>
+          </span>
+        </div>
+        <div class="yn-detail" id="detail-special_diet">
+          <div class="field full"><textarea name="special_diet_detail" placeholder="Lämna detaljer..."></textarea></div>
+        </div>
+      </div>
+
+      <!-- ===== SECTION 12: ORAL HYGIENE & LIFESTYLE ===== -->
+      <div class="section">
+        <div class="section-title"><span class="emoji">🪥</span> Munhygien och Livsstil</div>
+
         <div class="option-group">
           <label>Hur ofta borstar du tänderna?</label>
           <div class="options">
@@ -443,7 +1096,7 @@
           </div>
         </div>
         <div class="option-group">
-          <label>Använder du tandtråd eller mellanragsborstar?</label>
+          <label>Använder du tandtråd eller mellanrumsborstar?</label>
           <div class="options">
             <label class="opt-label"><input type="radio" name="flossing" value="daily"> Dagligen</label>
             <label class="opt-label"><input type="radio" name="flossing" value="sometimes"> Ibland</label>
@@ -451,21 +1104,45 @@
           </div>
         </div>
         <div class="option-group">
-          <label>Röker du eller använder tobaksprodukter?</label>
+          <label>Röker du, använder e-cigg eller nikotinprodukter?</label>
           <div class="options">
             <label class="opt-label"><input type="radio" name="smoking" value="never"> Aldrig</label>
             <label class="opt-label"><input type="radio" name="smoking" value="former"> Tidigare rökare</label>
-            <label class="opt-label"><input type="radio" name="smoking" value="cigarettes"> Rökare (cigaretter)</label>
-            <label class="opt-label"><input type="radio" name="smoking" value="vaping"> E-cigaretter</label>
+            <label class="opt-label"><input type="radio" name="smoking" value="cigarettes"> Röker för närvarande cigaretter</label>
+            <label class="opt-label"><input type="radio" name="smoking" value="vaping"> Använder för närvarande e-cigg</label>
+          </div>
+        </div>
+        <div class="option-group">
+          <label>Konsumerar du alkohol regelbundet?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="alcohol" value="no"> Nej</label>
+            <label class="opt-label"><input type="radio" name="alcohol" value="occasionally"> Ibland</label>
+            <label class="opt-label"><input type="radio" name="alcohol" value="regularly"> Regularly</label>
           </div>
         </div>
       </div>
 
-      <!-- ===== AVSNITT 8: TANDVÅRDSORO ===== -->
+      <!-- ===== SECTION 13: STRESS & WELLBEING ===== -->
       <div class="section">
-        <div class="section-title"><span class="emoji">😰</span> Tandvårdsångest</div>
+        <div class="section-title"><span class="emoji">😰</span> Stress, Välmående och Tandvårdsoro</div>
+
         <div class="option-group">
-          <label>Hur känner du inför att besöka tandläkaren?</label>
+          <label>Hur skulle du beskriva din nuvarande stressnivå?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="stress" value="low"> Låg</label>
+            <label class="opt-label"><input type="radio" name="stress" value="moderate"> Måttlig</label>
+            <label class="opt-label"><input type="radio" name="stress" value="high"> Hög</label>
+          </div>
+        </div>
+        <div class="option-group">
+          <label>Ökar stress eller koncentration tandpressning, käkspänning eller huvudvärk?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="stress_clench" value="no"> Nej</label>
+            <label class="opt-label"><input type="radio" name="stress_clench" value="yes"> Ja</label>
+          </div>
+        </div>
+        <div class="option-group">
+          <label>Hur känner du inför att gå till tandläkaren?</label>
           <div class="options vertical">
             <label class="opt-label"><input type="radio" name="anxiety" value="relaxed"> Avslappnad — inga bekymmer</label>
             <label class="opt-label"><input type="radio" name="anxiety" value="slightly"> Lite nervös</label>
@@ -474,41 +1151,55 @@
           </div>
         </div>
         <div class="field full">
-          <label for="anxiety_notes">Finns det något som skulle göra dig mer bekväm under ditt besök?</label>
-          <textarea id="anxiety_notes" name="anxiety_notes" placeholder="Beskriv..."></textarea>
+          <label for="anxiety_notes">Finns det något som skulle göra dig mer bekväm under besöket?</label>
+          <textarea id="anxiety_notes" name="anxiety_notes" placeholder="Beskriv"></textarea>
         </div>
       </div>
 
-      <!-- ===== AVSNITT 9: NÖDKONTAKT ===== -->
+      <!-- ===== SECTION 14: PATIENT GOALS & CONSENT ===== -->
       <div class="section">
-        <div class="section-title"><span class="emoji">📞</span> Nödkontakt</div>
+        <div class="section-title"><span class="emoji">🎯</span> Patientmål och Samtycke</div>
+
+        <div class="field full" style="margin-bottom:14px;">
+          <label for="goals">Vilka är dina huvudsakliga mål för tandvårdsbehandling eller bedömning?</label>
+          <textarea id="goals" name="goals" placeholder="Vad vill du uppnå?"></textarea>
+        </div>
+        <div class="field full" style="margin-bottom:14px;">
+          <label for="concerns_important">Finns det symtom, bekymmer eller tidigare erfarenheter du tycker är viktiga för oss att känna till?</label>
+          <textarea id="concerns_important" name="concerns_important" placeholder="Något du vill att vi förstår..."></textarea>
+        </div>
+        <div class="field full" style="margin-bottom:14px;">
+          <label for="exam_request">Finns det något du vill att tandläkaren specifikt ska undersöka eller förklara?</label>
+          <textarea id="exam_request" name="exam_request" placeholder="Specifika bekymmer..."></textarea>
+        </div>
+
+        <div class="field full" style="margin-bottom:14px;">
+          <label for="ovrigt">Finns det något mer du vill att vi ska veta?</label>
+          <textarea id="ovrigt" name="ovrigt" placeholder="Annan information som kan vara till hjälp"></textarea>
+        </div>
+
+        <p style="font-size:13px; color:var(--muted); font-style:italic; margin-bottom: 8px;">
+          Patientförsäkran: Jag bekräftar att angiven information är korrekt enligt mitt bästa vetande. Jag förstår att detta formulär är en del av min tandvårds-/sjukhistoria och kan uppdateras när min hälsa ändras.
+        </p>
+
         <div class="fields">
           <div class="field">
-            <label for="emerg_name">Namn på nödkontakt *</label>
-            <input type="text" id="emerg_name" name="emerg_name" required placeholder="För- och efternamn">
+            <label for="emergency_name">Nödkontakt namn *</label>
+            <input type="text" id="emergency_name" name="emergency_name" required placeholder="Fullständigt namn">
           </div>
           <div class="field">
-            <label for="emerg_phone">Nödkontakt telefon *</label>
-            <input type="tel" id="emerg_phone" name="emerg_phone" required placeholder="Telefonnummer">
+            <label for="emergency_phone">Nödkontakt telefon *</label>
+            <input type="tel" id="emergency_phone" name="emergency_phone" required placeholder="Telefonnummer">
           </div>
           <div class="field">
-            <label for="emerg_relation">Relation till patient *</label>
-            <input type="text" id="emerg_relation" name="emerg_relation" required placeholder="t.ex. Förälder, partner, syskon">
+            <label for="emergency_relation">Relation till patient *</label>
+            <input type="text" id="emergency_relation" name="emergency_relation" required placeholder="t.ex. förälder, partner, syskon">
           </div>
-        </div>
-      </div>
-
-      <!-- ===== AVSNITT 10: YTTERLIGARE ANTECKNINGAR ===== -->
-      <div class="section">
-        <div class="section-title"><span class="emoji">📝</span> Ytterligare anteckningar</div>
-        <div class="field full">
-          <label for="ovrigt">Finns det något mer du vill att vi ska veta?</label>
-          <textarea id="ovrigt" name="ovrigt" placeholder="Ytterligare information som kan vara till hjälp..."></textarea>
         </div>
       </div>
 
       <div class="submit-wrap">
-        <button type="submit" class="submit-btn" id="submitBtn">Skicka historik</button>
+        <button type="submit" class="submit-btn" id="submitBtn">Skicka in</button>
         <div class="submit-error" id="submitError"></div>
       </div>
     </form>
@@ -516,7 +1207,7 @@
     <div class="success-msg" id="success">
       <div class="check">✅</div>
       <h2>Tack!</h2>
-      <p>Din tandläkarhistorik har skickats in.<br>Vi kontaktar dig om vi behöver mer information.</p>
+      <p>Din hälsodokumentation har skickats in.<br>Vi kontaktar dig om vi behöver mer information.</p>
     </div>
 
     <div class="foot">
@@ -526,6 +1217,18 @@
   </div>
 
   <script>
+    // ====== Conditional Y/N detail fields ======
+    document.querySelectorAll('.yn-group').forEach(group => {
+      const id = group.id.replace('yn-', '');
+      const detail = document.getElementById('detail-' + id);
+      if (!detail) return;
+      group.querySelectorAll('input[type="radio"]').forEach(radio => {
+        radio.addEventListener('change', () => {
+          detail.classList.toggle('visible', radio.value === 'yes' && radio.checked);
+        });
+      });
+    });
+
     // ====== Form submission ======
     const form = document.getElementById('anamnes-form');
     const submitBtn = document.getElementById('submitBtn');
@@ -548,6 +1251,7 @@
           }
         });
 
+        // Flatten arrays to comma-separated
         Object.keys(formData).forEach(k => {
           if (Array.isArray(formData[k])) formData[k] = formData[k].join(', ');
         });
@@ -580,89 +1284,208 @@
         doc.setTextColor(255, 255, 255);
         doc.setFontSize(16);
         doc.setFont('helvetica', 'bold');
-        doc.text('Airway Clinic — Tandläkarhistorik', margin, 14);
+        doc.text('Airway Clinic — Komplett Hälsodokumentation', margin, 14);
         doc.setTextColor(75, 75, 99);
         y = 28;
 
         const sections = [
           {
-            title: 'Patientuppgifter',
+            title: 'Personuppgifter',
             fields: [
-              { key: 'namn', q: 'Namn' },
-              { key: 'fodelsedatum', q: 'Födelsedatum' },
-              { key: 'phone', q: 'Telefon' },
-              { key: 'email', q: 'E-post' },
-              { key: 'adress', q: 'Adress' },
-              { key: 'datum', q: 'Datum' },
-              { key: 'consent', q: 'Samtycke till datalagring' },
+              { key: 'namn', q: 'Fullständigt namn' },
+              { key: 'preferred_name', q: 'Smeknamn/Företrädesnamn' },
+              { key: 'fodelsedatum', q: 'Date of birth' },
+              { key: 'pronouns', q: 'Pronouns' },
+              { key: 'phone', q: 'Phone' },
+              { key: 'email', q: 'Email' },
+              { key: 'adress', q: 'Address' },
+              { key: 'occupation', q: 'Yrke' },
+              { key: 'datum', q: 'Date' },
+              { key: 'referral', q: 'How did you hear about us' },
+              { key: 'doctor', q: 'General medical doctor' },
+              { key: 'doctor_phone', q: 'Doctor phone' },
+              { key: 'prev_dentist', q: 'Tidigare tandläkare' },
+              { key: 'last_visit', q: 'Last dental examination' },
+              { key: 'reason', q: 'Main reason for visit' },
+              { key: 'consent', q: 'Consent to data storage' },
             ]
           },
           {
-            title: 'Besöksanledning',
+            title: 'Allmän sjukdomshistoria',
             fields: [
-              { key: 'reason', q: 'Huvudsakligt besvär / anledning' },
-              { key: 'pain_duration', q: 'Besvärets varaktighet' },
-              { key: 'pain_level', q: 'Smärta/obehagsnivå' },
+              { key: 'under_care', q: 'Currently under medical care' },
+              { key: 'under_care_detail', q: 'Under care — details' },
+              { key: 'hospitalised', q: 'Hospitalised / major operation' },
+              { key: 'hospitalised_detail', q: 'Hospitalised — details' },
+              { key: 'recent_illness', q: 'Recent illness/injury/health change' },
+              { key: 'recent_illness_detail', q: 'Recent illness — details' },
+              { key: 'anaesthetic', q: 'Unusual reaction to anaesthetic/sedation' },
+              { key: 'anaesthetic_detail', q: 'Anaesthetic reaction — details' },
+              { key: 'conditions', q: 'Conditions (checked)' },
+              { key: 'conditions_other', q: 'Other conditions' },
+              { key: 'conditions_explain', q: 'Explanation of ticked boxes' },
             ]
           },
           {
-            title: 'Sjukdomar',
+            title: 'Mediciner',
             fields: [
-              { key: 'conditions', q: 'Sjukdomar (kryssade)' },
-              { key: 'conditions_other', q: 'Andra sjukdomar' },
-              { key: 'conditions_explain', q: 'Förklaring av kryssrutor' },
-            ]
-          },
-          {
-            title: 'Läkemedel',
-            fields: [
-              { key: 'medications', q: 'Nuvarande läkemedel' },
-              { key: 'blood_thinners', q: 'Blodförtunnande läkemedel?' },
-              { key: 'bisphosphonates', q: 'Bisfosfonater?' },
+              { key: 'medications', q: 'Current medications' },
+              { key: 'blood_thinners', q: 'Taking blood thinners?' },
+              { key: 'bisphosphonates', q: 'Taken bisphosphonates?' },
             ]
           },
           {
             title: 'Allergier',
             fields: [
-              { key: 'allergies', q: 'Allergier' },
+              { key: 'allergies', q: 'Allergier / adverse reactions' },
             ]
           },
           {
-            title: 'Tandvårdshistorik',
+            title: 'Tandläkarhistorik',
             fields: [
-              { key: 'last_visit', q: 'Senaste tandläkarundersökning' },
-              { key: 'visit_freq', q: 'Besöksfrekvens' },
-              { key: 'dental_issues', q: 'Tandproblem (kryssade)' },
-              { key: 'dental_other', q: 'Andra tandproblem' },
+              { key: 'visit_freq', q: 'Visit frequency' },
+              { key: 'ortho_prev', q: 'Previous orthodontic treatment' },
+              { key: 'ortho_prev_detail', q: 'Ortho — type/when' },
+              { key: 'jaw_prev', q: 'Previous jaw/bite/airway/facial treatment' },
+              { key: 'jaw_prev_detail', q: 'Käke treatment — details' },
+              { key: 'dental_issues', q: 'Dental issues (checked)' },
+              { key: 'sensitivity', q: 'Sensitivity' },
+              { key: 'dental_other', q: 'Current toothache/pain/swelling' },
             ]
           },
           {
-            title: 'Munhygien & Livsstil',
+            title: 'Andning och Luftvägar',
             fields: [
-              { key: 'brushing', q: 'Borstningsfrekvens' },
-              { key: 'flossing', q: 'Tandtråd' },
-              { key: 'smoking', q: 'Rökning/tobak' },
+              { key: 'breathing_mode', q: 'Usual breathing mode' },
+              { key: 'mouth_breath_day', q: 'Mouth-breathe during day' },
+              { key: 'dry_mouth_wake', q: 'Wake with dry mouth' },
+              { key: 'nasal_congestion', q: 'Chronic nasal congestion' },
+              { key: 'allergies_nasal', q: 'Allergier/sinus/infections' },
+              { key: 'allergies_nasal_detail', q: 'Nasal allergies — details' },
+              { key: 'airway_surgery', q: 'Nasal/sinus/airway surgery' },
+              { key: 'airway_surgery_detail', q: 'Airway surgery — details' },
+              { key: 'snoring', q: 'Snoring' },
+              { key: 'breathing_pauses', q: 'Breathing pauses during sleep' },
+              { key: 'gasping', q: 'Wake gasping/choking' },
+              { key: 'lip_closure', q: 'Difficulty keeping lips closed' },
+              { key: 'exercise_breath', q: 'Difficulty breathing during exercise' },
+              { key: 'exercise_breath_detail', q: 'Exercise breathing — details' },
             ]
           },
           {
-            title: 'Tandvårdsoro',
+            title: 'Sömnhälsa',
             fields: [
-              { key: 'anxiety', q: 'Oro-nivå' },
-              { key: 'anxiety_notes', q: 'Oro-anteckningar' },
+              { key: 'bedtime_weekday', q: 'Vanlig läggdags (vardagar)' },
+              { key: 'bedtime_weekend', q: 'Vanlig läggdags (helger)' },
+              { key: 'sleep_hours', q: 'Usual sleep hours' },
+              { key: 'sleep_onset', q: 'Difficulty falling asleep' },
+              { key: 'night_waking', q: 'Wake frequently at night' },
+              { key: 'wake_rested', q: 'Wake feeling rested' },
+              { key: 'daytime_sleepiness', q: 'Daytime sleepiness/fatigue' },
+              { key: 'morning_headache', q: 'Morning headaches/jaw discomfort' },
+              { key: 'night_sweat', q: 'Night sweating/restless sleep' },
+              { key: 'night_sweat_detail', q: 'Night sweat — details' },
+              { key: 'sleep_study', q: 'Sleep study / sleep apnoea diagnosis' },
+              { key: 'sleep_study_detail', q: 'Sleep study — details' },
+              { key: 'cpap', q: 'Use CPAP / oral appliance' },
+              { key: 'cpap_detail', q: 'CPAP — details' },
+              { key: 'partner_report', q: 'Partner reported snoring/grinding/pauses' },
+              { key: 'partner_report_detail', q: 'Partner report — details' },
             ]
           },
           {
-            title: 'Nödkontakt',
+            title: 'Käkled, Ansikte och Tuggfunktion',
             fields: [
-              { key: 'emerg_name', q: 'Nödkontaktnamn' },
-              { key: 'emerg_phone', q: 'Nödkontakt telefon' },
-              { key: 'emerg_relation', q: 'Relation' },
+              { key: 'tmj_pain', q: 'Käke joint pain' },
+              { key: 'tmj_sounds', q: 'Käke clicking/popping sounds' },
+              { key: 'jaw_lock', q: 'Käke locks/sticks' },
+              { key: 'jaw_lock_detail', q: 'Käke lock — details' },
+              { key: 'limited_opening', q: 'Limited/difficult mouth opening' },
+              { key: 'chew_pain', q: 'Pain when chewing/yawning' },
+              { key: 'day_clench', q: 'Clench during the day' },
+              { key: 'morning_jaw', q: 'Wake with jaw tension/soreness' },
+              { key: 'headaches', q: 'Headaches/temple/ear pain' },
+              { key: 'headaches_detail', q: 'Headache frequency' },
+              { key: 'neck_tension', q: 'Nacke/shoulder tension with jaw symptoms' },
+              { key: 'tmd_diag', q: 'TMD diagnosis / splint / night guard' },
+              { key: 'tmd_diag_detail', q: 'TMD — details' },
             ]
           },
           {
-            title: 'Ytterligare anteckningar',
+            title: 'Muskulär och Muskuloskeletal Hälsa',
             fields: [
-              { key: 'ovrigt', q: 'Ytterligare information' },
+              { key: 'muscle_pain', q: 'Recurrent muscle tightness/spasms' },
+              { key: 'muscle_pain_detail', q: 'Muscle pain — areas' },
+              { key: 'head_muscle', q: 'Head/face muscle symptoms' },
+              { key: 'posture_symptoms', q: 'Posture-related symptoms' },
+              { key: 'whiplash', q: 'Whiplash/concussion/head injury' },
+              { key: 'whiplash_detail', q: 'Whiplash — details' },
+              { key: 'chronic_pain', q: 'Chronic neck/shoulder/back/hip pain' },
+              { key: 'chronic_pain_detail', q: 'Chronic pain — details' },
+              { key: 'posture_asym', q: 'Posture asymmetry' },
+              { key: 'posture_asym_detail', q: 'Asymmetry — details' },
+              { key: 'hypermobility', q: 'Joint hypermobility' },
+              { key: 'physio', q: 'Physio/osteo/chiro treatment' },
+              { key: 'physio_detail', q: 'Physio — details' },
+              { key: 'activity_symptoms', q: 'Activity/posture/stress affects jaw' },
+              { key: 'activity_symptoms_detail', q: 'Activity — explanation' },
+            ]
+          },
+          {
+            title: 'Ovanor och Myofunktionell Hälsa',
+            fields: [
+              { key: 'tongue_rest', q: 'Tongue rest position on palate' },
+              { key: 'tongue_thrust', q: 'Tongue thrust' },
+              { key: 'oral_habits', q: 'Nail/cheek biting, thumb sucking' },
+              { key: 'oral_habits_detail', q: 'Oral habits — details' },
+              { key: 'chewing_pref', q: 'Chewing side preference' },
+              { key: 'chewing_pref_detail', q: 'Chewing — details' },
+              { key: 'swallowing', q: 'Swallowing difficulty/choking' },
+              { key: 'swallowing_detail', q: 'Swallowing — details' },
+              { key: 'speech', q: 'Speech difficulties/therapy' },
+              { key: 'speech_detail', q: 'Speech — details' },
+              { key: 'oral_tension', q: 'Oral tension at rest' },
+            ]
+          },
+          {
+            title: 'Kost, Muntorrhet och Reflux',
+            fields: [
+              { key: 'sugar_intake', q: 'Sugar/acid consumption frequency' },
+              { key: 'dry_mouth', q: 'Dry mouth' },
+              { key: 'reflux', q: 'Heartburn/acid reflux' },
+              { key: 'nausea', q: 'Nausea/acidic taste' },
+              { key: 'special_diet', q: 'Special diet/restrictions' },
+              { key: 'special_diet_detail', q: 'Diet — details' },
+            ]
+          },
+          {
+            title: 'Munhygien och Livsstil',
+            fields: [
+              { key: 'brushing', q: 'Brushing frequency' },
+              { key: 'flossing', q: 'Flossing' },
+              { key: 'smoking', q: 'Smoking/vaping/nicotine' },
+              { key: 'alcohol', q: 'Alcohol consumption' },
+            ]
+          },
+          {
+            title: 'Stress, Välmående och Tandvårdsoro',
+            fields: [
+              { key: 'stress', q: 'Current stress level' },
+              { key: 'stress_clench', q: 'Stress increases clenching/tension' },
+              { key: 'anxiety', q: 'Dental anxiety level' },
+              { key: 'anxiety_notes', q: 'Comfort preferences' },
+            ]
+          },
+          {
+            title: 'Patientmål och Samtycke',
+            fields: [
+              { key: 'goals', q: 'Main goals for treatment' },
+              { key: 'concerns_important', q: 'Important concerns/experiences' },
+              { key: 'exam_request', q: 'Specific exam/explanation requests' },
+              { key: 'ovrigt', q: 'Additional information' },
+              { key: 'emergency_name', q: 'Emergency contact name' },
+              { key: 'emergency_phone', q: 'Emergency contact phone' },
+              { key: 'emergency_relation', q: 'Relationship' },
             ]
           }
         ];
@@ -714,14 +1537,14 @@
             email: formData.email,
             phone: formData.phone || '',
             symptoms: noteLines,
-            _formType: 'general-dental-anamnes-sv',
+            _formType: 'comprehensive-health-sv',
             pdfBase64: pdfBase64
           })
         });
 
         if (!res.ok) {
           const errData = await res.json().catch(() => ({}));
-          throw new Error(errData.error || 'Kunde inte skicka');
+          throw new Error(errData.error || 'Could not submit');
         }
 
         form.style.display = 'none';
@@ -730,8 +1553,8 @@
       } catch (err) {
         console.error('Submission error:', err);
         submitBtn.disabled = false;
-        submitBtn.textContent = 'Skicka historik';
-        submitError.textContent = 'Något gick fel: ' + (err.message || 'Okänt fel');
+        submitBtn.textContent = 'Skicka in';
+        submitError.textContent = 'Något gick fel: ' + (err.message || 'Unknown error');
         submitError.style.display = 'block';
       }
     });

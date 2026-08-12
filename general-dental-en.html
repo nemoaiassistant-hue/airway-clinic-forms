@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Airway Clinic – Dental Medical History</title>
+  <title>Airway Clinic – Comprehensive Health Questionnaire</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <style>
     :root {
@@ -40,7 +40,7 @@
 
     @media (max-width: 600px) {
       .sheet { padding: 20px 18px 24px; }
-      h1 { font-size: 28px !important; }
+      h1 { font-size: 26px !important; }
     }
 
     .top {
@@ -59,7 +59,7 @@
     h1 {
       margin: 12px 0 8px 0;
       color: var(--ink);
-      font-size: 36px;
+      font-size: 34px;
       line-height: 1.1;
       font-family: "Arial Narrow", Arial, sans-serif;
       font-weight: 800;
@@ -71,8 +71,17 @@
       text-align: center;
       color: var(--muted);
       font-size: 15px;
+      margin-bottom: 8px;
+      line-height: 1.5;
+    }
+
+    .form-intro {
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
       margin-bottom: 28px;
       line-height: 1.5;
+      font-style: italic;
     }
 
     .section-note {
@@ -139,15 +148,6 @@
       outline: none;
       border-color: var(--gold);
     }
-    .field input.error, .field textarea.error {
-      border-color: var(--error);
-    }
-    .field .error-msg {
-      color: var(--error);
-      font-size: 11px;
-      margin-top: 3px;
-      display: none;
-    }
 
     .option-group {
       margin-bottom: 14px;
@@ -196,6 +196,32 @@
     @media (max-width: 600px) {
       .check-grid { grid-template-columns: 1fr; }
     }
+
+    .yn-group {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+    .yn-group .yn-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ink);
+      flex: 1;
+      line-height: 1.4;
+      padding-top: 5px;
+    }
+    .yn-group .yn-opts {
+      display: flex;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+    .yn-detail {
+      display: none;
+      margin-bottom: 14px;
+      margin-left: 0;
+    }
+    .yn-detail.visible { display: block; }
 
     .submit-wrap {
       text-align: center;
@@ -259,22 +285,31 @@
       <img class="logo-img" src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/Z9UtrrCvJc8ObhTIILLF/media/697504ceeb392b3e880ee4d4.png" alt="Airway Clinic logo">
     </div>
 
-    <h1>Dental Medical History</h1>
+    <h1>Comprehensive Health Questionnaire</h1>
     <p class="subtitle">Airway Clinic Stockholm</p>
+    <p class="form-intro">Comprehensive dental, airway, sleep, TMJ and musculoskeletal history</p>
 
     <form id="anamnes-form">
 
-      <!-- ===== SECTION 1: PATIENT DETAILS ===== -->
+      <!-- ===== SECTION 1: PERSONAL DETAILS ===== -->
       <div class="section">
-        <div class="section-title"><span class="emoji">👤</span> Patient Details</div>
+        <div class="section-title"><span class="emoji">👤</span> Personal Details</div>
         <div class="fields">
           <div class="field">
-            <label for="namn">Name *</label>
+            <label for="namn">Full name *</label>
             <input type="text" id="namn" name="namn" required placeholder="First and last name">
+          </div>
+          <div class="field">
+            <label for="preferred_name">Preferred name</label>
+            <input type="text" id="preferred_name" name="preferred_name" placeholder="What should we call you?">
           </div>
           <div class="field">
             <label for="fodelsedatum">Date of birth *</label>
             <input type="date" id="fodelsedatum" name="fodelsedatum" required>
+          </div>
+          <div class="field">
+            <label for="pronouns">Pronouns (optional)</label>
+            <input type="text" id="pronouns" name="pronouns" placeholder="e.g., she/her, he/him, they/them">
           </div>
           <div class="field">
             <label for="phone">Phone *</label>
@@ -289,9 +324,41 @@
             <input type="text" id="adress" name="adress" required placeholder="Street, postcode, city">
           </div>
           <div class="field">
+            <label for="occupation">Occupation</label>
+            <input type="text" id="occupation" name="occupation" placeholder="Your profession">
+          </div>
+          <div class="field">
             <label for="datum">Today's date *</label>
             <input type="date" id="datum" name="datum" required>
           </div>
+          <div class="field">
+            <label for="referral">How did you hear about us?</label>
+            <input type="text" id="referral" name="referral" placeholder="e.g., Friend, Google, referral">
+          </div>
+        </div>
+
+        <div class="fields" style="margin-top: 14px;">
+          <div class="field">
+            <label for="doctor">General medical doctor (GP)</label>
+            <input type="text" id="doctor" name="doctor" placeholder="Doctor's name">
+          </div>
+          <div class="field">
+            <label for="doctor_phone">Doctor's phone</label>
+            <input type="tel" id="doctor_phone" name="doctor_phone" placeholder="Phone number">
+          </div>
+          <div class="field">
+            <label for="prev_dentist">Previous dentist</label>
+            <input type="text" id="prev_dentist" name="prev_dentist" placeholder="Clinic or dentist name">
+          </div>
+          <div class="field">
+            <label for="last_visit">Date of last dental examination</label>
+            <input type="text" id="last_visit" name="last_visit" placeholder="e.g., 6 months ago, 2 years ago">
+          </div>
+        </div>
+
+        <div class="field full" style="margin-top: 14px;">
+          <label for="reason">Main reason for today's visit</label>
+          <textarea id="reason" name="reason" placeholder="e.g., Routine check-up, toothache, consultation, cleaning"></textarea>
         </div>
 
         <div class="option-group" style="margin-top: 14px;">
@@ -303,39 +370,62 @@
         </div>
       </div>
 
-      <!-- ===== SECTION 2: REASON FOR VISIT ===== -->
+      <!-- ===== SECTION 2: GENERAL MEDICAL HISTORY ===== -->
       <div class="section">
-        <div class="section-title"><span class="emoji">🦷</span> Reason for Visit</div>
-        <div class="field full" style="margin-bottom:14px;">
-          <label for="reason">What brings you to the dentist today?</label>
-          <input type="text" id="reason" name="reason" placeholder="e.g., Routine check-up, toothache, cleaning">
-        </div>
-        <div class="field full" style="margin-bottom:14px;">
-          <label for="pain_duration">If you have pain or discomfort, how long has it been a problem?</label>
-          <input type="text" id="pain_duration" name="pain_duration" placeholder="e.g., 3 days, 2 weeks, several months">
-        </div>
-        <div class="option-group">
-          <label>How would you rate any pain or discomfort?</label>
-          <div class="options">
-            <label class="opt-label"><input type="radio" name="pain_level" value="none"> None</label>
-            <label class="opt-label"><input type="radio" name="pain_level" value="mild"> Mild</label>
-            <label class="opt-label"><input type="radio" name="pain_level" value="moderate"> Moderate</label>
-            <label class="opt-label"><input type="radio" name="pain_level" value="severe"> Severe</label>
-          </div>
-        </div>
-      </div>
+        <div class="section-title"><span class="emoji">❤️</span> General Medical History</div>
 
-      <!-- ===== SECTION 3: MEDICAL CONDITIONS ===== -->
-      <div class="section">
-        <div class="section-title"><span class="emoji">❤️</span> Medical Conditions</div>
-        <p class="section-note">Check any conditions you have or have had in the past.</p>
+        <div class="yn-group" id="yn-under_care">
+          <span class="yn-label">Are you currently under medical care?</span>
+          <span class="yn-opts">
+            <label class="opt-label"><input type="radio" name="under_care" value="no"> No</label>
+            <label class="opt-label"><input type="radio" name="under_care" value="yes"> Yes</label>
+          </span>
+        </div>
+        <div class="yn-detail" id="detail-under_care">
+          <div class="field full"><textarea name="under_care_detail" placeholder="Please explain..."></textarea></div>
+        </div>
+
+        <div class="yn-group" id="yn-hospitalised">
+          <span class="yn-label">Have you ever been hospitalised or had a major operation?</span>
+          <span class="yn-opts">
+            <label class="opt-label"><input type="radio" name="hospitalised" value="no"> No</label>
+            <label class="opt-label"><input type="radio" name="hospitalised" value="yes"> Yes</label>
+          </span>
+        </div>
+        <div class="yn-detail" id="detail-hospitalised">
+          <div class="field full"><textarea name="hospitalised_detail" placeholder="Please provide details..."></textarea></div>
+        </div>
+
+        <div class="yn-group" id="yn-recent_illness">
+          <span class="yn-label">Have you had any recent illness, injury, surgery or significant health change?</span>
+          <span class="yn-opts">
+            <label class="opt-label"><input type="radio" name="recent_illness" value="no"> No</label>
+            <label class="opt-label"><input type="radio" name="recent_illness" value="yes"> Yes</label>
+          </span>
+        </div>
+        <div class="yn-detail" id="detail-recent_illness">
+          <div class="field full"><textarea name="recent_illness_detail" placeholder="Please provide details..."></textarea></div>
+        </div>
+
+        <div class="yn-group" id="yn-anaesthetic">
+          <span class="yn-label">Have you ever had an unusual reaction to local anaesthetic or sedation?</span>
+          <span class="yn-opts">
+            <label class="opt-label"><input type="radio" name="anaesthetic" value="no"> No</label>
+            <label class="opt-label"><input type="radio" name="anaesthetic" value="yes"> Yes</label>
+          </span>
+        </div>
+        <div class="yn-detail" id="detail-anaesthetic">
+          <div class="field full"><textarea name="anaesthetic_detail" placeholder="Please provide details..."></textarea></div>
+        </div>
+
+        <p class="section-note" style="margin-top: 16px;">Check any conditions you have or have had in the past:</p>
         <div class="check-grid">
           <label class="opt-label"><input type="checkbox" name="conditions" value="heart_disease"> Heart disease</label>
           <label class="opt-label"><input type="checkbox" name="conditions" value="high_bp"> High blood pressure</label>
           <label class="opt-label"><input type="checkbox" name="conditions" value="diabetes"> Diabetes</label>
           <label class="opt-label"><input type="checkbox" name="conditions" value="thyroid"> Thyroid condition</label>
           <label class="opt-label"><input type="checkbox" name="conditions" value="asthma"> Asthma</label>
-          <label class="opt-label"><input type="checkbox" name="conditions" value="respiratory"> Other respiratory conditions</label>
+          <label class="opt-label"><input type="checkbox" name="conditions" value="respiratory"> Other respiratory condition</label>
           <label class="opt-label"><input type="checkbox" name="conditions" value="kidney"> Kidney disease</label>
           <label class="opt-label"><input type="checkbox" name="conditions" value="liver"> Liver disease</label>
           <label class="opt-label"><input type="checkbox" name="conditions" value="bleeding"> Bleeding disorder</label>
@@ -345,6 +435,8 @@
           <label class="opt-label"><input type="checkbox" name="conditions" value="osteoporosis"> Osteoporosis</label>
           <label class="opt-label"><input type="checkbox" name="conditions" value="epilepsy"> Epilepsy / seizures</label>
           <label class="opt-label"><input type="checkbox" name="conditions" value="mental_health"> Anxiety / depression</label>
+          <label class="opt-label"><input type="checkbox" name="conditions" value="autoimmune"> Autoimmune / inflammatory</label>
+          <label class="opt-label"><input type="checkbox" name="conditions" value="neurological"> Neurological condition</label>
           <label class="opt-label"><input type="checkbox" name="conditions" value="pregnant"> Currently pregnant</label>
         </div>
         <div class="field full" style="margin-top:14px;">
@@ -357,12 +449,12 @@
         </div>
       </div>
 
-      <!-- ===== SECTION 4: MEDICATIONS ===== -->
+      <!-- ===== SECTION 3: MEDICATIONS ===== -->
       <div class="section">
         <div class="section-title"><span class="emoji">💊</span> Medications</div>
         <div class="field full" style="margin-bottom:14px;">
-          <label for="medications">Current medications (including over-the-counter):</label>
-          <textarea id="medications" name="medications" placeholder="List all medications and dosages"></textarea>
+          <label for="medications">Current medications (including over-the-counter and supplements):</label>
+          <textarea id="medications" name="medications" placeholder="List all medications, supplements and dosages"></textarea>
         </div>
         <div class="option-group">
           <label>Are you currently taking any blood thinners?</label>
@@ -382,24 +474,21 @@
         </div>
       </div>
 
-      <!-- ===== SECTION 5: ALLERGIES ===== -->
+      <!-- ===== SECTION 4: ALLERGIES ===== -->
       <div class="section">
         <div class="section-title"><span class="emoji">⚠️</span> Allergies</div>
         <div class="field full" style="margin-bottom:14px;">
-          <label for="allergies">Do you have any allergies? (medications, latex, foods, etc.)</label>
+          <label for="allergies">Do you have any allergies or adverse reactions? (medications, latex, foods, dental materials)</label>
           <textarea id="allergies" name="allergies" placeholder="List any allergies or write 'None'"></textarea>
         </div>
       </div>
 
-      <!-- ===== SECTION 6: DENTAL HISTORY ===== -->
+      <!-- ===== SECTION 5: DENTAL HISTORY ===== -->
       <div class="section">
         <div class="section-title"><span class="emoji">🦷</span> Dental History</div>
-        <div class="field" style="margin-bottom:14px;">
-          <label for="last_visit">When was your last dental examination?</label>
-          <input type="text" id="last_visit" name="last_visit" placeholder="e.g., 6 months ago, 2 years ago">
-        </div>
+
         <div class="option-group">
-          <label>How often do you visit the dentist?</label>
+          <label>How often do you normally have dental examinations?</label>
           <div class="options">
             <label class="opt-label"><input type="radio" name="visit_freq" value="6months"> Every 6 months</label>
             <label class="opt-label"><input type="radio" name="visit_freq" value="yearly"> Yearly</label>
@@ -407,32 +496,596 @@
             <label class="opt-label"><input type="radio" name="visit_freq" value="never"> Never</label>
           </div>
         </div>
+
+        <div class="yn-group" id="yn-ortho_prev">
+          <span class="yn-label">Have you had previous orthodontic treatment (braces)?</span>
+          <span class="yn-opts">
+            <label class="opt-label"><input type="radio" name="ortho_prev" value="no"> No</label>
+            <label class="opt-label"><input type="radio" name="ortho_prev" value="yes"> Yes</label>
+          </span>
+        </div>
+        <div class="yn-detail" id="detail-ortho_prev">
+          <div class="field full"><textarea name="ortho_prev_detail" placeholder="Type and when (e.g., braces age 12-14)"></textarea></div>
+        </div>
+
+        <div class="yn-group" id="yn-jaw_prev">
+          <span class="yn-label">Have you had previous jaw, bite, airway or facial treatment?</span>
+          <span class="yn-opts">
+            <label class="opt-label"><input type="radio" name="jaw_prev" value="no"> No</label>
+            <label class="opt-label"><input type="radio" name="jaw_prev" value="yes"> Yes</label>
+          </span>
+        </div>
+        <div class="yn-detail" id="detail-jaw_prev">
+          <div class="field full"><textarea name="jaw_prev_detail" placeholder="Please provide details..."></textarea></div>
+        </div>
+
         <p class="section-note">Check any that apply to you:</p>
         <div class="check-grid">
           <label class="opt-label"><input type="checkbox" name="dental_issues" value="fillings"> Previous fillings</label>
           <label class="opt-label"><input type="checkbox" name="dental_issues" value="crowns"> Crowns or bridges</label>
           <label class="opt-label"><input type="checkbox" name="dental_issues" value="root_canal"> Root canal treatment</label>
           <label class="opt-label"><input type="checkbox" name="dental_issues" value="extractions"> Tooth extractions</label>
-          <label class="opt-label"><input type="checkbox" name="dental_issues" value="ortho"> Orthodontic treatment (braces)</label>
           <label class="opt-label"><input type="checkbox" name="dental_issues" value="implants"> Dental implants</label>
+          <label class="opt-label"><input type="checkbox" name="dental_issues" value="wisdom"> Wisdom tooth problems</label>
+          <label class="opt-label"><input type="checkbox" name="dental_issues" value="broken_teeth"> Broken, worn or chipped teeth</label>
           <label class="opt-label"><input type="checkbox" name="dental_issues" value="jaw_clicking"> Jaw clicking / popping</label>
           <label class="opt-label"><input type="checkbox" name="dental_issues" value="grinding"> Teeth grinding / clenching</label>
-          <label class="opt-label"><input type="checkbox" name="dental_issues" value="sensitivity"> Sensitivity to hot/cold/sweet</label>
           <label class="opt-label"><input type="checkbox" name="dental_issues" value="bleeding_gums"> Bleeding gums</label>
-          <label class="opt-label"><input type="checkbox" name="dental_issues" value="dry_mouth"> Dry mouth</label>
-          <label class="opt-label"><input type="checkbox" name="dental_issues" value="bad_breath"> Persistent bad breath</label>
-          <label class="opt-label"><input type="checkbox" name="dental_issues" value="loose_teeth"> Loose teeth</label>
-          <label class="opt-label"><input type="checkbox" name="dental_issues" value="wisdom"> Wisdom tooth problems</label>
+          <label class="opt-label"><input type="checkbox" name="dental_issues" value="loose_teeth"> Loose teeth or gum recession</label>
+          <label class="opt-label"><input type="checkbox" name="dental_issues" value="food_trapping"> Food trapping between teeth</label>
         </div>
+
+        <div class="option-group" style="margin-top:14px;">
+          <label>Do your teeth feel sensitive?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="sensitivity" value="no"> No</label>
+            <label class="opt-label"><input type="radio" name="sensitivity" value="cold"> Yes — to cold</label>
+            <label class="opt-label"><input type="radio" name="sensitivity" value="hot"> Yes — to hot</label>
+            <label class="opt-label"><input type="radio" name="sensitivity" value="sweet"> Yes — to sweet</label>
+            <label class="opt-label"><input type="radio" name="sensitivity" value="biting"> Yes — when biting</label>
+          </div>
+        </div>
+
         <div class="field full" style="margin-top:14px;">
-          <label for="dental_other">Any other dental concerns or history?</label>
-          <textarea id="dental_other" name="dental_other" placeholder="Describe..."></textarea>
+          <label for="dental_other">Any current toothache, facial pain, swelling or other dental concern?</label>
+          <textarea id="dental_other" name="dental_other" placeholder="Describe any current concerns..."></textarea>
         </div>
       </div>
 
-      <!-- ===== SECTION 7: ORAL HYGIENE & LIFESTYLE ===== -->
+      <!-- ===== SECTION 6: BREATHING & AIRWAY HEALTH ===== -->
+      <div class="section">
+        <div class="section-title"><span class="emoji">👃</span> Breathing & Airway Health</div>
+
+        <div class="option-group">
+          <label>How do you usually breathe?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="breathing_mode" value="nose"> Mainly through nose</label>
+            <label class="opt-label"><input type="radio" name="breathing_mode" value="mouth"> Mainly through mouth</label>
+            <label class="opt-label"><input type="radio" name="breathing_mode" value="both"> Both</label>
+            <label class="opt-label"><input type="radio" name="breathing_mode" value="unsure"> Unsure</label>
+          </div>
+        </div>
+        <div class="option-group">
+          <label>Do you mouth-breathe during the day?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="mouth_breath_day" value="no"> No</label>
+            <label class="opt-label"><input type="radio" name="mouth_breath_day" value="sometimes"> Sometimes</label>
+            <label class="opt-label"><input type="radio" name="mouth_breath_day" value="often"> Often</label>
+          </div>
+        </div>
+        <div class="option-group">
+          <label>Do you wake with a dry mouth or thirsty mouth?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="dry_mouth_wake" value="no"> No</label>
+            <label class="opt-label"><input type="radio" name="dry_mouth_wake" value="sometimes"> Sometimes</label>
+            <label class="opt-label"><input type="radio" name="dry_mouth_wake" value="often"> Often</label>
+          </div>
+        </div>
+        <div class="option-group">
+          <label>Do you have chronic nasal congestion or difficulty breathing through your nose?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="nasal_congestion" value="no"> No</label>
+            <label class="opt-label"><input type="radio" name="nasal_congestion" value="sometimes"> Sometimes</label>
+            <label class="opt-label"><input type="radio" name="nasal_congestion" value="often"> Often</label>
+          </div>
+        </div>
+
+        <div class="yn-group" id="yn-allergies_nasal">
+          <span class="yn-label">Do you have allergies, sinus problems, recurrent infections or a blocked nose?</span>
+          <span class="yn-opts">
+            <label class="opt-label"><input type="radio" name="allergies_nasal" value="no"> No</label>
+            <label class="opt-label"><input type="radio" name="allergies_nasal" value="yes"> Yes</label>
+          </span>
+        </div>
+        <div class="yn-detail" id="detail-allergies_nasal">
+          <div class="field full"><textarea name="allergies_nasal_detail" placeholder="Please provide details..."></textarea></div>
+        </div>
+
+        <div class="yn-group" id="yn-airway_surgery">
+          <span class="yn-label">Have you had nasal, sinus, septal, turbinate or airway surgery?</span>
+          <span class="yn-opts">
+            <label class="opt-label"><input type="radio" name="airway_surgery" value="no"> No</label>
+            <label class="opt-label"><input type="radio" name="airway_surgery" value="yes"> Yes</label>
+          </span>
+        </div>
+        <div class="yn-detail" id="detail-airway_surgery">
+          <div class="field full"><textarea name="airway_surgery_detail" placeholder="Please provide details..."></textarea></div>
+        </div>
+
+        <div class="option-group">
+          <label>Do you snore?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="snoring" value="no"> No</label>
+            <label class="opt-label"><input type="radio" name="snoring" value="occasionally"> Occasionally</label>
+            <label class="opt-label"><input type="radio" name="snoring" value="frequently"> Frequently</label>
+            <label class="opt-label"><input type="radio" name="snoring" value="loudly"> Loudly</label>
+          </div>
+        </div>
+        <div class="option-group">
+          <label>Has anyone noticed pauses in your breathing during sleep?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="breathing_pauses" value="no"> No</label>
+            <label class="opt-label"><input type="radio" name="breathing_pauses" value="yes"> Yes</label>
+            <label class="opt-label"><input type="radio" name="breathing_pauses" value="unsure"> Unsure</label>
+          </div>
+        </div>
+        <div class="option-group">
+          <label>Do you wake gasping, choking or with a sensation of not getting enough air?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="gasping" value="no"> No</label>
+            <label class="opt-label"><input type="radio" name="gasping" value="yes"> Yes</label>
+            <label class="opt-label"><input type="radio" name="gasping" value="unsure"> Unsure</label>
+          </div>
+        </div>
+        <div class="option-group">
+          <label>Do you have difficulty keeping your lips comfortably closed at rest?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="lip_closure" value="no"> No</label>
+            <label class="opt-label"><input type="radio" name="lip_closure" value="yes"> Yes</label>
+          </div>
+        </div>
+
+        <div class="yn-group" id="yn-exercise_breath">
+          <span class="yn-label">Do you have difficulty breathing during exercise?</span>
+          <span class="yn-opts">
+            <label class="opt-label"><input type="radio" name="exercise_breath" value="no"> No</label>
+            <label class="opt-label"><input type="radio" name="exercise_breath" value="yes"> Yes</label>
+          </span>
+        </div>
+        <div class="yn-detail" id="detail-exercise_breath">
+          <div class="field full"><textarea name="exercise_breath_detail" placeholder="Please provide details..."></textarea></div>
+        </div>
+      </div>
+
+      <!-- ===== SECTION 7: SLEEP HEALTH ===== -->
+      <div class="section">
+        <div class="section-title"><span class="emoji">😴</span> Sleep Health</div>
+
+        <div class="fields">
+          <div class="field">
+            <label for="bedtime_weekday">Typical bedtime (weekdays)</label>
+            <input type="text" id="bedtime_weekday" name="bedtime_weekday" placeholder="e.g., 22:30">
+          </div>
+          <div class="field">
+            <label for="bedtime_weekend">Typical bedtime (weekends)</label>
+            <input type="text" id="bedtime_weekend" name="bedtime_weekend" placeholder="e.g., 23:30">
+          </div>
+          <div class="field">
+            <label for="sleep_hours">How many hours do you usually sleep?</label>
+            <input type="text" id="sleep_hours" name="sleep_hours" placeholder="e.g., 7 hours">
+          </div>
+        </div>
+
+        <div class="option-group" style="margin-top:14px;">
+          <label>Do you have difficulty falling asleep?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="sleep_onset" value="no"> No</label>
+            <label class="opt-label"><input type="radio" name="sleep_onset" value="sometimes"> Sometimes</label>
+            <label class="opt-label"><input type="radio" name="sleep_onset" value="often"> Often</label>
+          </div>
+        </div>
+        <div class="option-group">
+          <label>Do you wake frequently during the night?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="night_waking" value="no"> No</label>
+            <label class="opt-label"><input type="radio" name="night_waking" value="sometimes"> Sometimes</label>
+            <label class="opt-label"><input type="radio" name="night_waking" value="often"> Often</label>
+          </div>
+        </div>
+        <div class="option-group">
+          <label>Do you wake feeling rested?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="wake_rested" value="usually"> Usually</label>
+            <label class="opt-label"><input type="radio" name="wake_rested" value="sometimes"> Sometimes</label>
+            <label class="opt-label"><input type="radio" name="wake_rested" value="rarely"> Rarely</label>
+          </div>
+        </div>
+        <div class="option-group">
+          <label>Do you experience daytime sleepiness or fatigue?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="daytime_sleepiness" value="no"> No</label>
+            <label class="opt-label"><input type="radio" name="daytime_sleepiness" value="sometimes"> Sometimes</label>
+            <label class="opt-label"><input type="radio" name="daytime_sleepiness" value="often"> Often</label>
+          </div>
+        </div>
+        <div class="option-group">
+          <label>Morning headaches or facial/jaw discomfort?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="morning_headache" value="no"> No</label>
+            <label class="opt-label"><input type="radio" name="morning_headache" value="sometimes"> Sometimes</label>
+            <label class="opt-label"><input type="radio" name="morning_headache" value="often"> Often</label>
+          </div>
+        </div>
+
+        <div class="yn-group" id="yn-night_sweat">
+          <span class="yn-label">Night sweating, restless sleep or frequent position changes?</span>
+          <span class="yn-opts">
+            <label class="opt-label"><input type="radio" name="night_sweat" value="no"> No</label>
+            <label class="opt-label"><input type="radio" name="night_sweat" value="yes"> Yes</label>
+          </span>
+        </div>
+        <div class="yn-detail" id="detail-night_sweat">
+          <div class="field full"><textarea name="night_sweat_detail" placeholder="Please provide details..."></textarea></div>
+        </div>
+
+        <div class="yn-group" id="yn-sleep_study">
+          <span class="yn-label">Have you ever had a sleep study or been diagnosed with sleep apnoea?</span>
+          <span class="yn-opts">
+            <label class="opt-label"><input type="radio" name="sleep_study" value="no"> No</label>
+            <label class="opt-label"><input type="radio" name="sleep_study" value="yes"> Yes</label>
+          </span>
+        </div>
+        <div class="yn-detail" id="detail-sleep_study">
+          <div class="field full"><textarea name="sleep_study_detail" placeholder="Please provide details (when, results, diagnosis)..."></textarea></div>
+        </div>
+
+        <div class="yn-group" id="yn-cpap">
+          <span class="yn-label">Do you use CPAP, an oral appliance or another sleep device?</span>
+          <span class="yn-opts">
+            <label class="opt-label"><input type="radio" name="cpap" value="no"> No</label>
+            <label class="opt-label"><input type="radio" name="cpap" value="yes"> Yes</label>
+          </span>
+        </div>
+        <div class="yn-detail" id="detail-cpap">
+          <div class="field full"><textarea name="cpap_detail" placeholder="Please provide details..."></textarea></div>
+        </div>
+
+        <div class="yn-group" id="yn-partner_report">
+          <span class="yn-label">Has a partner or family member reported snoring, grinding or breathing pauses?</span>
+          <span class="yn-opts">
+            <label class="opt-label"><input type="radio" name="partner_report" value="no"> No</label>
+            <label class="opt-label"><input type="radio" name="partner_report" value="yes"> Yes</label>
+          </span>
+        </div>
+        <div class="yn-detail" id="detail-partner_report">
+          <div class="field full"><textarea name="partner_report_detail" placeholder="Please provide details..."></textarea></div>
+        </div>
+      </div>
+
+      <!-- ===== SECTION 8: TMJ, JAW & FACIAL FUNCTION ===== -->
+      <div class="section">
+        <div class="section-title"><span class="emoji">🗣️</span> TMJ, Jaw & Facial Function</div>
+
+        <div class="option-group">
+          <label>Do you have pain in the jaw joints (in front of the ears)?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="tmj_pain" value="no"> No</label>
+            <label class="opt-label"><input type="radio" name="tmj_pain" value="left"> Left</label>
+            <label class="opt-label"><input type="radio" name="tmj_pain" value="right"> Right</label>
+            <label class="opt-label"><input type="radio" name="tmj_pain" value="both"> Both</label>
+          </div>
+        </div>
+        <div class="option-group">
+          <label>Do you experience clicking, popping, grinding or other jaw sounds?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="tmj_sounds" value="no"> No</label>
+            <label class="opt-label"><input type="radio" name="tmj_sounds" value="left"> Left</label>
+            <label class="opt-label"><input type="radio" name="tmj_sounds" value="right"> Right</label>
+            <label class="opt-label"><input type="radio" name="tmj_sounds" value="both"> Both</label>
+          </div>
+        </div>
+
+        <div class="yn-group" id="yn-jaw_lock">
+          <span class="yn-label">Does your jaw ever lock or get stuck open or closed?</span>
+          <span class="yn-opts">
+            <label class="opt-label"><input type="radio" name="jaw_lock" value="no"> No</label>
+            <label class="opt-label"><input type="radio" name="jaw_lock" value="yes"> Yes</label>
+          </span>
+        </div>
+        <div class="yn-detail" id="detail-jaw_lock">
+          <div class="field full"><textarea name="jaw_lock_detail" placeholder="Please provide details..."></textarea></div>
+        </div>
+
+        <div class="option-group">
+          <label>Is opening your mouth difficult or limited?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="limited_opening" value="no"> No</label>
+            <label class="opt-label"><input type="radio" name="limited_opening" value="yes"> Yes</label>
+          </div>
+        </div>
+        <div class="option-group">
+          <label>Do you have pain when chewing, yawning or biting?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="chew_pain" value="no"> No</label>
+            <label class="opt-label"><input type="radio" name="chew_pain" value="yes"> Yes</label>
+          </div>
+        </div>
+        <div class="option-group">
+          <label>Do you clench your teeth or jaw during the day?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="day_clench" value="no"> No</label>
+            <label class="opt-label"><input type="radio" name="day_clench" value="yes"> Yes</label>
+            <label class="opt-label"><input type="radio" name="day_clench" value="unsure"> Unsure</label>
+          </div>
+        </div>
+        <div class="option-group">
+          <label>Do you wake with jaw tension, tooth soreness or facial pain?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="morning_jaw" value="no"> No</label>
+            <label class="opt-label"><input type="radio" name="morning_jaw" value="yes"> Yes</label>
+          </div>
+        </div>
+
+        <div class="yn-group" id="yn-headaches">
+          <span class="yn-label">Do you experience headaches, temple pain or pain around the ears?</span>
+          <span class="yn-opts">
+            <label class="opt-label"><input type="radio" name="headaches" value="no"> No</label>
+            <label class="opt-label"><input type="radio" name="headaches" value="yes"> Yes</label>
+          </span>
+        </div>
+        <div class="yn-detail" id="detail-headaches">
+          <div class="field full"><label for="headaches_freq" style="font-size:12px;font-weight:400">Frequency</label><textarea name="headaches_detail" placeholder="Frequency (e.g., daily, weekly, monthly)..."></textarea></div>
+        </div>
+
+        <div class="option-group">
+          <label>Do you have neck/shoulder tension associated with jaw symptoms?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="neck_tension" value="no"> No</label>
+            <label class="opt-label"><input type="radio" name="neck_tension" value="yes"> Yes</label>
+          </div>
+        </div>
+
+        <div class="yn-group" id="yn-tmd_diag">
+          <span class="yn-label">Have you previously been diagnosed with TMD/TMJ disorder or received a splint/night guard?</span>
+          <span class="yn-opts">
+            <label class="opt-label"><input type="radio" name="tmd_diag" value="no"> No</label>
+            <label class="opt-label"><input type="radio" name="tmd_diag" value="yes"> Yes</label>
+          </span>
+        </div>
+        <div class="yn-detail" id="detail-tmd_diag">
+          <div class="field full"><textarea name="tmd_diag_detail" placeholder="Please provide details..."></textarea></div>
+        </div>
+      </div>
+
+      <!-- ===== SECTION 9: MUSCULAR & MUSCULOSKELETAL ===== -->
+      <div class="section">
+        <div class="section-title"><span class="emoji">💪</span> Muscular & Musculoskeletal Health</div>
+
+        <div class="yn-group" id="yn-muscle_pain">
+          <span class="yn-label">Do you have recurrent muscle tightness, spasms or pain?</span>
+          <span class="yn-opts">
+            <label class="opt-label"><input type="radio" name="muscle_pain" value="no"> No</label>
+            <label class="opt-label"><input type="radio" name="muscle_pain" value="yes"> Yes</label>
+          </span>
+        </div>
+        <div class="yn-detail" id="detail-muscle_pain">
+          <div class="field full"><textarea name="muscle_pain_detail" placeholder="Which areas?"></textarea></div>
+        </div>
+
+        <div class="option-group">
+          <label>Head / face muscle symptoms (check all that apply):</label>
+          <div class="options">
+            <label class="opt-label"><input type="checkbox" name="head_muscle" value="jaw"> Jaw</label>
+            <label class="opt-label"><input type="checkbox" name="head_muscle" value="temples"> Temples</label>
+            <label class="opt-label"><input type="checkbox" name="head_muscle" value="cheeks"> Cheeks</label>
+            <label class="opt-label"><input type="checkbox" name="head_muscle" value="eyes"> Around eyes</label>
+            <label class="opt-label"><input type="checkbox" name="head_muscle" value="neck"> Neck</label>
+          </div>
+        </div>
+        <div class="option-group">
+          <label>Posture-related symptoms (check all that apply):</label>
+          <div class="options">
+            <label class="opt-label"><input type="checkbox" name="posture_symptoms" value="neck"> Neck</label>
+            <label class="opt-label"><input type="checkbox" name="posture_symptoms" value="shoulders"> Shoulders</label>
+            <label class="opt-label"><input type="checkbox" name="posture_symptoms" value="upper_back"> Upper back</label>
+            <label class="opt-label"><input type="checkbox" name="posture_symptoms" value="lower_back"> Lower back</label>
+          </div>
+        </div>
+
+        <div class="yn-group" id="yn-whiplash">
+          <span class="yn-label">Do you have a history of whiplash, concussion or significant head/neck injury?</span>
+          <span class="yn-opts">
+            <label class="opt-label"><input type="radio" name="whiplash" value="no"> No</label>
+            <label class="opt-label"><input type="radio" name="whiplash" value="yes"> Yes</label>
+          </span>
+        </div>
+        <div class="yn-detail" id="detail-whiplash">
+          <div class="field full"><textarea name="whiplash_detail" placeholder="Please provide details..."></textarea></div>
+        </div>
+
+        <div class="yn-group" id="yn-chronic_pain">
+          <span class="yn-label">Do you have chronic neck, shoulder, back or hip pain?</span>
+          <span class="yn-opts">
+            <label class="opt-label"><input type="radio" name="chronic_pain" value="no"> No</label>
+            <label class="opt-label"><input type="radio" name="chronic_pain" value="yes"> Yes</label>
+          </span>
+        </div>
+        <div class="yn-detail" id="detail-chronic_pain">
+          <div class="field full"><textarea name="chronic_pain_detail" placeholder="Please provide details..."></textarea></div>
+        </div>
+
+        <div class="yn-group" id="yn-posture_asym">
+          <span class="yn-label">Do you notice asymmetry in posture, shoulder height, head position or walking?</span>
+          <span class="yn-opts">
+            <label class="opt-label"><input type="radio" name="posture_asym" value="no"> No</label>
+            <label class="opt-label"><input type="radio" name="posture_asym" value="yes"> Yes</label>
+          </span>
+        </div>
+        <div class="yn-detail" id="detail-posture_asym">
+          <div class="field full"><textarea name="posture_asym_detail" placeholder="Please provide details..."></textarea></div>
+        </div>
+
+        <div class="option-group">
+          <label>Do you have joint hypermobility or unusually flexible joints?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="hypermobility" value="no"> No</label>
+            <label class="opt-label"><input type="radio" name="hypermobility" value="yes"> Yes</label>
+            <label class="opt-label"><input type="radio" name="hypermobility" value="unsure"> Unsure</label>
+          </div>
+        </div>
+
+        <div class="yn-group" id="yn-physio">
+          <span class="yn-label">Have you received physiotherapy, osteopathy, chiropractic care or other musculoskeletal treatment?</span>
+          <span class="yn-opts">
+            <label class="opt-label"><input type="radio" name="physio" value="no"> No</label>
+            <label class="opt-label"><input type="radio" name="physio" value="yes"> Yes</label>
+          </span>
+        </div>
+        <div class="yn-detail" id="detail-physio">
+          <div class="field full"><textarea name="physio_detail" placeholder="Please provide details..."></textarea></div>
+        </div>
+
+        <div class="yn-group" id="yn-activity_symptoms">
+          <span class="yn-label">Does physical activity, posture or stress change your jaw/facial symptoms?</span>
+          <span class="yn-opts">
+            <label class="opt-label"><input type="radio" name="activity_symptoms" value="no"> No</label>
+            <label class="opt-label"><input type="radio" name="activity_symptoms" value="yes"> Yes</label>
+          </span>
+        </div>
+        <div class="yn-detail" id="detail-activity_symptoms">
+          <div class="field full"><textarea name="activity_symptoms_detail" placeholder="Please explain..."></textarea></div>
+        </div>
+      </div>
+
+      <!-- ===== SECTION 10: ORAL HABITS & MYOFUNCTIONAL ===== -->
+      <div class="section">
+        <div class="section-title"><span class="emoji">👅</span> Oral Habits & Myofunctional Health</div>
+
+        <div class="option-group">
+          <label>Do you rest your tongue against the palate when not speaking or eating?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="tongue_rest" value="usually"> Usually</label>
+            <label class="opt-label"><input type="radio" name="tongue_rest" value="sometimes"> Sometimes</label>
+            <label class="opt-label"><input type="radio" name="tongue_rest" value="rarely"> Rarely</label>
+            <label class="opt-label"><input type="radio" name="tongue_rest" value="unsure"> Unsure</label>
+          </div>
+        </div>
+        <div class="option-group">
+          <label>Do you have a tongue thrust or difficulty placing the tongue on the palate?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="tongue_thrust" value="no"> No</label>
+            <label class="opt-label"><input type="radio" name="tongue_thrust" value="yes"> Yes</label>
+            <label class="opt-label"><input type="radio" name="tongue_thrust" value="unsure"> Unsure</label>
+          </div>
+        </div>
+
+        <div class="yn-group" id="yn-oral_habits">
+          <span class="yn-label">Do you bite nails, lips or cheeks, or suck thumb/finger?</span>
+          <span class="yn-opts">
+            <label class="opt-label"><input type="radio" name="oral_habits" value="no"> No</label>
+            <label class="opt-label"><input type="radio" name="oral_habits" value="yes"> Yes</label>
+          </span>
+        </div>
+        <div class="yn-detail" id="detail-oral_habits">
+          <div class="field full"><textarea name="oral_habits_detail" placeholder="Please provide details..."></textarea></div>
+        </div>
+
+        <div class="yn-group" id="yn-chewing_pref">
+          <span class="yn-label">Do you have difficulty chewing on both sides or prefer one side?</span>
+          <span class="yn-opts">
+            <label class="opt-label"><input type="radio" name="chewing_pref" value="no"> No</label>
+            <label class="opt-label"><input type="radio" name="chewing_pref" value="yes"> Yes</label>
+          </span>
+        </div>
+        <div class="yn-detail" id="detail-chewing_pref">
+          <div class="field full"><textarea name="chewing_pref_detail" placeholder="Preferred side and details..."></textarea></div>
+        </div>
+
+        <div class="yn-group" id="yn-swallowing">
+          <span class="yn-label">Do you have difficulty swallowing, choking or feel food sticks?</span>
+          <span class="yn-opts">
+            <label class="opt-label"><input type="radio" name="swallowing" value="no"> No</label>
+            <label class="opt-label"><input type="radio" name="swallowing" value="yes"> Yes</label>
+          </span>
+        </div>
+        <div class="yn-detail" id="detail-swallowing">
+          <div class="field full"><textarea name="swallowing_detail" placeholder="Please provide details..."></textarea></div>
+        </div>
+
+        <div class="yn-group" id="yn-speech">
+          <span class="yn-label">Do you have speech difficulties or previous speech therapy?</span>
+          <span class="yn-opts">
+            <label class="opt-label"><input type="radio" name="speech" value="no"> No</label>
+            <label class="opt-label"><input type="radio" name="speech" value="yes"> Yes</label>
+          </span>
+        </div>
+        <div class="yn-detail" id="detail-speech">
+          <div class="field full"><textarea name="speech_detail" placeholder="Please provide details..."></textarea></div>
+        </div>
+
+        <div class="option-group">
+          <label>Do you notice tongue, lip or cheek tension at rest?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="oral_tension" value="no"> No</label>
+            <label class="opt-label"><input type="radio" name="oral_tension" value="yes"> Yes</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== SECTION 11: NUTRITION, DRYNESS & REFLUX ===== -->
+      <div class="section">
+        <div class="section-title"><span class="emoji">🍎</span> Nutrition, Dryness & Reflux</div>
+
+        <div class="option-group">
+          <label>How often do you consume sugary foods/drinks or acidic drinks?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="sugar_intake" value="rarely"> Rarely</label>
+            <label class="opt-label"><input type="radio" name="sugar_intake" value="occasionally"> Occasionally</label>
+            <label class="opt-label"><input type="radio" name="sugar_intake" value="daily"> Daily</label>
+            <label class="opt-label"><input type="radio" name="sugar_intake" value="several"> Several times/day</label>
+          </div>
+        </div>
+        <div class="option-group">
+          <label>Do you frequently experience dry mouth?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="dry_mouth" value="no"> No</label>
+            <label class="opt-label"><input type="radio" name="dry_mouth" value="day"> Yes — during the day</label>
+            <label class="opt-label"><input type="radio" name="dry_mouth" value="night"> Yes — at night</label>
+            <label class="opt-label"><input type="radio" name="dry_mouth" value="both"> Yes — both</label>
+          </div>
+        </div>
+        <div class="option-group">
+          <label>Do you have heartburn, acid reflux or regurgitation?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="reflux" value="no"> No</label>
+            <label class="opt-label"><input type="radio" name="reflux" value="occasional"> Occasional</label>
+            <label class="opt-label"><input type="radio" name="reflux" value="frequent"> Frequent</label>
+          </div>
+        </div>
+        <div class="option-group">
+          <label>Do you experience nausea/vomiting or a frequent acidic taste?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="nausea" value="no"> No</label>
+            <label class="opt-label"><input type="radio" name="nausea" value="yes"> Yes</label>
+          </div>
+        </div>
+
+        <div class="yn-group" id="yn-special_diet">
+          <span class="yn-label">Do you follow a special diet or have dietary restrictions?</span>
+          <span class="yn-opts">
+            <label class="opt-label"><input type="radio" name="special_diet" value="no"> No</label>
+            <label class="opt-label"><input type="radio" name="special_diet" value="yes"> Yes</label>
+          </span>
+        </div>
+        <div class="yn-detail" id="detail-special_diet">
+          <div class="field full"><textarea name="special_diet_detail" placeholder="Please provide details..."></textarea></div>
+        </div>
+      </div>
+
+      <!-- ===== SECTION 12: ORAL HYGIENE & LIFESTYLE ===== -->
       <div class="section">
         <div class="section-title"><span class="emoji">🪥</span> Oral Hygiene & Lifestyle</div>
+
         <div class="option-group">
           <label>How often do you brush your teeth?</label>
           <div class="options">
@@ -451,7 +1104,7 @@
           </div>
         </div>
         <div class="option-group">
-          <label>Do you smoke or use tobacco products?</label>
+          <label>Do you smoke, vape or use nicotine products?</label>
           <div class="options">
             <label class="opt-label"><input type="radio" name="smoking" value="never"> Never</label>
             <label class="opt-label"><input type="radio" name="smoking" value="former"> Former smoker</label>
@@ -459,11 +1112,35 @@
             <label class="opt-label"><input type="radio" name="smoking" value="vaping"> Current vaping</label>
           </div>
         </div>
+        <div class="option-group">
+          <label>Do you consume alcohol regularly?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="alcohol" value="no"> No</label>
+            <label class="opt-label"><input type="radio" name="alcohol" value="occasionally"> Occasionally</label>
+            <label class="opt-label"><input type="radio" name="alcohol" value="regularly"> Regularly</label>
+          </div>
+        </div>
       </div>
 
-      <!-- ===== SECTION 8: DENTAL ANXIETY ===== -->
+      <!-- ===== SECTION 13: STRESS & WELLBEING ===== -->
       <div class="section">
-        <div class="section-title"><span class="emoji">😰</span> Dental Anxiety</div>
+        <div class="section-title"><span class="emoji">😰</span> Stress, Wellbeing & Dental Anxiety</div>
+
+        <div class="option-group">
+          <label>How would you describe your current stress level?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="stress" value="low"> Low</label>
+            <label class="opt-label"><input type="radio" name="stress" value="moderate"> Moderate</label>
+            <label class="opt-label"><input type="radio" name="stress" value="high"> High</label>
+          </div>
+        </div>
+        <div class="option-group">
+          <label>Do stress or concentration increase clenching, jaw tension or headaches?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="stress_clench" value="no"> No</label>
+            <label class="opt-label"><input type="radio" name="stress_clench" value="yes"> Yes</label>
+          </div>
+        </div>
         <div class="option-group">
           <label>How do you feel about visiting the dentist?</label>
           <div class="options vertical">
@@ -479,36 +1156,50 @@
         </div>
       </div>
 
-      <!-- ===== SECTION 9: EMERGENCY CONTACT ===== -->
+      <!-- ===== SECTION 14: PATIENT GOALS & CONSENT ===== -->
       <div class="section">
-        <div class="section-title"><span class="emoji">📞</span> Emergency Contact</div>
-        <div class="fields">
-          <div class="field">
-            <label for="emerg_name">Emergency contact name *</label>
-            <input type="text" id="emerg_name" name="emerg_name" required placeholder="Full name">
-          </div>
-          <div class="field">
-            <label for="emerg_phone">Emergency contact phone *</label>
-            <input type="tel" id="emerg_phone" name="emerg_phone" required placeholder="Phone number">
-          </div>
-          <div class="field">
-            <label for="emerg_relation">Relationship to patient *</label>
-            <input type="text" id="emerg_relation" name="emerg_relation" required placeholder="e.g., Parent, spouse, sibling">
-          </div>
-        </div>
-      </div>
+        <div class="section-title"><span class="emoji">🎯</span> Patient Goals & Consent</div>
 
-      <!-- ===== SECTION 10: ADDITIONAL NOTES ===== -->
-      <div class="section">
-        <div class="section-title"><span class="emoji">📝</span> Additional Notes</div>
-        <div class="field full">
+        <div class="field full" style="margin-bottom:14px;">
+          <label for="goals">What are your main goals for dental treatment or assessment?</label>
+          <textarea id="goals" name="goals" placeholder="What would you like to achieve?"></textarea>
+        </div>
+        <div class="field full" style="margin-bottom:14px;">
+          <label for="concerns_important">Are there any symptoms, concerns or previous experiences you feel are important for us to know?</label>
+          <textarea id="concerns_important" name="concerns_important" placeholder="Anything you'd like us to understand..."></textarea>
+        </div>
+        <div class="field full" style="margin-bottom:14px;">
+          <label for="exam_request">Is there anything you would like the dentist to specifically examine or explain?</label>
+          <textarea id="exam_request" name="exam_request" placeholder="Any specific concerns..."></textarea>
+        </div>
+
+        <div class="field full" style="margin-bottom:14px;">
           <label for="ovrigt">Is there anything else you would like us to know?</label>
           <textarea id="ovrigt" name="ovrigt" placeholder="Any additional information that may be helpful"></textarea>
+        </div>
+
+        <p style="font-size:13px; color:var(--muted); font-style:italic; margin-bottom: 8px;">
+          Patient declaration: I confirm that the information provided is accurate to the best of my knowledge. I understand that this questionnaire is part of my dental/health history and may be updated when my health changes.
+        </p>
+
+        <div class="fields">
+          <div class="field">
+            <label for="emergency_name">Emergency contact name *</label>
+            <input type="text" id="emergency_name" name="emergency_name" required placeholder="Full name">
+          </div>
+          <div class="field">
+            <label for="emergency_phone">Emergency contact phone *</label>
+            <input type="tel" id="emergency_phone" name="emergency_phone" required placeholder="Phone number">
+          </div>
+          <div class="field">
+            <label for="emergency_relation">Relationship to patient *</label>
+            <input type="text" id="emergency_relation" name="emergency_relation" required placeholder="e.g., Parent, spouse, sibling">
+          </div>
         </div>
       </div>
 
       <div class="submit-wrap">
-        <button type="submit" class="submit-btn" id="submitBtn">Submit History</button>
+        <button type="submit" class="submit-btn" id="submitBtn">Submit Questionnaire</button>
         <div class="submit-error" id="submitError"></div>
       </div>
     </form>
@@ -516,7 +1207,7 @@
     <div class="success-msg" id="success">
       <div class="check">✅</div>
       <h2>Thank you!</h2>
-      <p>Your medical history has been submitted successfully.<br>We will contact you if we need any further information.</p>
+      <p>Your health questionnaire has been submitted successfully.<br>We will contact you if we need any further information.</p>
     </div>
 
     <div class="foot">
@@ -526,12 +1217,14 @@
   </div>
 
   <script>
-    // ====== Conditional "Other" fields ======
-    document.querySelectorAll('.other-field').forEach(el => {
-      const [name, val] = el.dataset.showWhen.split('=');
-      document.querySelectorAll(`input[name="${name}"]`).forEach(input => {
-        input.addEventListener('change', () => {
-          el.classList.toggle('visible', input.value === val && input.checked);
+    // ====== Conditional Y/N detail fields ======
+    document.querySelectorAll('.yn-group').forEach(group => {
+      const id = group.id.replace('yn-', '');
+      const detail = document.getElementById('detail-' + id);
+      if (!detail) return;
+      group.querySelectorAll('input[type="radio"]').forEach(radio => {
+        radio.addEventListener('change', () => {
+          detail.classList.toggle('visible', radio.value === 'yes' && radio.checked);
         });
       });
     });
@@ -591,34 +1284,43 @@
         doc.setTextColor(255, 255, 255);
         doc.setFontSize(16);
         doc.setFont('helvetica', 'bold');
-        doc.text('Airway Clinic — Dental Medical History', margin, 14);
+        doc.text('Airway Clinic — Comprehensive Health Questionnaire', margin, 14);
         doc.setTextColor(75, 75, 99);
         y = 28;
 
         const sections = [
           {
-            title: 'Patient Details',
+            title: 'Personal Details',
             fields: [
-              { key: 'namn', q: 'Name' },
+              { key: 'namn', q: 'Full name' },
+              { key: 'preferred_name', q: 'Preferred name' },
               { key: 'fodelsedatum', q: 'Date of birth' },
+              { key: 'pronouns', q: 'Pronouns' },
               { key: 'phone', q: 'Phone' },
               { key: 'email', q: 'Email' },
               { key: 'adress', q: 'Address' },
+              { key: 'occupation', q: 'Occupation' },
               { key: 'datum', q: 'Date' },
+              { key: 'referral', q: 'How did you hear about us' },
+              { key: 'doctor', q: 'General medical doctor' },
+              { key: 'doctor_phone', q: 'Doctor phone' },
+              { key: 'prev_dentist', q: 'Previous dentist' },
+              { key: 'last_visit', q: 'Last dental examination' },
+              { key: 'reason', q: 'Main reason for visit' },
               { key: 'consent', q: 'Consent to data storage' },
             ]
           },
           {
-            title: 'Reason for Visit',
+            title: 'General Medical History',
             fields: [
-              { key: 'reason', q: 'Main concern / reason for visit' },
-              { key: 'pain_duration', q: 'Duration of problem' },
-              { key: 'pain_level', q: 'Pain/discomfort level' },
-            ]
-          },
-          {
-            title: 'Medical Conditions',
-            fields: [
+              { key: 'under_care', q: 'Currently under medical care' },
+              { key: 'under_care_detail', q: 'Under care — details' },
+              { key: 'hospitalised', q: 'Hospitalised / major operation' },
+              { key: 'hospitalised_detail', q: 'Hospitalised — details' },
+              { key: 'recent_illness', q: 'Recent illness/injury/health change' },
+              { key: 'recent_illness_detail', q: 'Recent illness — details' },
+              { key: 'anaesthetic', q: 'Unusual reaction to anaesthetic/sedation' },
+              { key: 'anaesthetic_detail', q: 'Anaesthetic reaction — details' },
               { key: 'conditions', q: 'Conditions (checked)' },
               { key: 'conditions_other', q: 'Other conditions' },
               { key: 'conditions_explain', q: 'Explanation of ticked boxes' },
@@ -635,16 +1337,125 @@
           {
             title: 'Allergies',
             fields: [
-              { key: 'allergies', q: 'Allergies' },
+              { key: 'allergies', q: 'Allergies / adverse reactions' },
             ]
           },
           {
             title: 'Dental History',
             fields: [
-              { key: 'last_visit', q: 'Last dental examination' },
               { key: 'visit_freq', q: 'Visit frequency' },
+              { key: 'ortho_prev', q: 'Previous orthodontic treatment' },
+              { key: 'ortho_prev_detail', q: 'Ortho — type/when' },
+              { key: 'jaw_prev', q: 'Previous jaw/bite/airway/facial treatment' },
+              { key: 'jaw_prev_detail', q: 'Jaw treatment — details' },
               { key: 'dental_issues', q: 'Dental issues (checked)' },
-              { key: 'dental_other', q: 'Other dental concerns' },
+              { key: 'sensitivity', q: 'Sensitivity' },
+              { key: 'dental_other', q: 'Current toothache/pain/swelling' },
+            ]
+          },
+          {
+            title: 'Breathing & Airway Health',
+            fields: [
+              { key: 'breathing_mode', q: 'Usual breathing mode' },
+              { key: 'mouth_breath_day', q: 'Mouth-breathe during day' },
+              { key: 'dry_mouth_wake', q: 'Wake with dry mouth' },
+              { key: 'nasal_congestion', q: 'Chronic nasal congestion' },
+              { key: 'allergies_nasal', q: 'Allergies/sinus/infections' },
+              { key: 'allergies_nasal_detail', q: 'Nasal allergies — details' },
+              { key: 'airway_surgery', q: 'Nasal/sinus/airway surgery' },
+              { key: 'airway_surgery_detail', q: 'Airway surgery — details' },
+              { key: 'snoring', q: 'Snoring' },
+              { key: 'breathing_pauses', q: 'Breathing pauses during sleep' },
+              { key: 'gasping', q: 'Wake gasping/choking' },
+              { key: 'lip_closure', q: 'Difficulty keeping lips closed' },
+              { key: 'exercise_breath', q: 'Difficulty breathing during exercise' },
+              { key: 'exercise_breath_detail', q: 'Exercise breathing — details' },
+            ]
+          },
+          {
+            title: 'Sleep Health',
+            fields: [
+              { key: 'bedtime_weekday', q: 'Typical bedtime (weekdays)' },
+              { key: 'bedtime_weekend', q: 'Typical bedtime (weekends)' },
+              { key: 'sleep_hours', q: 'Usual sleep hours' },
+              { key: 'sleep_onset', q: 'Difficulty falling asleep' },
+              { key: 'night_waking', q: 'Wake frequently at night' },
+              { key: 'wake_rested', q: 'Wake feeling rested' },
+              { key: 'daytime_sleepiness', q: 'Daytime sleepiness/fatigue' },
+              { key: 'morning_headache', q: 'Morning headaches/jaw discomfort' },
+              { key: 'night_sweat', q: 'Night sweating/restless sleep' },
+              { key: 'night_sweat_detail', q: 'Night sweat — details' },
+              { key: 'sleep_study', q: 'Sleep study / sleep apnoea diagnosis' },
+              { key: 'sleep_study_detail', q: 'Sleep study — details' },
+              { key: 'cpap', q: 'Use CPAP / oral appliance' },
+              { key: 'cpap_detail', q: 'CPAP — details' },
+              { key: 'partner_report', q: 'Partner reported snoring/grinding/pauses' },
+              { key: 'partner_report_detail', q: 'Partner report — details' },
+            ]
+          },
+          {
+            title: 'TMJ, Jaw & Facial Function',
+            fields: [
+              { key: 'tmj_pain', q: 'Jaw joint pain' },
+              { key: 'tmj_sounds', q: 'Jaw clicking/popping sounds' },
+              { key: 'jaw_lock', q: 'Jaw locks/sticks' },
+              { key: 'jaw_lock_detail', q: 'Jaw lock — details' },
+              { key: 'limited_opening', q: 'Limited/difficult mouth opening' },
+              { key: 'chew_pain', q: 'Pain when chewing/yawning' },
+              { key: 'day_clench', q: 'Clench during the day' },
+              { key: 'morning_jaw', q: 'Wake with jaw tension/soreness' },
+              { key: 'headaches', q: 'Headaches/temple/ear pain' },
+              { key: 'headaches_detail', q: 'Headache frequency' },
+              { key: 'neck_tension', q: 'Neck/shoulder tension with jaw symptoms' },
+              { key: 'tmd_diag', q: 'TMD diagnosis / splint / night guard' },
+              { key: 'tmd_diag_detail', q: 'TMD — details' },
+            ]
+          },
+          {
+            title: 'Muscular & Musculoskeletal Health',
+            fields: [
+              { key: 'muscle_pain', q: 'Recurrent muscle tightness/spasms' },
+              { key: 'muscle_pain_detail', q: 'Muscle pain — areas' },
+              { key: 'head_muscle', q: 'Head/face muscle symptoms' },
+              { key: 'posture_symptoms', q: 'Posture-related symptoms' },
+              { key: 'whiplash', q: 'Whiplash/concussion/head injury' },
+              { key: 'whiplash_detail', q: 'Whiplash — details' },
+              { key: 'chronic_pain', q: 'Chronic neck/shoulder/back/hip pain' },
+              { key: 'chronic_pain_detail', q: 'Chronic pain — details' },
+              { key: 'posture_asym', q: 'Posture asymmetry' },
+              { key: 'posture_asym_detail', q: 'Asymmetry — details' },
+              { key: 'hypermobility', q: 'Joint hypermobility' },
+              { key: 'physio', q: 'Physio/osteo/chiro treatment' },
+              { key: 'physio_detail', q: 'Physio — details' },
+              { key: 'activity_symptoms', q: 'Activity/posture/stress affects jaw' },
+              { key: 'activity_symptoms_detail', q: 'Activity — explanation' },
+            ]
+          },
+          {
+            title: 'Oral Habits & Myofunctional Health',
+            fields: [
+              { key: 'tongue_rest', q: 'Tongue rest position on palate' },
+              { key: 'tongue_thrust', q: 'Tongue thrust' },
+              { key: 'oral_habits', q: 'Nail/cheek biting, thumb sucking' },
+              { key: 'oral_habits_detail', q: 'Oral habits — details' },
+              { key: 'chewing_pref', q: 'Chewing side preference' },
+              { key: 'chewing_pref_detail', q: 'Chewing — details' },
+              { key: 'swallowing', q: 'Swallowing difficulty/choking' },
+              { key: 'swallowing_detail', q: 'Swallowing — details' },
+              { key: 'speech', q: 'Speech difficulties/therapy' },
+              { key: 'speech_detail', q: 'Speech — details' },
+              { key: 'oral_tension', q: 'Oral tension at rest' },
+            ]
+          },
+          {
+            title: 'Nutrition, Dryness & Reflux',
+            fields: [
+              { key: 'sugar_intake', q: 'Sugar/acid consumption frequency' },
+              { key: 'dry_mouth', q: 'Dry mouth' },
+              { key: 'reflux', q: 'Heartburn/acid reflux' },
+              { key: 'nausea', q: 'Nausea/acidic taste' },
+              { key: 'special_diet', q: 'Special diet/restrictions' },
+              { key: 'special_diet_detail', q: 'Diet — details' },
             ]
           },
           {
@@ -652,28 +1463,29 @@
             fields: [
               { key: 'brushing', q: 'Brushing frequency' },
               { key: 'flossing', q: 'Flossing' },
-              { key: 'smoking', q: 'Smoking/tobacco' },
+              { key: 'smoking', q: 'Smoking/vaping/nicotine' },
+              { key: 'alcohol', q: 'Alcohol consumption' },
             ]
           },
           {
-            title: 'Dental Anxiety',
+            title: 'Stress, Wellbeing & Dental Anxiety',
             fields: [
-              { key: 'anxiety', q: 'Anxiety level' },
-              { key: 'anxiety_notes', q: 'Anxiety notes' },
+              { key: 'stress', q: 'Current stress level' },
+              { key: 'stress_clench', q: 'Stress increases clenching/tension' },
+              { key: 'anxiety', q: 'Dental anxiety level' },
+              { key: 'anxiety_notes', q: 'Comfort preferences' },
             ]
           },
           {
-            title: 'Emergency Contact',
+            title: 'Patient Goals & Consent',
             fields: [
-              { key: 'emerg_name', q: 'Emergency contact name' },
-              { key: 'emerg_phone', q: 'Emergency contact phone' },
-              { key: 'emerg_relation', q: 'Relationship' },
-            ]
-          },
-          {
-            title: 'Additional Notes',
-            fields: [
+              { key: 'goals', q: 'Main goals for treatment' },
+              { key: 'concerns_important', q: 'Important concerns/experiences' },
+              { key: 'exam_request', q: 'Specific exam/explanation requests' },
               { key: 'ovrigt', q: 'Additional information' },
+              { key: 'emergency_name', q: 'Emergency contact name' },
+              { key: 'emergency_phone', q: 'Emergency contact phone' },
+              { key: 'emergency_relation', q: 'Relationship' },
             ]
           }
         ];
@@ -725,7 +1537,7 @@
             email: formData.email,
             phone: formData.phone || '',
             symptoms: noteLines,
-            _formType: 'general-dental-anamnes-en',
+            _formType: 'comprehensive-health-en',
             pdfBase64: pdfBase64
           })
         });
@@ -741,7 +1553,7 @@
       } catch (err) {
         console.error('Submission error:', err);
         submitBtn.disabled = false;
-        submitBtn.textContent = 'Submit History';
+        submitBtn.textContent = 'Submit Questionnaire';
         submitError.textContent = 'Something went wrong: ' + (err.message || 'Unknown error');
         submitError.style.display = 'block';
       }
