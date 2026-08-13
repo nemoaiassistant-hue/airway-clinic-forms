@@ -343,12 +343,8 @@
             <input type="text" id="doctor" name="doctor" placeholder="Läkarens namn">
           </div>
           <div class="field">
-            <label for="doctor_phone">Läkarens telefon</label>
+            <label for="doctor_phone">Läkarens telefonnummer</label>
             <input type="tel" id="doctor_phone" name="doctor_phone" placeholder="Telefonnummer">
-          </div>
-          <div class="field">
-            <label for="prev_dentist">Tidigare tandläkare</label>
-            <input type="text" id="prev_dentist" name="prev_dentist" placeholder="Klinik eller tandläkarens namn">
           </div>
           <div class="field">
             <label for="last_visit">Senaste tandläkarundersökning</label>
@@ -519,37 +515,7 @@
           <div class="field full"><textarea name="jaw_prev_detail" placeholder="Lämna detaljer..."></textarea></div>
         </div>
 
-        <p class="section-note">Kryssa för det som stämmer:</p>
-        <div class="check-grid">
-          <label class="opt-label"><input type="checkbox" name="dental_issues" value="fillings"> Tidigare lagningar</label>
-          <label class="opt-label"><input type="checkbox" name="dental_issues" value="crowns"> Kronor eller broar</label>
-          <label class="opt-label"><input type="checkbox" name="dental_issues" value="root_canal"> Rotfyllning</label>
-          <label class="opt-label"><input type="checkbox" name="dental_issues" value="extractions"> Tandutdragningar</label>
-          <label class="opt-label"><input type="checkbox" name="dental_issues" value="implants"> Tandimplantat</label>
-          <label class="opt-label"><input type="checkbox" name="dental_issues" value="wisdom"> Problem med visdomständer</label>
-          <label class="opt-label"><input type="checkbox" name="dental_issues" value="broken_teeth"> Trasiga, slitna eller flisade tänder</label>
-          <label class="opt-label"><input type="checkbox" name="dental_issues" value="jaw_clicking"> Käkknäppningar / knakande ljud</label>
-          <label class="opt-label"><input type="checkbox" name="dental_issues" value="grinding"> Tandgnissling / tandpressning</label>
-          <label class="opt-label"><input type="checkbox" name="dental_issues" value="bleeding_gums"> Blödande tandkött</label>
-          <label class="opt-label"><input type="checkbox" name="dental_issues" value="loose_teeth"> Lösa tänder eller tandköttsrecession</label>
-          <label class="opt-label"><input type="checkbox" name="dental_issues" value="food_trapping"> Mat fastnar mellan tänderna</label>
-        </div>
 
-        <div class="option-group" style="margin-top:14px;">
-          <label>Känns dina tänder känsliga?</label>
-          <div class="options">
-            <label class="opt-label"><input type="radio" name="sensitivity" value="no"> Nej</label>
-            <label class="opt-label"><input type="radio" name="sensitivity" value="cold"> Ja — för kyla</label>
-            <label class="opt-label"><input type="radio" name="sensitivity" value="hot"> Ja — för värme</label>
-            <label class="opt-label"><input type="radio" name="sensitivity" value="sweet"> Ja — för sött</label>
-            <label class="opt-label"><input type="radio" name="sensitivity" value="biting"> Ja — vid bett</label>
-          </div>
-        </div>
-
-        <div class="field full" style="margin-top:14px;">
-          <label for="dental_other">Nuvarande tandvärk, ansiktssmärta, svullnad eller andra tandproblem?</label>
-          <textarea id="dental_other" name="dental_other" placeholder="Beskriv nuvarande besvär..."></textarea>
-        </div>
       </div>
 
       <!-- ===== SECTION 6: BREATHING & AIRWAY HEALTH ===== -->
@@ -804,18 +770,18 @@
           </div>
         </div>
         <div class="option-group">
-          <label>Har du smärta vid tuggning, gäspning eller bett?</label>
-          <div class="options">
-            <label class="opt-label"><input type="radio" name="chew_pain" value="no"> Nej</label>
-            <label class="opt-label"><input type="radio" name="chew_pain" value="yes"> Ja</label>
-          </div>
-        </div>
-        <div class="option-group">
           <label>Pressar du tänder eller käke under dagen?</label>
           <div class="options">
             <label class="opt-label"><input type="radio" name="day_clench" value="no"> Nej</label>
             <label class="opt-label"><input type="radio" name="day_clench" value="yes"> Ja</label>
             <label class="opt-label"><input type="radio" name="day_clench" value="unsure"> Osäker</label>
+          </div>
+        </div>
+        <div class="option-group">
+          <label>Har du smärta vid tuggning, gäspning eller bett?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="chew_pain" value="no"> Nej</label>
+            <label class="opt-label"><input type="radio" name="chew_pain" value="yes"> Ja</label>
           </div>
         </div>
         <div class="option-group">
@@ -1087,6 +1053,14 @@
         <div class="section-title"><span class="emoji">🪥</span> Munhygien och livsstil</div>
 
         <div class="option-group">
+          <label>Upplever du något av följande?</label>
+          <div class="options multi-check">
+            <label class="opt-label"><input type="checkbox" name="dental_issues" value="bleeding_gums"> Blödande tandkött</label>
+            <label class="opt-label"><input type="checkbox" name="dental_issues" value="loose_teeth"> Lösa tänder eller tandköttsrecession</label>
+            <label class="opt-label"><input type="checkbox" name="dental_issues" value="food_trapping"> Mat fastnar mellan tänderna</label>
+          </div>
+        </div>
+        <div class="option-group">
           <label>Hur ofta borstar du tänderna?</label>
           <div class="options">
             <label class="opt-label"><input type="radio" name="brushing" value="1day"> En gång om dagen</label>
@@ -1156,22 +1130,9 @@
         </div>
       </div>
 
-      <!-- ===== SECTION 14: PATIENT GOALS & CONSENT ===== -->
+      <!-- ===== SECTION 14: ADDITIONAL INFORMATION ===== -->
       <div class="section">
-        <div class="section-title"><span class="emoji">🎯</span> Patientmål och samtycke</div>
-
-        <div class="field full" style="margin-bottom:14px;">
-          <label for="goals">Vilka är dina huvudsakliga mål för tandbehandling eller bedömning?</label>
-          <textarea id="goals" name="goals" placeholder="Vad vill du uppnå?"></textarea>
-        </div>
-        <div class="field full" style="margin-bottom:14px;">
-          <label for="concerns_important">Finns det symtom, bekymmer eller tidigare erfarenheter du tycker är viktiga för oss att känna till?</label>
-          <textarea id="concerns_important" name="concerns_important" placeholder="Något du vill att vi förstår..."></textarea>
-        </div>
-        <div class="field full" style="margin-bottom:14px;">
-          <label for="exam_request">Finns det något du vill att tandläkaren specifikt ska undersöka eller förklara?</label>
-          <textarea id="exam_request" name="exam_request" placeholder="Specifika bekymmer..."></textarea>
-        </div>
+        <div class="section-title"><span class="emoji">📝</span> Övrig information</div>
 
         <div class="field full" style="margin-bottom:14px;">
           <label for="ovrigt">Finns det något mer du vill att vi ska veta?</label>
@@ -1303,8 +1264,7 @@
               { key: 'datum', q: 'Datum' },
               { key: 'referral', q: 'Hur hittade du oss' },
               { key: 'doctor', q: 'Allmänläkare' },
-              { key: 'doctor_phone', q: 'Läkarens telefon' },
-              { key: 'prev_dentist', q: 'Tidigare tandläkare' },
+              { key: 'doctor_phone', q: 'Läkarens telefonnummer' },
               { key: 'last_visit', q: 'Senaste tandläkarundersökning' },
               { key: 'reason', q: 'Huvudsaklig anledning till besök' },
               { key: 'consent', q: 'Samtycke till datalagring' },
@@ -1477,10 +1437,10 @@
             ]
           },
           {
-            title: 'Patientmål och samtycke',
+            title: 'Övrig information och samtycke',
             fields: [
               { key: 'goals', q: 'Huvudmål för behandling' },
-              { key: 'concerns_important', q: 'Viktiga bekymmer/erfarenheter' },
+
               { key: 'exam_request', q: 'Särskilda undersökningsönskemål' },
               { key: 'ovrigt', q: 'Ytterligare information' },
               { key: 'emergency_name', q: 'Nödkontakt namn' },

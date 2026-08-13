@@ -343,12 +343,8 @@
             <input type="text" id="doctor" name="doctor" placeholder="Doctor's name">
           </div>
           <div class="field">
-            <label for="doctor_phone">Doctor's phone</label>
+            <label for="doctor_phone">Doctor's phone number</label>
             <input type="tel" id="doctor_phone" name="doctor_phone" placeholder="Phone number">
-          </div>
-          <div class="field">
-            <label for="prev_dentist">Previous dentist</label>
-            <input type="text" id="prev_dentist" name="prev_dentist" placeholder="Clinic or dentist name">
           </div>
           <div class="field">
             <label for="last_visit">Date of last dental examination</label>
@@ -519,37 +515,6 @@
           <div class="field full"><textarea name="jaw_prev_detail" placeholder="Please provide details..."></textarea></div>
         </div>
 
-        <p class="section-note">Check any that apply to you:</p>
-        <div class="check-grid">
-          <label class="opt-label"><input type="checkbox" name="dental_issues" value="fillings"> Previous fillings</label>
-          <label class="opt-label"><input type="checkbox" name="dental_issues" value="crowns"> Crowns or bridges</label>
-          <label class="opt-label"><input type="checkbox" name="dental_issues" value="root_canal"> Root canal treatment</label>
-          <label class="opt-label"><input type="checkbox" name="dental_issues" value="extractions"> Tooth extractions</label>
-          <label class="opt-label"><input type="checkbox" name="dental_issues" value="implants"> Dental implants</label>
-          <label class="opt-label"><input type="checkbox" name="dental_issues" value="wisdom"> Wisdom tooth problems</label>
-          <label class="opt-label"><input type="checkbox" name="dental_issues" value="broken_teeth"> Broken, worn or chipped teeth</label>
-          <label class="opt-label"><input type="checkbox" name="dental_issues" value="jaw_clicking"> Jaw clicking / popping</label>
-          <label class="opt-label"><input type="checkbox" name="dental_issues" value="grinding"> Teeth grinding / clenching</label>
-          <label class="opt-label"><input type="checkbox" name="dental_issues" value="bleeding_gums"> Bleeding gums</label>
-          <label class="opt-label"><input type="checkbox" name="dental_issues" value="loose_teeth"> Loose teeth or gum recession</label>
-          <label class="opt-label"><input type="checkbox" name="dental_issues" value="food_trapping"> Food trapping between teeth</label>
-        </div>
-
-        <div class="option-group" style="margin-top:14px;">
-          <label>Do your teeth feel sensitive?</label>
-          <div class="options">
-            <label class="opt-label"><input type="radio" name="sensitivity" value="no"> No</label>
-            <label class="opt-label"><input type="radio" name="sensitivity" value="cold"> Yes — to cold</label>
-            <label class="opt-label"><input type="radio" name="sensitivity" value="hot"> Yes — to hot</label>
-            <label class="opt-label"><input type="radio" name="sensitivity" value="sweet"> Yes — to sweet</label>
-            <label class="opt-label"><input type="radio" name="sensitivity" value="biting"> Yes — when biting</label>
-          </div>
-        </div>
-
-        <div class="field full" style="margin-top:14px;">
-          <label for="dental_other">Any current toothache, facial pain, swelling or other dental concern?</label>
-          <textarea id="dental_other" name="dental_other" placeholder="Describe any current concerns..."></textarea>
-        </div>
       </div>
 
       <!-- ===== SECTION 6: BREATHING & AIRWAY HEALTH ===== -->
@@ -804,18 +769,18 @@
           </div>
         </div>
         <div class="option-group">
-          <label>Do you have pain when chewing, yawning or biting?</label>
-          <div class="options">
-            <label class="opt-label"><input type="radio" name="chew_pain" value="no"> No</label>
-            <label class="opt-label"><input type="radio" name="chew_pain" value="yes"> Yes</label>
-          </div>
-        </div>
-        <div class="option-group">
           <label>Do you clench your teeth or jaw during the day?</label>
           <div class="options">
             <label class="opt-label"><input type="radio" name="day_clench" value="no"> No</label>
             <label class="opt-label"><input type="radio" name="day_clench" value="yes"> Yes</label>
             <label class="opt-label"><input type="radio" name="day_clench" value="unsure"> Unsure</label>
+          </div>
+        </div>
+        <div class="option-group">
+          <label>Do you have pain when chewing, yawning or biting?</label>
+          <div class="options">
+            <label class="opt-label"><input type="radio" name="chew_pain" value="no"> No</label>
+            <label class="opt-label"><input type="radio" name="chew_pain" value="yes"> Yes</label>
           </div>
         </div>
         <div class="option-group">
@@ -1087,6 +1052,14 @@
         <div class="section-title"><span class="emoji">🪥</span> Oral Hygiene & Lifestyle</div>
 
         <div class="option-group">
+          <label>Do you experience any of the following?</label>
+          <div class="options multi-check">
+            <label class="opt-label"><input type="checkbox" name="dental_issues" value="bleeding_gums"> Bleeding gums</label>
+            <label class="opt-label"><input type="checkbox" name="dental_issues" value="loose_teeth"> Loose teeth or gum recession</label>
+            <label class="opt-label"><input type="checkbox" name="dental_issues" value="food_trapping"> Food trapping between teeth</label>
+          </div>
+        </div>
+        <div class="option-group">
           <label>How often do you brush your teeth?</label>
           <div class="options">
             <label class="opt-label"><input type="radio" name="brushing" value="1day"> Once a day</label>
@@ -1156,22 +1129,9 @@
         </div>
       </div>
 
-      <!-- ===== SECTION 14: PATIENT GOALS & CONSENT ===== -->
+      <!-- ===== SECTION 14: ADDITIONAL INFORMATION ===== -->
       <div class="section">
-        <div class="section-title"><span class="emoji">🎯</span> Patient Goals & Consent</div>
-
-        <div class="field full" style="margin-bottom:14px;">
-          <label for="goals">What are your main goals for dental treatment or assessment?</label>
-          <textarea id="goals" name="goals" placeholder="What would you like to achieve?"></textarea>
-        </div>
-        <div class="field full" style="margin-bottom:14px;">
-          <label for="concerns_important">Are there any symptoms, concerns or previous experiences you feel are important for us to know?</label>
-          <textarea id="concerns_important" name="concerns_important" placeholder="Anything you'd like us to understand..."></textarea>
-        </div>
-        <div class="field full" style="margin-bottom:14px;">
-          <label for="exam_request">Is there anything you would like the dentist to specifically examine or explain?</label>
-          <textarea id="exam_request" name="exam_request" placeholder="Any specific concerns..."></textarea>
-        </div>
+        <div class="section-title"><span class="emoji">📝</span> Additional Information</div>
 
         <div class="field full" style="margin-bottom:14px;">
           <label for="ovrigt">Is there anything else you would like us to know?</label>
@@ -1303,8 +1263,7 @@
               { key: 'datum', q: 'Date' },
               { key: 'referral', q: 'How did you hear about us' },
               { key: 'doctor', q: 'General medical doctor' },
-              { key: 'doctor_phone', q: 'Doctor phone' },
-              { key: 'prev_dentist', q: 'Previous dentist' },
+              { key: 'doctor_phone', q: 'Doctor phone number' },
               { key: 'last_visit', q: 'Last dental examination' },
               { key: 'reason', q: 'Main reason for visit' },
               { key: 'consent', q: 'Consent to data storage' },
@@ -1349,8 +1308,6 @@
               { key: 'jaw_prev', q: 'Previous jaw/bite/airway/facial treatment' },
               { key: 'jaw_prev_detail', q: 'Jaw treatment — details' },
               { key: 'dental_issues', q: 'Dental issues (checked)' },
-              { key: 'sensitivity', q: 'Sensitivity' },
-              { key: 'dental_other', q: 'Current toothache/pain/swelling' },
             ]
           },
           {
@@ -1477,11 +1434,8 @@
             ]
           },
           {
-            title: 'Patient Goals & Consent',
+            title: 'Additional Information & Consent',
             fields: [
-              { key: 'goals', q: 'Main goals for treatment' },
-              { key: 'concerns_important', q: 'Important concerns/experiences' },
-              { key: 'exam_request', q: 'Specific exam/explanation requests' },
               { key: 'ovrigt', q: 'Additional information' },
               { key: 'emergency_name', q: 'Emergency contact name' },
               { key: 'emergency_phone', q: 'Emergency contact phone' },
